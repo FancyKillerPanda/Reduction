@@ -24,5 +24,8 @@ Player::Player(SDL_Renderer* renderer)
 
 void Player::draw()
 {
-	SDL_RenderCopy(m_Renderer, m_Texture, nullptr, &m_Rect);
+	// Finds the center coordinates of the player
+	SDL_Point center = { m_Rect.x + (m_Rect.w / 2), m_Rect.y + (m_Rect.h / 2) };
+
+	SDL_RenderCopyEx(m_Renderer, m_Texture, nullptr, &m_Rect, m_Direction, &center, SDL_FLIP_NONE);
 }
