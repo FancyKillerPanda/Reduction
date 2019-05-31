@@ -16,6 +16,8 @@ private:
 	double m_Direction = 0.0;
 	double m_RotationSpeed = 0.0;
 	double m_PosX = 0.0, m_PosY = 0.0;
+	double m_Velocity = 0.0;
+	double m_Acceleration = 0.0;
 
 public:
 	Player(SDL_Renderer* renderer);
@@ -24,4 +26,5 @@ public:
 	void draw();
 
 	void setRotationSpeed(double value) { m_RotationSpeed = value; }
+	void setAcceleration(double value) { m_Acceleration = value; }
 };

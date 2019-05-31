@@ -28,8 +28,13 @@ void Player::update(double dt)
 {
 	m_Direction += std::fmod(m_RotationSpeed * dt, 360.0);
 
-	m_PosX += std::cos(toRadians(m_Direction)) * PLAYER_SPEED * dt;
-	m_PosY += std::sin(toRadians(m_Direction)) * PLAYER_SPEED * dt;
+	if (m_Velocity < MAX_PLAYER_SPEED)
+	{
+		m_Velocity += m_Acceleration * dt;
+	}
+
+	m_PosX += std::cos(toRadians(m_Direction)) * m_Velocity * dt;
+	m_PosY += std::sin(toRadians(m_Direction)) * m_Velocity * dt;
 
 	m_Rect.x = (int) m_PosX;
 	m_Rect.y = (int) m_PosY;
