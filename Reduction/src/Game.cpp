@@ -61,6 +61,9 @@ Game::Game()
 
 	SDL_SetTextureAlphaMod(m_WallTexture, 60);
 
+	m_OriginalWallWidth = m_WallRect.w;
+	m_OriginalWallHeight = m_WallRect.h;
+
 	m_FrameTimer.reset();
 }
 
@@ -219,6 +222,15 @@ void Game::update()
 			}
 		}
 	}
+
+	// Updates wall
+	if (m_WallScale <= 6.0 - WALL_SPEED)
+	{
+		m_WallScale += WALL_SPEED;
+		m_WallRect.w = m_OriginalWallWidth / m_WallScale;
+		m_WallRect.h = m_OriginalWallHeight / m_WallScale;
+	}
+
 }
 
 void Game::draw()

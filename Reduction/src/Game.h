@@ -29,6 +29,8 @@ private:
 	double m_WallScale = 1;
 	SDL_Texture* m_WallTexture;
 	SDL_Rect m_WallRect;
+	unsigned int m_OriginalWallWidth;
+	unsigned int m_OriginalWallHeight;
 
 private:
 	// Handles user input

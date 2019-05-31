@@ -26,8 +26,8 @@
 - [x] Make player able to shoot
 - [x] Cooldown timer for bullets
 - [x] Spawn 2 players that can shoot each other
-- [ ] Create circle moving inwards from edges
-- [ ] Add life to players
+- [x] Create circle moving inwards from edges
+- [x] Add life to players
 - [ ] Add flames of different lengths for player at different speeds
 - [ ] Drain life when player is outside the combat area
 - [ ] Make life drain faster when further out

@@ -3,6 +3,8 @@
 constexpr int SCREEN_WIDTH = 960;
 constexpr int SCREEN_HEIGHT = 540;
 
+constexpr double WALL_SPEED = 0.000025;
+
 constexpr double PLAYER_ROTATION_SPEED = 250;
 constexpr double MAX_PLAYER_SPEED = 400;
 constexpr double PLAYER_ACCELERATION = 200;
