@@ -5,10 +5,32 @@
 #include "utils/MathUtils.h"
 
 
-Player::Player(SDL_Renderer* renderer)
+Player::Player(SDL_Renderer* renderer, PlayerColour colour)
 	: m_Renderer(renderer)
 {
-	m_Texture = IMG_LoadTexture(m_Renderer, "res/Blue Spaceship.png");
+	const char* file;
+
+	switch (colour)
+	{
+	case PlayerColour::Red:
+		file = "res/Red Spaceship.png";
+		break;
+
+	case PlayerColour::Blue:
+		file = "res/Blue Spaceship.png";
+		break;
+
+	case PlayerColour::Grey:
+		file = "res/Grey Spaceship.png";
+		break;
+
+	default:
+		error("Unhandled player colour case.");
+		return;
+	}
+
+	// Loads the texture
+	m_Texture = IMG_LoadTexture(m_Renderer, file);
 
 	if (!m_Texture)
 	{

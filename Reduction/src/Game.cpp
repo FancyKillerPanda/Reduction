@@ -41,7 +41,8 @@ Game::Game()
 	SDL_SetRenderDrawColor(m_Renderer, 255, 255, 255, 255);
 
 	// Initialises the players
-	m_Player = new Player(m_Renderer);
+	m_Players.push_back(new Player(m_Renderer, PlayerColour::Red));
+	m_Players.push_back(new Player(m_Renderer, PlayerColour::Blue));
 
 	m_FrameTimer.reset();
 }
@@ -49,7 +50,10 @@ Game::Game()
 Game::~Game()
 {
 	// Deletes players
-	delete m_Player;
+	for (Player* player : m_Players)
+	{
+		delete player;
+	}
 
 	// Destroys bullets
 	for (Bullet* bullet : m_Bullets)
@@ -83,23 +87,49 @@ void Game::handleEvents()
 			switch (m_Event.key.keysym.sym)
 			{
 			case SDLK_LEFT:
-				m_Player->setRotationSpeed(-PLAYER_ROTATION_SPEED);
+				m_Players[0]->setRotationSpeed(-PLAYER_ROTATION_SPEED);
 				break;
 
 			case SDLK_RIGHT:
-				m_Player->setRotationSpeed(PLAYER_ROTATION_SPEED);
+				m_Players[0]->setRotationSpeed(PLAYER_ROTATION_SPEED);
 				break;
 
 			case SDLK_UP:
-				m_Player->setAcceleration(PLAYER_ACCELERATION);
+				m_Players[0]->setAcceleration(PLAYER_ACCELERATION);
 				break;
 
 			case SDLK_DOWN:
-				m_Player->setAcceleration(-PLAYER_ACCELERATION * 2 / 3);
+				m_Players[0]->setAcceleration(-PLAYER_ACCELERATION * 2 / 3);
 				break;
 
 			case SDLK_m:
-				m_Bullets.push_back(m_Player->spawnBullet());
+				m_Bullets.push_back(m_Players[0]->spawnBullet());
+
+				if (m_Bullets.back() == nullptr)
+				{
+					m_Bullets.pop_back();
+				}
+
+				break;
+
+			case SDLK_a:
+				m_Players[1]->setRotationSpeed(-PLAYER_ROTATION_SPEED);
+				break;
+
+			case SDLK_d:
+				m_Players[1]->setRotationSpeed(PLAYER_ROTATION_SPEED);
+				break;
+
+			case SDLK_w:
+				m_Players[1]->setAcceleration(PLAYER_ACCELERATION);
+				break;
+
+			case SDLK_s:
+				m_Players[1]->setAcceleration(-PLAYER_ACCELERATION * 2 / 3);
+				break;
+
+			case SDLK_c:
+				m_Bullets.push_back(m_Players[1]->spawnBullet());
 
 				if (m_Bullets.back() == nullptr)
 				{
@@ -116,12 +146,22 @@ void Game::handleEvents()
 			{
 			case SDLK_LEFT:
 			case SDLK_RIGHT:
-				m_Player->setRotationSpeed(0.0);
+				m_Players[0]->setRotationSpeed(0.0);
 				break;
 
 			case SDLK_UP:
 			case SDLK_DOWN:
-				m_Player->setAcceleration(0.0);
+				m_Players[0]->setAcceleration(0.0);
+				break;
+
+			case SDLK_a:
+			case SDLK_d:
+				m_Players[1]->setRotationSpeed(0.0);
+				break;
+
+			case SDLK_w:
+			case SDLK_s:
+				m_Players[1]->setAcceleration(0.0);
 				break;
 			}
 
@@ -137,7 +177,10 @@ void Game::update()
 	m_FrameTimer.reset();
 
 	// Updates players
-	m_Player->update(dt);
+	for (Player* player : m_Players)
+	{
+		player->update(dt);
+	}
 
 	// Updates bullets
 	for (Bullet* bullet : m_Bullets)
@@ -151,7 +194,10 @@ void Game::draw()
 	SDL_RenderClear(m_Renderer);
 
 	// Draws players
-	m_Player->draw();
+	for (Player* player : m_Players)
+	{
+		player->draw();
+	}
 
 	// Draws bullets
 	for (Bullet* bullet : m_Bullets)

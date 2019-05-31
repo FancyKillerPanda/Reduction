@@ -7,6 +7,14 @@
 #include "utils/Timer.h"
 
 
+enum class PlayerColour
+{
+	Red,
+	Blue,
+	Grey,
+};
+
+
 class Player
 {
 private:
@@ -27,7 +35,7 @@ private:
 	Timer m_BulletCooldownTimer;
 
 public:
-	Player(SDL_Renderer* renderer);
+	Player(SDL_Renderer* renderer, PlayerColour colour);
 
 	void update(double dt);
 	void draw();

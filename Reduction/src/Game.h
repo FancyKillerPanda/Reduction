@@ -20,13 +20,13 @@ private:
 	SDL_Event m_Event;
 
 	// Players
-	Player* m_Player = nullptr;
-
-	// FPS clock
-	Timer m_FrameTimer;
+	std::vector<Player*> m_Players;
 
 	// Keeps track of each bullet
 	std::vector<Bullet*> m_Bullets;
+
+	// FPS clock
+	Timer m_FrameTimer;
 
 private:
 	// Handles user input
