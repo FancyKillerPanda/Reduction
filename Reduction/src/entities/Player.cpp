@@ -22,6 +22,11 @@ Player::Player(SDL_Renderer* renderer)
 }
 
 
+void Player::update()
+{
+	m_Direction += m_RotationSpeed;
+}
+
 void Player::draw()
 {
 	// Finds the center coordinates of the player

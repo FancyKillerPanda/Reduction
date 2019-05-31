@@ -70,12 +70,41 @@ void Game::handleEvents()
 		case SDL_QUIT:
 			m_Running = false;
 			break;
+
+		case SDL_KEYDOWN:
+			switch (m_Event.key.keysym.sym)
+			{
+			case SDLK_LEFT:
+				m_Player->setRotationSpeed(-PLAYER_ROTATION_SPEED);
+				break;
+
+			case SDLK_RIGHT:
+				m_Player->setRotationSpeed(PLAYER_ROTATION_SPEED);
+				break;
+			}
+
+			break;
+
+		case SDL_KEYUP:
+			switch (m_Event.key.keysym.sym)
+			{
+			case SDLK_LEFT:
+				m_Player->setRotationSpeed(0.0);
+				break;
+
+			case SDLK_RIGHT:
+				m_Player->setRotationSpeed(0.0);
+				break;
+			}
+
+			break;
 		}
 	}
 }
 
 void Game::update()
 {
+	m_Player->update();
 }
 
 void Game::draw()

@@ -14,9 +14,13 @@ private:
 
 	// Current movement attributes
 	double m_Direction = 45.0;
+	double m_RotationSpeed = 0.0;
 
 public:
 	Player(SDL_Renderer* renderer);
 
+	void update();
 	void draw();
+
+	void setRotationSpeed(double value) { m_RotationSpeed = value; }
 };
