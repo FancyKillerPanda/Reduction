@@ -45,6 +45,15 @@ Player::Player(SDL_Renderer* renderer, PlayerColour colour)
 	}
 }
 
+Player::~Player()
+{
+	// Destroys bullets
+	for (Bullet* bullet : m_Bullets)
+	{
+		delete bullet;
+	}
+}
+
 
 void Player::update(double dt)
 {
@@ -83,13 +92,46 @@ void Player::draw()
 	SDL_RenderCopyEx(m_Renderer, m_Texture, nullptr, &m_Rect, m_Direction, nullptr, SDL_FLIP_NONE);
 }
 
-Bullet* Player::spawnBullet()
+void Player::spawnBullet()
 {
 	if (m_BulletCooldownTimer.getElapsed() >= BULLET_COOLDOWN)
 	{
 		m_BulletCooldownTimer.reset();
-		return new Bullet(m_Renderer, m_Direction, m_Rect.x + m_Rect.w / 2, m_Rect.y + m_Rect.h / 2);
+		m_Bullets.push_back(new Bullet(m_Renderer, m_Direction, m_Rect.x + m_Rect.w / 2, m_Rect.y + m_Rect.h / 2));
 	}
+}
 
-	return nullptr;
+void Player::updateBullets(double dt)
+{
+	for (unsigned int i = 0; i < m_Bullets.size(); i++)
+	{
+		Bullet* bullet = m_Bullets[i];
+
+		if (!bullet->update(dt))
+		{
+			delete bullet;
+
+			// Removes the bullet from the vector
+			m_Bullets.erase(m_Bullets.begin() + i);
+			i -= 1;
+		}
+	}
+}
+
+void Player::drawBullets()
+{
+	for (Bullet* bullet : m_Bullets)
+	{
+		bullet->draw();
+	}
+}
+
+void Player::takeHit()
+{
+	m_LifeLeft -= PLAYER_HIT_DAMAGE;
+
+	if (m_LifeLeft < 0)
+	{
+		m_LifeLeft = 0;
+	}
 }

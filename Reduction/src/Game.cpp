@@ -54,12 +54,6 @@ Game::~Game()
 	{
 		delete player;
 	}
-
-	// Destroys bullets
-	for (Bullet* bullet : m_Bullets)
-	{
-		delete bullet;
-	}
 }
 
 
@@ -103,13 +97,7 @@ void Game::handleEvents()
 				break;
 
 			case SDLK_m:
-				m_Bullets.push_back(m_Players[0]->spawnBullet());
-
-				if (m_Bullets.back() == nullptr)
-				{
-					m_Bullets.pop_back();
-				}
-
+				m_Players[0]->spawnBullet();
 				break;
 
 			case SDLK_a:
@@ -129,13 +117,7 @@ void Game::handleEvents()
 				break;
 
 			case SDLK_c:
-				m_Bullets.push_back(m_Players[1]->spawnBullet());
-
-				if (m_Bullets.back() == nullptr)
-				{
-					m_Bullets.pop_back();
-				}
-
+				m_Players[1]->spawnBullet();
 				break;
 			}
 
@@ -180,20 +162,44 @@ void Game::update()
 	for (Player* player : m_Players)
 	{
 		player->update(dt);
+		player->updateBullets(dt);
 	}
 
-	// Updates bullets
-	for (unsigned int i = 0; i < m_Bullets.size(); i++)
+	// Checks for collisions between player and bullet
+	for (unsigned int playerIndex = 0; playerIndex < m_Players.size(); playerIndex++)
 	{
-		Bullet* bullet = m_Bullets[i];
+		Player* player = m_Players[playerIndex];
 
-		if (!bullet->update(dt))
+		for (Player* otherPlayer : m_Players)
 		{
-			delete bullet;
+			if (otherPlayer == player)
+			{
+				continue;
+			}
 
-			// Removes the bullet from the vector
-			m_Bullets.erase(m_Bullets.begin() + i);
-			i -= 1;
+			for (unsigned int bulletIndex = 0; bulletIndex < otherPlayer->getBullets().size(); bulletIndex++)
+			{
+				Bullet* bullet = otherPlayer->getBullets()[bulletIndex];
+
+				if (SDL_HasIntersection(&player->getRect(), &bullet->getRect()))
+				{
+					delete bullet;
+
+					// Removes the bullet from the vector
+					otherPlayer->getBullets().erase(otherPlayer->getBullets().begin() + bulletIndex);
+					bulletIndex -= 1;
+
+					player->takeHit();
+
+					if (player->getLifeLeft() == 0)
+					{
+						delete player;
+
+						m_Players.erase(m_Players.begin() + playerIndex);
+						playerIndex -= 1;
+					}
+				}
+			}
 		}
 	}
 }
@@ -206,12 +212,7 @@ void Game::draw()
 	for (Player* player : m_Players)
 	{
 		player->draw();
-	}
-
-	// Draws bullets
-	for (Bullet* bullet : m_Bullets)
-	{
-		bullet->draw();
+		player->drawBullets();
 	}
 
 	SDL_RenderPresent(m_Renderer);

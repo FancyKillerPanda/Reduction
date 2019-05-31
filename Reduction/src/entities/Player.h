@@ -1,10 +1,13 @@
 #pragma once
 
+#include <vector>
+
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 
 #include "Bullet.h"
 #include "utils/Timer.h"
+#include "utils/Settings.h"
 
 
 enum class PlayerColour
@@ -31,17 +34,31 @@ private:
 	double m_Acceleration = 0.0;
 	double m_Drag = 0.0;
 
+	// Keeps track of each bullet
+	std::vector<Bullet*> m_Bullets;
+
 	// Bullet cooldown time
 	Timer m_BulletCooldownTimer;
 
+	// The amount of life the player has left
+	int m_LifeLeft = PLAYER_STARTING_LIFE;
+
 public:
 	Player(SDL_Renderer* renderer, PlayerColour colour);
+	~Player();
 
 	void update(double dt);
 	void draw();
 
-	Bullet* spawnBullet();
+	void spawnBullet();
+	void updateBullets(double dt);
+	void drawBullets();
+	void takeHit();
 
 	void setRotationSpeed(double value) { m_RotationSpeed = value; }
 	void setAcceleration(double value) { m_Acceleration = value; }
+
+	SDL_Rect& getRect() { return m_Rect; }
+	std::vector<Bullet*>& getBullets() { return m_Bullets; }
+	int getLifeLeft() { return m_LifeLeft; }
 };

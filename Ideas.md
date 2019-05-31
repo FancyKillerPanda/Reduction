@@ -25,7 +25,7 @@
 - [x] Create player in game to control
 - [x] Make player able to shoot
 - [x] Cooldown timer for bullets
-- [ ] Spawn 2 players that can shoot each other
+- [x] Spawn 2 players that can shoot each other
 - [ ] Create circle moving inwards from edges
 - [ ] Add life to players
 - [ ] Add flames of different lengths for player at different speeds

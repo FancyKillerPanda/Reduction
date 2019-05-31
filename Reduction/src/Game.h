@@ -22,9 +22,6 @@ private:
 	// Players
 	std::vector<Player*> m_Players;
 
-	// Keeps track of each bullet
-	std::vector<Bullet*> m_Bullets;
-
 	// FPS clock
 	Timer m_FrameTimer;
 

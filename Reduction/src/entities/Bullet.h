@@ -21,4 +21,6 @@ public:
 
 	bool update(double dt);
 	void draw();
+
+	SDL_Rect& getRect() { return m_Rect; }
 };
