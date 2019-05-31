@@ -87,6 +87,9 @@ void Game::handleEvents()
 			case SDLK_UP:
 				m_Player->setAcceleration(PLAYER_ACCELERATION);
 				break;
+
+			case SDLK_DOWN:
+				m_Player->setAcceleration(-PLAYER_ACCELERATION * 2 / 3);
 			}
 
 			break;
@@ -95,14 +98,12 @@ void Game::handleEvents()
 			switch (m_Event.key.keysym.sym)
 			{
 			case SDLK_LEFT:
-				m_Player->setRotationSpeed(0.0);
-				break;
-
 			case SDLK_RIGHT:
 				m_Player->setRotationSpeed(0.0);
 				break;
 
 			case SDLK_UP:
+			case SDLK_DOWN:
 				m_Player->setAcceleration(0.0);
 				break;
 			}
