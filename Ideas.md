@@ -22,11 +22,12 @@
 - [x] Link SDL with Visual Studio
 - [x] Open window using SDL
 - [x] Create player texture
-- [ ] Create player in game to control
+- [x] Create player in game to control
 - [ ] Make player able to shoot
 - [ ] Spawn 2 players that can shoot each other
 - [ ] Create circle moving inwards from edges
 - [ ] Add life to players
+- [ ] Add flames of different lengths for player at different speeds
 - [ ] Drain life when player is outside the combat area
 - [ ] Make life drain faster when further out
 - [ ] Add start screen
