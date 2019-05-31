@@ -44,6 +44,23 @@ Game::Game()
 	m_Players.push_back(new Player(m_Renderer, PlayerColour::Red));
 	m_Players.push_back(new Player(m_Renderer, PlayerColour::Blue));
 
+	// Loads wall texture
+	m_WallTexture = IMG_LoadTexture(m_Renderer, "res/Wall Mask.png");
+
+	if (!m_WallTexture)
+	{
+		error("Could not load Wall texture.\nSDL_Error: ", SDL_GetError());
+		return;
+	}
+
+	if (SDL_QueryTexture(m_WallTexture, nullptr, nullptr, &m_WallRect.w, &m_WallRect.h) != 0)
+	{
+		error("Wall texture is invalid.\nSDL_Error: ", SDL_GetError());
+		return;
+	}
+
+	SDL_SetTextureAlphaMod(m_WallTexture, 60);
+
 	m_FrameTimer.reset();
 }
 
@@ -214,6 +231,13 @@ void Game::draw()
 		player->draw();
 		player->drawBullets();
 	}
+
+	// Sets the center of the wall opening to center of screen
+	m_WallRect.x = (SCREEN_WIDTH / 2) - (m_WallRect.w / 2);
+	m_WallRect.y = (SCREEN_HEIGHT / 2) - (m_WallRect.h / 2);
+
+	// Draws wall
+	SDL_RenderCopy(m_Renderer, m_WallTexture, nullptr, &m_WallRect);
 
 	SDL_RenderPresent(m_Renderer);
 }

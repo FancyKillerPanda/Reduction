@@ -12,13 +12,13 @@ Bullet::Bullet(SDL_Renderer* renderer, double direction, double posX, double pos
 
 	if (!m_Texture)
 	{
-		error("Could not load Player texture.\nSDL_Error: ", SDL_GetError());
+		error("Could not load Bullet texture.\nSDL_Error: ", SDL_GetError());
 		return;
 	}
 
 	if (SDL_QueryTexture(m_Texture, nullptr, nullptr, &m_Rect.w, &m_Rect.h) != 0)
 	{
-		error("Player texture is invalid.\nSDL_Error: ", SDL_GetError());
+		error("Bullet texture is invalid.\nSDL_Error: ", SDL_GetError());
 		return;
 	}
 }

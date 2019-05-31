@@ -25,6 +25,11 @@ private:
 	// FPS clock
 	Timer m_FrameTimer;
 
+	// Wall
+	double m_WallScale = 1;
+	SDL_Texture* m_WallTexture;
+	SDL_Rect m_WallRect;
+
 private:
 	// Handles user input
 	void handleEvents();
