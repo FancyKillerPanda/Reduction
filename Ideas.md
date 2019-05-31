@@ -18,7 +18,7 @@
     - First to 3 (short game), 5 (medium game), or 7 (long game)
 
 ### TODO
-- [ ] Set up small logging system
+- [x] Set up small logging system
 - [ ] Link SDL with Premake
 - [ ] Open window using SDL
 - [ ] Create player texture

@@ -1,7 +1,11 @@
-#include <iostream>
+#include "utils/Log.h"
 
 
 int main()
 {
-	std::cout << "Reduction!" << std::endl;
+	info("Reduction!");
+	warn("This is a warning.");
+	error("This is an error.");
+
+	system("pause");
 }
