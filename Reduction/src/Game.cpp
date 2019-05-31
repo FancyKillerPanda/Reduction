@@ -50,6 +50,12 @@ Game::~Game()
 {
 	// Deletes players
 	delete m_Player;
+
+	// Destroys bullets
+	for (Bullet* bullet : m_Bullets)
+	{
+		delete bullet;
+	}
 }
 
 
@@ -90,6 +96,9 @@ void Game::handleEvents()
 
 			case SDLK_DOWN:
 				m_Player->setAcceleration(-PLAYER_ACCELERATION * 2 / 3);
+
+			case SDLK_m:
+				m_Bullets.push_back(m_Player->spawnBullet());
 			}
 
 			break;
@@ -119,12 +128,28 @@ void Game::update()
 	double dt = m_FrameTimer.getElapsed() / 1000;
 	m_FrameTimer.reset();
 
+	// Updates players
 	m_Player->update(dt);
+
+	// Updates bullets
+	for (Bullet* bullet : m_Bullets)
+	{
+		bullet->update(dt);
+	}
 }
 
 void Game::draw()
 {
 	SDL_RenderClear(m_Renderer);
+
+	// Draws players
 	m_Player->draw();
+
+	// Draws bullets
+	for (Bullet* bullet : m_Bullets)
+	{
+		bullet->draw();
+	}
+
 	SDL_RenderPresent(m_Renderer);
 }

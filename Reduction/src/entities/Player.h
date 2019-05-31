@@ -3,6 +3,8 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 
+#include "Bullet.h"
+
 
 class Player
 {
@@ -25,6 +27,8 @@ public:
 
 	void update(double dt);
 	void draw();
+
+	Bullet* spawnBullet();
 
 	void setRotationSpeed(double value) { m_RotationSpeed = value; }
 	void setAcceleration(double value) { m_Acceleration = value; }

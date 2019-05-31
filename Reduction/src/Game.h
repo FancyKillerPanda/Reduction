@@ -1,10 +1,12 @@
 #pragma once
 
+#include <vector>
+
 #include <SDL/SDL.h>
 
 #include "entities/Player.h"
+#include "entities/Bullet.h"
 #include "utils/Timer.h"
-
 
 class Game
 {
@@ -22,6 +24,9 @@ private:
 
 	// FPS clock
 	Timer m_FrameTimer;
+
+	// Keeps track of each bullet
+	std::vector<Bullet*> m_Bullets;
 
 private:
 	// Handles user input

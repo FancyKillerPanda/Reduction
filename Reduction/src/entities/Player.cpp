@@ -60,3 +60,8 @@ void Player::draw()
 {
 	SDL_RenderCopyEx(m_Renderer, m_Texture, nullptr, &m_Rect, m_Direction, nullptr, SDL_FLIP_NONE);
 }
+
+Bullet* Player::spawnBullet()
+{
+	return new Bullet(m_Renderer, m_Direction, m_Rect.x + m_Rect.w / 2, m_Rect.y + m_Rect.h / 2);
+}

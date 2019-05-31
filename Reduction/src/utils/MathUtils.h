@@ -4,7 +4,7 @@
 #include <cmath>
 
 
-double toRadians(double value)
+inline double toRadians(double value)
 {
 	return value * (M_PI / 180);
 }

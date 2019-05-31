@@ -89,11 +89,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\entities\Bullet.cpp" />
     <ClCompile Include="src\entities\Player.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\entities\Bullet.h" />
     <ClInclude Include="src\entities\Player.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\utils\Log.h" />
