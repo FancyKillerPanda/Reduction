@@ -39,6 +39,15 @@ Game::Game()
 
 	// Sets the clear colour
 	SDL_SetRenderDrawColor(m_Renderer, 255, 255, 255, 255);
+
+	// Initialises the players
+	m_Player = new Player(m_Renderer);
+}
+
+Game::~Game()
+{
+	// Deletes players
+	delete m_Player;
 }
 
 
@@ -72,6 +81,6 @@ void Game::update()
 void Game::draw()
 {
 	SDL_RenderClear(m_Renderer);
-
+	m_Player->draw();
 	SDL_RenderPresent(m_Renderer);
 }

@@ -2,6 +2,8 @@
 
 #include <SDL/SDL.h>
 
+#include "entities/Player.h"
+
 
 class Game
 {
@@ -14,6 +16,9 @@ private:
 	SDL_Renderer* m_Renderer = nullptr;
 	SDL_Event m_Event;
 
+	// Players
+	Player* m_Player = nullptr;
+
 private:
 	// Handles user input
 	void handleEvents();
@@ -24,6 +29,7 @@ private:
 
 public:
 	Game();
+	~Game();
 
 	// Runs the main-loop
 	void run();
