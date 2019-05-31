@@ -97,6 +97,7 @@
     <ClInclude Include="src\entities\Player.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\utils\Log.h" />
+    <ClInclude Include="src\utils\MathUtils.h" />
     <ClInclude Include="src\utils\Settings.h" />
     <ClInclude Include="src\utils\Timer.h" />
   </ItemGroup>

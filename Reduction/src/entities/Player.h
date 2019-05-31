@@ -13,8 +13,9 @@ private:
 	SDL_Renderer* m_Renderer;
 
 	// Current movement attributes
-	double m_Direction = 45.0;
+	double m_Direction = 0.0;
 	double m_RotationSpeed = 0.0;
+	double m_PosX = 0.0, m_PosY = 0.0;
 
 public:
 	Player(SDL_Renderer* renderer);

@@ -1,6 +1,8 @@
 #include "Player.h"
 
 #include "utils/Log.h"
+#include "utils/Settings.h"
+#include "utils/MathUtils.h"
 
 
 Player::Player(SDL_Renderer* renderer)
@@ -24,13 +26,16 @@ Player::Player(SDL_Renderer* renderer)
 
 void Player::update(double dt)
 {
-	m_Direction += m_RotationSpeed * dt;
+	m_Direction += std::fmod(m_RotationSpeed * dt, 360.0);
+
+	m_PosX += std::cos(toRadians(m_Direction)) * PLAYER_SPEED * dt;
+	m_PosY += std::sin(toRadians(m_Direction)) * PLAYER_SPEED * dt;
+
+	m_Rect.x = (int) m_PosX;
+	m_Rect.y = (int) m_PosY;
 }
 
 void Player::draw()
 {
-	// Finds the center coordinates of the player
-	SDL_Point center = { m_Rect.x + (m_Rect.w / 2), m_Rect.y + (m_Rect.h / 2) };
-
-	SDL_RenderCopyEx(m_Renderer, m_Texture, nullptr, &m_Rect, m_Direction, &center, SDL_FLIP_NONE);
+	SDL_RenderCopyEx(m_Renderer, m_Texture, nullptr, &m_Rect, m_Direction, nullptr, SDL_FLIP_NONE);
 }
