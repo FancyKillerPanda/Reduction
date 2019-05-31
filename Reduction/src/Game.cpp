@@ -42,6 +42,8 @@ Game::Game()
 
 	// Initialises the players
 	m_Player = new Player(m_Renderer);
+
+	m_FrameTimer.reset();
 }
 
 Game::~Game()
@@ -104,7 +106,11 @@ void Game::handleEvents()
 
 void Game::update()
 {
-	m_Player->update();
+	// Number of seconds since last frame
+	double dt = m_FrameTimer.getElapsed() / 1000;
+	m_FrameTimer.reset();
+
+	m_Player->update(dt);
 }
 
 void Game::draw()

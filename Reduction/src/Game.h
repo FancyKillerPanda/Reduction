@@ -3,6 +3,7 @@
 #include <SDL/SDL.h>
 
 #include "entities/Player.h"
+#include "utils/Timer.h"
 
 
 class Game
@@ -18,6 +19,9 @@ private:
 
 	// Players
 	Player* m_Player = nullptr;
+
+	// FPS clock
+	Timer m_FrameTimer;
 
 private:
 	// Handles user input

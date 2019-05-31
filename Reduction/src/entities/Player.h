@@ -19,7 +19,7 @@ private:
 public:
 	Player(SDL_Renderer* renderer);
 
-	void update();
+	void update(double dt);
 	void draw();
 
 	void setRotationSpeed(double value) { m_RotationSpeed = value; }

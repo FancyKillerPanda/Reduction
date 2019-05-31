@@ -22,9 +22,9 @@ Player::Player(SDL_Renderer* renderer)
 }
 
 
-void Player::update()
+void Player::update(double dt)
 {
-	m_Direction += m_RotationSpeed;
+	m_Direction += m_RotationSpeed * dt;
 }
 
 void Player::draw()

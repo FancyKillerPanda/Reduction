@@ -98,6 +98,7 @@
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\utils\Log.h" />
     <ClInclude Include="src\utils\Settings.h" />
+    <ClInclude Include="src\utils\Timer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
