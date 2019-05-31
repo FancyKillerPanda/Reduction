@@ -1,0 +1,12 @@
+# Visual Studio Files
+.vs/
+*.user
+
+# Build Output
+bin-int/
+
+# Debugging Files
+*.ilk
+*.pdb
+*.iobj
+*.ipdb
