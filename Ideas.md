@@ -21,7 +21,7 @@
 - [x] Set up small logging system
 - [x] Link SDL with Visual Studio
 - [x] Open window using SDL
-- [ ] Create player texture
+- [x] Create player texture
 - [ ] Create player in game to control
 - [ ] Make player able to shoot
 - [ ] Spawn 2 players that can shoot each other
