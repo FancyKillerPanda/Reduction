@@ -27,6 +27,17 @@ Player::Player(SDL_Renderer* renderer)
 void Player::update(double dt)
 {
 	m_Direction += std::fmod(m_RotationSpeed * dt, 360.0);
+	m_Drag = PLAYER_DRAG + m_Velocity / 2;
+
+	if (m_Velocity > 0)
+	{
+		m_Velocity -= m_Drag * dt;
+
+		if (m_Velocity < 0)
+		{
+			m_Velocity = 0;
+		}
+	}
 
 	if (m_Velocity < MAX_PLAYER_SPEED)
 	{

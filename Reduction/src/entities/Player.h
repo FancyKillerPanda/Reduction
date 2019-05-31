@@ -18,6 +18,7 @@ private:
 	double m_PosX = 0.0, m_PosY = 0.0;
 	double m_Velocity = 0.0;
 	double m_Acceleration = 0.0;
+	double m_Drag = 0.0;
 
 public:
 	Player(SDL_Renderer* renderer);
