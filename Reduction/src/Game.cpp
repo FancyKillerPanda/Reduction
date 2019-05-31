@@ -183,9 +183,18 @@ void Game::update()
 	}
 
 	// Updates bullets
-	for (Bullet* bullet : m_Bullets)
+	for (unsigned int i = 0; i < m_Bullets.size(); i++)
 	{
-		bullet->update(dt);
+		Bullet* bullet = m_Bullets[i];
+
+		if (!bullet->update(dt))
+		{
+			delete bullet;
+
+			// Removes the bullet from the vector
+			m_Bullets.erase(m_Bullets.begin() + i);
+			i -= 1;
+		}
 	}
 }
 

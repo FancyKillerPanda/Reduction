@@ -24,13 +24,21 @@ Bullet::Bullet(SDL_Renderer* renderer, double direction, double posX, double pos
 }
 
 
-void Bullet::update(double dt)
+bool Bullet::update(double dt)
 {
 	m_PosX += std::cos(toRadians(m_Direction)) * BULLET_SPEED * dt;
 	m_PosY += std::sin(toRadians(m_Direction)) * BULLET_SPEED * dt;
 
 	m_Rect.x = m_PosX;
 	m_Rect.y = m_PosY;
+
+	if (m_PosX < 0.0 || m_PosX > SCREEN_WIDTH ||
+		m_PosY < 0.0 || m_PosY > SCREEN_HEIGHT)
+	{
+		return false;
+	}
+
+	return true;
 }
 
 void Bullet::draw()

@@ -19,6 +19,6 @@ private:
 public:
 	Bullet(SDL_Renderer* renderer, double direction, double posX, double posY);
 
-	void update(double dt);
+	bool update(double dt);
 	void draw();
 };
