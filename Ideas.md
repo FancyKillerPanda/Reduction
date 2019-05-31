@@ -23,7 +23,8 @@
 - [x] Open window using SDL
 - [x] Create player texture
 - [x] Create player in game to control
-- [ ] Make player able to shoot
+- [x] Make player able to shoot
+- [x] Cooldown timer for bullets
 - [ ] Spawn 2 players that can shoot each other
 - [ ] Create circle moving inwards from edges
 - [ ] Add life to players

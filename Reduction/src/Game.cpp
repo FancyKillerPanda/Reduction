@@ -96,9 +96,17 @@ void Game::handleEvents()
 
 			case SDLK_DOWN:
 				m_Player->setAcceleration(-PLAYER_ACCELERATION * 2 / 3);
+				break;
 
 			case SDLK_m:
 				m_Bullets.push_back(m_Player->spawnBullet());
+
+				if (m_Bullets.back() == nullptr)
+				{
+					m_Bullets.pop_back();
+				}
+
+				break;
 			}
 
 			break;

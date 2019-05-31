@@ -4,6 +4,7 @@
 #include <SDL/SDL_image.h>
 
 #include "Bullet.h"
+#include "utils/Timer.h"
 
 
 class Player
@@ -21,6 +22,9 @@ private:
 	double m_Velocity = 0.0;
 	double m_Acceleration = 0.0;
 	double m_Drag = 0.0;
+
+	// Bullet cooldown time
+	Timer m_BulletCooldownTimer;
 
 public:
 	Player(SDL_Renderer* renderer);

@@ -9,3 +9,4 @@ constexpr double PLAYER_ACCELERATION = 200;
 constexpr double PLAYER_DRAG = 30;
 
 constexpr double BULLET_SPEED = 500;
+constexpr double BULLET_COOLDOWN = 250;
