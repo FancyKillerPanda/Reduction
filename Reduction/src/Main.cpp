@@ -1,11 +1,15 @@
+#include <SDL/SDL.h>
+
 #include "utils/Log.h"
 
 
-int main()
+int main(int argc, char* argv[])
 {
-	info("Reduction!");
-	warn("This is a warning.");
-	error("This is an error.");
+	if (SDL_Init(SDL_INIT_VIDEO) != 0)
+	{
+		error("Could not initialise SDL.");
+		return -1;
+	}
 
-	system("pause");
+	return 0;
 }

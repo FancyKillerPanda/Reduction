@@ -19,7 +19,7 @@
 
 ### TODO
 - [x] Set up small logging system
-- [ ] Link SDL with Premake
+- [x] Link SDL with Visual Studio
 - [ ] Open window using SDL
 - [ ] Create player texture
 - [ ] Create player in game to control
