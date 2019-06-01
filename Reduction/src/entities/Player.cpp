@@ -5,7 +5,7 @@
 #include "utils/MathUtils.h"
 
 
-Player::Player(SDL_Renderer* renderer, PlayerColour colour)
+Player::Player(SDL_Renderer* renderer, PlayerColour colour, double posX, double posY, double direction)
 	: m_Renderer(renderer)
 {
 	const char* file;
@@ -43,6 +43,10 @@ Player::Player(SDL_Renderer* renderer, PlayerColour colour)
 		error("Player texture is invalid.\nSDL_Error: ", SDL_GetError());
 		return;
 	}
+
+	// Sets the position and angle
+	setCenter(posX, posY);
+	m_Direction = direction;
 }
 
 Player::~Player()

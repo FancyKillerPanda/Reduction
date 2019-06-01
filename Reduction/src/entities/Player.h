@@ -44,7 +44,7 @@ private:
 	int m_LifeLeft = PLAYER_STARTING_LIFE;
 
 public:
-	Player(SDL_Renderer* renderer, PlayerColour colour);
+	Player(SDL_Renderer* renderer, PlayerColour colour, double posX, double posY, double direction);
 	~Player();
 
 	void update(double dt);
@@ -57,6 +57,7 @@ public:
 
 	void setRotationSpeed(double value) { m_RotationSpeed = value; }
 	void setAcceleration(double value) { m_Acceleration = value; }
+	void setCenter(double x, double y) { m_PosX = x - m_Rect.w / 2; m_PosY = y - m_Rect.h / 2; }
 
 	SDL_Rect& getRect() { return m_Rect; }
 	std::vector<Bullet*>& getBullets() { return m_Bullets; }

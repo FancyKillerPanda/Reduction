@@ -41,8 +41,8 @@ Game::Game()
 	SDL_SetRenderDrawColor(m_Renderer, 255, 255, 255, 255);
 
 	// Initialises the players
-	m_Players.push_back(new Player(m_Renderer, PlayerColour::Red));
-	m_Players.push_back(new Player(m_Renderer, PlayerColour::Blue));
+	m_Players.push_back(new Player(m_Renderer, PlayerColour::Red, (SCREEN_WIDTH / 2) - (SCREEN_HEIGHT / 2) + 40, SCREEN_HEIGHT / 2, 270));
+	m_Players.push_back(new Player(m_Renderer, PlayerColour::Blue, (SCREEN_WIDTH / 2) + (SCREEN_HEIGHT / 2) - 40, SCREEN_HEIGHT / 2, 90));
 
 	// Loads wall texture
 	m_WallTexture = IMG_LoadTexture(m_Renderer, "res/Wall Mask.png");
