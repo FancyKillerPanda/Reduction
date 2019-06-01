@@ -200,5 +200,20 @@ void Player::takeHit()
 	}
 
 	// Updates the life bar
-	m_LifeBarRect.w = (m_LifeLeft / PLAYER_STARTING_LIFE) * LIFE_BAR_FULL_WIDTH;
+	switch (m_Colour)
+	{
+	case PlayerColour::Blue:
+		m_LifeBarRect.w = (m_LifeLeft / PLAYER_STARTING_LIFE) * LIFE_BAR_FULL_WIDTH;
+		m_LifeBarRect.x = SCREEN_WIDTH - 30 - m_LifeBarRect.w;
+
+		break;
+
+	case PlayerColour::Red:
+	case PlayerColour::Grey:
+		m_LifeBarRect.w = (m_LifeLeft / PLAYER_STARTING_LIFE) * LIFE_BAR_FULL_WIDTH;
+		break;
+
+	default:
+		break;
+	}
 }
