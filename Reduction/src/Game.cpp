@@ -366,6 +366,28 @@ void Game::initStartScreen()
 	m_StartScreenPage = StartScreenPage::NumberOfPlayersChoice;
 	m_StartScreenInitialised = true;
 
+	// Loads background texture
+	m_SpaceBackgroundTexture = IMG_LoadTexture(m_Renderer, "res/Start Screen Space.jpg");
+
+	if (!m_SpaceBackgroundTexture)
+	{
+		error("Could not load Space Background texture.\nSDL_Error: ", SDL_GetError());
+		m_Running = false;
+
+		return;
+	}
+
+	if (SDL_QueryTexture(m_SpaceBackgroundTexture, nullptr, nullptr, &m_SpaceBackgroundRect.w, &m_SpaceBackgroundRect.h) != 0)
+	{
+		error("Space Background texture is invalid.\nSDL_Error: ", SDL_GetError());
+		m_Running = false;
+
+		return;
+	}
+
+	m_SpaceBackgroundRect.w = SCREEN_WIDTH;
+	m_SpaceBackgroundRect.h = SCREEN_HEIGHT;
+
 	m_FrameTimer.reset();
 }
 
@@ -438,6 +460,8 @@ void Game::drawStartScreen()
 {
 	SDL_RenderClear(m_Renderer);
 
+	// Draws background
+	SDL_RenderCopy(m_Renderer, m_SpaceBackgroundTexture, nullptr, &m_SpaceBackgroundRect);
 
 	switch (m_StartScreenPage)
 	{
