@@ -127,7 +127,7 @@ void Player::update(double dt, double wallScale)
 
 	if (distanceFromCenterSquared > (SCREEN_HEIGHT * wallScale / 2) * (SCREEN_HEIGHT * wallScale / 2))
 	{
-		m_LifeLeft -= (distanceFromCenterSquared - (SCREEN_HEIGHT * wallScale / 2) * (SCREEN_HEIGHT * wallScale / 2)) / 10000;
+		m_LifeLeft -= (int) (distanceFromCenterSquared - (SCREEN_HEIGHT * wallScale / 2) * (SCREEN_HEIGHT * wallScale / 2)) / 10000;
 
 		if (m_LifeLeft < 0)
 		{
@@ -212,7 +212,7 @@ void Player::drawBullets()
 
 void Player::takeHit()
 {
-	m_LifeLeft -= PLAYER_HIT_DAMAGE;
+	m_LifeLeft -= (int) PLAYER_HIT_DAMAGE;
 
 	if (m_LifeLeft < 0)
 	{
@@ -225,8 +225,8 @@ void Player::takeHit()
 void Player::updateLifeBar()
 {
 	// Sets the width and height of the life bar
-	m_LifeBarRect.w = (m_LifeLeft / PLAYER_STARTING_LIFE) * LIFE_BAR_FULL_WIDTH;
-	m_LifeBarRect.h = LIFE_BAR_HEIGHT;
+	m_LifeBarRect.w = (int) ((m_LifeLeft / PLAYER_STARTING_LIFE) * LIFE_BAR_FULL_WIDTH);
+	m_LifeBarRect.h = (int) LIFE_BAR_HEIGHT;
 
 	// Sets the position of the life bar
 	switch (m_Colour)

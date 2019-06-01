@@ -29,8 +29,8 @@ bool Bullet::update(double dt)
 	m_PosX += std::cos(toRadians(m_Direction)) * BULLET_SPEED * dt;
 	m_PosY += std::sin(toRadians(m_Direction)) * BULLET_SPEED * dt;
 
-	m_Rect.x = m_PosX;
-	m_Rect.y = m_PosY;
+	m_Rect.x = (int) m_PosX;
+	m_Rect.y = (int) m_PosY;
 
 	if (m_PosX < 0.0 || m_PosX > SCREEN_WIDTH ||
 		m_PosY < 0.0 || m_PosY > SCREEN_HEIGHT)

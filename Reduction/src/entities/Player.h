@@ -43,7 +43,7 @@ private:
 	Timer m_BulletCooldownTimer;
 
 	// The amount of life the player has left
-	int m_LifeLeft = PLAYER_STARTING_LIFE;
+	int m_LifeLeft = (int) PLAYER_STARTING_LIFE;
 	SDL_Rect m_LifeBarRect;
 	SDL_Rect m_LifeBarOutlineRect;
 
