@@ -49,6 +49,34 @@ Player::Player(SDL_Renderer* renderer, PlayerColour colour, double posX, double 
 	m_Direction = direction;
 
 	updateLifeBar();
+
+	// Sets the dimensions and position for the life bar outline
+	m_LifeBarOutlineRect.w = LIFE_BAR_FULL_WIDTH;
+	m_LifeBarOutlineRect.h = LIFE_BAR_HEIGHT;
+
+	switch (m_Colour)
+	{
+	case PlayerColour::Red:
+		m_LifeBarOutlineRect.x = 30;
+		m_LifeBarOutlineRect.y = 30;
+
+		break;
+
+	case PlayerColour::Blue:
+		m_LifeBarOutlineRect.x = SCREEN_WIDTH - 30 - m_LifeBarOutlineRect.w;
+		m_LifeBarOutlineRect.y = 30;
+
+		break;
+
+	case PlayerColour::Grey:
+		m_LifeBarOutlineRect.x = 30;
+		m_LifeBarOutlineRect.y = SCREEN_HEIGHT - 30 - m_LifeBarOutlineRect.h;
+
+		break;
+
+	default:
+		break;
+	}
 }
 
 Player::~Player()
@@ -123,7 +151,8 @@ void Player::draw()
 		break;
 	}
 
-	// Draws the life bar
+	// Draws the life bar and outline
+	SDL_RenderDrawRect(m_Renderer, &m_LifeBarOutlineRect);
 	SDL_RenderFillRect(m_Renderer, &m_LifeBarRect);
 
 	// Returns the drawing colour back to what it was

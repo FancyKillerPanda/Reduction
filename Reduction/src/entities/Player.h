@@ -45,6 +45,7 @@ private:
 	// The amount of life the player has left
 	int m_LifeLeft = PLAYER_STARTING_LIFE;
 	SDL_Rect m_LifeBarRect;
+	SDL_Rect m_LifeBarOutlineRect;
 
 public:
 	Player(SDL_Renderer* renderer, PlayerColour colour, double posX, double posY, double direction);
