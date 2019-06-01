@@ -171,7 +171,7 @@ void Game::handleGameplayEvents()
 				m_Players[0]->setAcceleration(-PLAYER_ACCELERATION * 2 / 3);
 				break;
 
-			case SDLK_m:
+			case SDLK_SLASH:
 				m_Players[0]->spawnBullet();
 				break;
 
