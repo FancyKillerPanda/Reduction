@@ -26,6 +26,8 @@ private:
 
 	SDL_Renderer* m_Renderer;
 
+	PlayerColour m_Colour;
+
 	// Current movement attributes
 	double m_Direction = 0.0;
 	double m_RotationSpeed = 0.0;
@@ -42,6 +44,7 @@ private:
 
 	// The amount of life the player has left
 	int m_LifeLeft = PLAYER_STARTING_LIFE;
+	SDL_Rect m_LifeBarRect;
 
 public:
 	Player(SDL_Renderer* renderer, PlayerColour colour, double posX, double posY, double direction);

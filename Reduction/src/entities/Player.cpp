@@ -6,7 +6,7 @@
 
 
 Player::Player(SDL_Renderer* renderer, PlayerColour colour, double posX, double posY, double direction)
-	: m_Renderer(renderer)
+	: m_Renderer(renderer), m_Colour(colour)
 {
 	const char* file;
 
@@ -47,6 +47,34 @@ Player::Player(SDL_Renderer* renderer, PlayerColour colour, double posX, double 
 	// Sets the position and angle
 	setCenter(posX, posY);
 	m_Direction = direction;
+
+	// Sets the width and height of the life bar
+	m_LifeBarRect.w = LIFE_BAR_FULL_WIDTH;
+	m_LifeBarRect.h = LIFE_BAR_HEIGHT;
+
+	// Sets the position of the life bar
+	switch (colour)
+	{
+	case PlayerColour::Red:
+		m_LifeBarRect.x = 30;
+		m_LifeBarRect.y = 30;
+
+		break;
+
+	case PlayerColour::Blue:
+		m_LifeBarRect.x = SCREEN_WIDTH - 30 - m_LifeBarRect.w;
+		m_LifeBarRect.y = 30;
+		break;
+
+	case PlayerColour::Grey:
+		m_LifeBarRect.x = 30;
+		m_LifeBarRect.y = SCREEN_HEIGHT - 30 - m_LifeBarRect.h;
+
+		break;
+
+	default:
+		break;
+	}
 }
 
 Player::~Player()
@@ -94,6 +122,38 @@ void Player::update(double dt)
 void Player::draw()
 {
 	SDL_RenderCopyEx(m_Renderer, m_Texture, nullptr, &m_Rect, m_Direction, nullptr, SDL_FLIP_NONE);
+
+	// Saves the current render colour
+	Uint8 r;
+	Uint8 g;
+	Uint8 b;
+	Uint8 a;
+	SDL_GetRenderDrawColor(m_Renderer, &r, &g, &b, &a);
+
+	// Sets the drawing colour
+	switch (m_Colour)
+	{
+	case PlayerColour::Red:
+		SDL_SetRenderDrawColor(m_Renderer, 255, 0, 0, 255);
+		break;
+
+	case PlayerColour::Blue:
+		SDL_SetRenderDrawColor(m_Renderer, 0, 0, 255, 255);
+		break;
+
+	case PlayerColour::Grey:
+		SDL_SetRenderDrawColor(m_Renderer, 127, 127, 127, 255);
+		break;
+
+	default:
+		break;
+	}
+
+	// Draws the life bar
+	SDL_RenderFillRect(m_Renderer, &m_LifeBarRect);
+
+	// Returns the drawing colour back to what it was
+	SDL_SetRenderDrawColor(m_Renderer, r, g, b, a);
 }
 
 void Player::spawnBullet()
