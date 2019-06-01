@@ -2,6 +2,7 @@
 
 #include "utils/Settings.h"
 #include "utils/Log.h"
+#include "utils/MathUtils.h"
 
 
 Game::Game()
@@ -96,6 +97,12 @@ void Game::initGameplay()
 	m_Players.push_back(new Player(m_Renderer, PlayerColour::Red, (SCREEN_WIDTH / 2) - (SCREEN_HEIGHT / 2) + 40, SCREEN_HEIGHT / 2, 270));
 	m_Players.push_back(new Player(m_Renderer, PlayerColour::Blue, (SCREEN_WIDTH / 2) + (SCREEN_HEIGHT / 2) - 40, SCREEN_HEIGHT / 2, 90));
 
+	if (m_NumberOfPlayers == 3)
+	{
+		m_Players.push_back(new Player(m_Renderer, PlayerColour::Grey, SCREEN_WIDTH / 2, SCREEN_HEIGHT - 40, 180));
+		m_Players[2]->setAcceleration(PLAYER_ACCELERATION);
+	}
+
 	// Loads wall texture
 	m_WallTexture = IMG_LoadTexture(m_Renderer, "res/Wall Mask.png");
 
@@ -142,6 +149,7 @@ void Game::initGameplay()
 	m_SpaceBackgroundRect.w = SCREEN_WIDTH;
 	m_SpaceBackgroundRect.h = SCREEN_HEIGHT;
 
+	m_FrameTimer.reset();
 }
 
 void Game::handleGameplayEvents()
@@ -225,6 +233,14 @@ void Game::handleGameplayEvents()
 			}
 
 			break;
+
+		case SDL_MOUSEBUTTONDOWN:
+			if (m_NumberOfPlayers == 3)
+			{
+				m_Players[2]->spawnBullet();
+			}
+
+			break;
 		}
 	}
 }
@@ -234,6 +250,27 @@ void Game::updateGameplay()
 	// Number of seconds since last frame
 	double dt = m_FrameTimer.getElapsed() / 1000;
 	m_FrameTimer.reset();
+
+	if (m_NumberOfPlayers == 3)
+	{
+		int mouseX;
+		int mouseY;
+		SDL_GetMouseState(&mouseX, &mouseY);
+
+		int deltaX = mouseX - m_Players[2]->getRect().x;
+		int deltaY = mouseY - m_Players[2]->getRect().y;
+
+		if (deltaX * deltaX + deltaY * deltaY > 100)
+		{
+			m_Players[2]->setRotation(toDegrees(std::atan2(deltaY, deltaX)));
+			m_Players[2]->setAcceleration(PLAYER_ACCELERATION);
+		}
+
+		else
+		{
+			m_Players[2]->setVelocity(0.0);
+		}
+	}
 
 	// Updates players
 	for (Player* player : m_Players)
@@ -328,6 +365,8 @@ void Game::initStartScreen()
 
 	m_StartScreenPage = StartScreenPage::NumberOfPlayersChoice;
 	m_StartScreenInitialised = true;
+
+	m_FrameTimer.reset();
 }
 
 void Game::handleStartScreenEvents()
