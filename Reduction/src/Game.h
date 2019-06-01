@@ -18,6 +18,12 @@ enum class GameState
 	Gameplay,
 };
 
+enum class StartScreenPage
+{
+	NumberOfPlayersChoice,
+	PowerUp,
+};
+
 
 class Game
 {
@@ -35,6 +41,11 @@ private:
 
 	// "Next" button
 	Button* m_NextButton;
+
+	// Number of players choice
+	int m_NumberOfPlayers;
+	Button* m_TwoPlayersButton;
+	Button* m_ThreePlayersButton;
 
 	// Players
 	std::vector<Player*> m_Players;
@@ -55,6 +66,9 @@ private:
 
 	// Current game state
 	GameState m_GameState = GameState::StartScreen;
+
+	// Current start screen page
+	StartScreenPage m_StartScreenPage = StartScreenPage::NumberOfPlayersChoice;
 
 	// Whether the states have been initialised yet
 	bool m_StartScreenInitialised = false;

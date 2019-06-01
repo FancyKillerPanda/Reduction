@@ -63,6 +63,8 @@ Game::~Game()
 
 	// Deletes buttons
 	delete m_NextButton;
+	delete m_TwoPlayersButton;
+	delete m_ThreePlayersButton;
 }
 
 
@@ -316,11 +318,16 @@ void Game::drawGameplay()
 void Game::initStartScreen()
 {
 	// Initialises header text
-	m_ReductionText.load("res/SPACEMAN.TTF", "reduction", 48, SDL_Color { 255, 255, 255, 255 }, m_Renderer);
+	m_ReductionText.load("res/SPACEMAN.TTF", "reduction", 56, SDL_Color { 255, 255, 255, 255 }, m_Renderer);
 	m_ReductionText.setStyle(TTF_STYLE_BOLD);
 
 	// Initialises buttons
 	m_NextButton = new Button(m_Renderer, "-->");
+	m_TwoPlayersButton = new Button(m_Renderer, "Two Players");
+	m_ThreePlayersButton = new Button(m_Renderer, "Three Players");
+
+	m_StartScreenPage = StartScreenPage::NumberOfPlayersChoice;
+	m_StartScreenInitialised = true;
 }
 
 void Game::handleStartScreenEvents()
@@ -334,10 +341,34 @@ void Game::handleStartScreenEvents()
 			break;
 
 		case SDL_MOUSEBUTTONDOWN:
-			if (m_NextButton->isMouseOver())
+			switch (m_StartScreenPage)
 			{
-				m_GameState = GameState::Gameplay;
-				initGameplay();
+			case StartScreenPage::NumberOfPlayersChoice:
+				if (m_TwoPlayersButton->isMouseOver())
+				{
+					m_NumberOfPlayers = 2;
+					m_StartScreenPage = StartScreenPage::PowerUp;
+				}
+
+				else if (m_ThreePlayersButton->isMouseOver())
+				{
+					m_NumberOfPlayers = 3;
+					m_StartScreenPage = StartScreenPage::PowerUp;
+				}
+
+				break;
+
+			case StartScreenPage::PowerUp:
+				if (m_NextButton->isMouseOver())
+				{
+					m_GameState = GameState::Gameplay;
+					initGameplay();
+				}
+
+				break;
+
+			default:
+				break;
 			}
 
 			break;
@@ -347,15 +378,45 @@ void Game::handleStartScreenEvents()
 
 void Game::updateStartScreen()
 {
-	m_NextButton->update();
+	switch (m_StartScreenPage)
+	{
+	case StartScreenPage::NumberOfPlayersChoice:
+		m_TwoPlayersButton->update();
+		m_ThreePlayersButton->update();
+
+		break;
+
+	case StartScreenPage::PowerUp:
+		m_NextButton->update();
+		break;
+
+	default:
+		break;
+	}
 }
 
 void Game::drawStartScreen()
 {
 	SDL_RenderClear(m_Renderer);
 
-	m_ReductionText.draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT * 1 / 5);
-	m_NextButton->draw(SCREEN_WIDTH * 7 / 8, SCREEN_HEIGHT * 7 / 8);
+
+	switch (m_StartScreenPage)
+	{
+	case StartScreenPage::NumberOfPlayersChoice:
+		m_ReductionText.draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT * 5 / 20);
+		m_TwoPlayersButton->draw(SCREEN_WIDTH * 6 / 20, SCREEN_HEIGHT * 11 / 20);
+		m_ThreePlayersButton->draw(SCREEN_WIDTH * 14 / 20, SCREEN_HEIGHT * 11 / 20);
+
+		break;
+
+	case StartScreenPage::PowerUp:
+		m_ReductionText.draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT * 1 / 5);
+		m_NextButton->draw(SCREEN_WIDTH * 7 / 8, SCREEN_HEIGHT * 7 / 8);
+		break;
+
+	default:
+		break;
+	}
 
 	SDL_RenderPresent(m_Renderer);
 }
