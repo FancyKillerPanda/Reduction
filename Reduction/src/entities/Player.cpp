@@ -127,7 +127,7 @@ void Player::update(double dt, double wallScale)
 
 	if (distanceFromCenterSquared > (SCREEN_HEIGHT * wallScale / 2) * (SCREEN_HEIGHT * wallScale / 2))
 	{
-		m_LifeLeft -= 1;
+		m_LifeLeft -= (distanceFromCenterSquared - (SCREEN_HEIGHT * wallScale / 2) * (SCREEN_HEIGHT * wallScale / 2)) / 10000;
 
 		if (m_LifeLeft < 0)
 		{

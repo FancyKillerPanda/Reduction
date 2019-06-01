@@ -30,7 +30,7 @@
 - [x] Add life to players
 - [ ] Add flames of different lengths for player at different speeds
 - [x] Drain life when player is outside the combat area
-- [ ] Make life drain faster when further out
+- [x] Make life drain faster when further out
 - [ ] Add start screen
 - [ ] Add powerup purchasing on start screen
 - [ ] Make powerups affect gameplay
