@@ -8,6 +8,14 @@
 #include "entities/Bullet.h"
 #include "utils/Timer.h"
 
+
+enum class GameState
+{
+	StartScreen,
+	Gameplay,
+};
+
+
 class Game
 {
 private:
@@ -36,13 +44,31 @@ private:
 	SDL_Texture* m_SpaceBackgroundTexture = nullptr;
 	SDL_Rect m_SpaceBackgroundRect;
 
+	// Current game state
+	GameState m_GameState = GameState::StartScreen;
+
+	// Whether the states have been initialised yet
+	bool m_StartScreenInitialised = false;
+	bool m_GameplayInitialised = false;
+
 private:
-	// Handles user input
-	void handleEvents();
+	// Handles user input for gameplay state
+	void handleStartScreenEvents();
 	// Updates the gameplay
-	void update();
-	// Renders to the screen
-	void draw();
+	void updateStartScreen();
+	// Renders gameplay to the screen
+	void drawStartScreen();
+
+	// Handles user input for gameplay state
+	void handleGameplayEvents();
+	// Updates the gameplay
+	void updateGameplay();
+	// Renders gameplay to the screen
+	void drawGameplay();
+
+	// Initialises the different states
+	void initStartScreen();
+	void initGameplay();
 
 public:
 	Game();

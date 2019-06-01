@@ -40,56 +40,7 @@ Game::Game()
 	// Sets the clear colour
 	SDL_SetRenderDrawColor(m_Renderer, 255, 255, 255, 255);
 
-	// Initialises the players
-	m_Players.push_back(new Player(m_Renderer, PlayerColour::Red, (SCREEN_WIDTH / 2) - (SCREEN_HEIGHT / 2) + 40, SCREEN_HEIGHT / 2, 270));
-	m_Players.push_back(new Player(m_Renderer, PlayerColour::Blue, (SCREEN_WIDTH / 2) + (SCREEN_HEIGHT / 2) - 40, SCREEN_HEIGHT / 2, 90));
-
-	// Loads wall texture
-	m_WallTexture = IMG_LoadTexture(m_Renderer, "res/Wall Mask.png");
-
-	if (!m_WallTexture)
-	{
-		error("Could not load Wall texture.\nSDL_Error: ", SDL_GetError());
-		m_Running = false;
-
-		return;
-	}
-
-	if (SDL_QueryTexture(m_WallTexture, nullptr, nullptr, &m_WallRect.w, &m_WallRect.h) != 0)
-	{
-		error("Wall texture is invalid.\nSDL_Error: ", SDL_GetError());
-		m_Running = false;
-
-		return;
-	}
-
-	SDL_SetTextureAlphaMod(m_WallTexture, 60);
-
-	m_OriginalWallWidth = m_WallRect.w;
-	m_OriginalWallHeight = m_WallRect.h;
-
-	// Loads background texture
-	m_SpaceBackgroundTexture = IMG_LoadTexture(m_Renderer, "res/Space.png");
-
-	if (!m_SpaceBackgroundTexture)
-	{
-		error("Could not load Space Background texture.\nSDL_Error: ", SDL_GetError());
-		m_Running = false;
-
-		return;
-	}
-
-	if (SDL_QueryTexture(m_SpaceBackgroundTexture, nullptr, nullptr, &m_SpaceBackgroundRect.w, &m_SpaceBackgroundRect.h) != 0)
-	{
-		error("Space Background texture is invalid.\nSDL_Error: ", SDL_GetError());
-		m_Running = false;
-
-		return;
-	}
-
-	m_SpaceBackgroundRect.w = SCREEN_WIDTH;
-	m_SpaceBackgroundRect.h = SCREEN_HEIGHT;
-
+	initGameplay();
 	m_FrameTimer.reset();
 }
 
@@ -107,13 +58,25 @@ void Game::run()
 {
 	while (m_Running)
 	{
-		handleEvents();
-		update();
-		draw();
+		switch (m_GameState)
+		{
+		case GameState::StartScreen:
+			handleStartScreenEvents();
+			updateStartScreen();
+			drawStartScreen();
+
+			break;
+
+		case GameState::Gameplay:
+			handleGameplayEvents();
+			updateGameplay();
+			drawGameplay();
+		}
 	}
 }
 
-void Game::handleEvents()
+
+void Game::handleGameplayEvents()
 {
 	while (SDL_PollEvent(&m_Event))
 	{
@@ -198,7 +161,7 @@ void Game::handleEvents()
 	}
 }
 
-void Game::update()
+void Game::updateGameplay()
 {
 	// Number of seconds since last frame
 	double dt = m_FrameTimer.getElapsed() / 1000;
@@ -259,7 +222,7 @@ void Game::update()
 
 }
 
-void Game::draw()
+void Game::drawGameplay()
 {
 	SDL_RenderClear(m_Renderer);
 
@@ -281,4 +244,88 @@ void Game::draw()
 	SDL_RenderCopy(m_Renderer, m_WallTexture, nullptr, &m_WallRect);
 
 	SDL_RenderPresent(m_Renderer);
+}
+
+void Game::handleStartScreenEvents()
+{
+	while (SDL_PollEvent(&m_Event))
+	{
+		switch (m_Event.type)
+		{
+		case SDL_QUIT:
+			m_Running = false;
+			break;
+		}
+	}
+}
+
+void Game::updateStartScreen()
+{
+}
+
+void Game::drawStartScreen()
+{
+	SDL_RenderClear(m_Renderer);
+
+	SDL_RenderPresent(m_Renderer);
+}
+
+
+void Game::initStartScreen()
+{
+
+}
+
+void Game::initGameplay()
+{
+	// Initialises the players
+	m_Players.push_back(new Player(m_Renderer, PlayerColour::Red, (SCREEN_WIDTH / 2) - (SCREEN_HEIGHT / 2) + 40, SCREEN_HEIGHT / 2, 270));
+	m_Players.push_back(new Player(m_Renderer, PlayerColour::Blue, (SCREEN_WIDTH / 2) + (SCREEN_HEIGHT / 2) - 40, SCREEN_HEIGHT / 2, 90));
+
+	// Loads wall texture
+	m_WallTexture = IMG_LoadTexture(m_Renderer, "res/Wall Mask.png");
+
+	if (!m_WallTexture)
+	{
+		error("Could not load Wall texture.\nSDL_Error: ", SDL_GetError());
+		m_Running = false;
+
+		return;
+	}
+
+	if (SDL_QueryTexture(m_WallTexture, nullptr, nullptr, &m_WallRect.w, &m_WallRect.h) != 0)
+	{
+		error("Wall texture is invalid.\nSDL_Error: ", SDL_GetError());
+		m_Running = false;
+
+		return;
+	}
+
+	SDL_SetTextureAlphaMod(m_WallTexture, 60);
+
+	m_OriginalWallWidth = m_WallRect.w;
+	m_OriginalWallHeight = m_WallRect.h;
+
+	// Loads background texture
+	m_SpaceBackgroundTexture = IMG_LoadTexture(m_Renderer, "res/Space.png");
+
+	if (!m_SpaceBackgroundTexture)
+	{
+		error("Could not load Space Background texture.\nSDL_Error: ", SDL_GetError());
+		m_Running = false;
+
+		return;
+	}
+
+	if (SDL_QueryTexture(m_SpaceBackgroundTexture, nullptr, nullptr, &m_SpaceBackgroundRect.w, &m_SpaceBackgroundRect.h) != 0)
+	{
+		error("Space Background texture is invalid.\nSDL_Error: ", SDL_GetError());
+		m_Running = false;
+
+		return;
+	}
+
+	m_SpaceBackgroundRect.w = SCREEN_WIDTH;
+	m_SpaceBackgroundRect.h = SCREEN_HEIGHT;
+
 }
