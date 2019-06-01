@@ -89,7 +89,7 @@ Player::~Player()
 }
 
 
-void Player::update(double dt)
+void Player::update(double dt, double wallScale)
 {
 	if (m_Velocity < 0.0)
 	{
@@ -119,6 +119,23 @@ void Player::update(double dt)
 
 	m_Rect.x = (int) m_PosX;
 	m_Rect.y = (int) m_PosY;
+
+	// Calculates distance from center
+	double xDistanceFromCenter = m_PosX - SCREEN_WIDTH / 2;
+	double yDistanceFromCenter = m_PosY - SCREEN_HEIGHT / 2;
+	double distanceFromCenterSquared = (xDistanceFromCenter * xDistanceFromCenter) + (yDistanceFromCenter * yDistanceFromCenter);
+
+	if (distanceFromCenterSquared > (SCREEN_HEIGHT * wallScale / 2) * (SCREEN_HEIGHT * wallScale / 2))
+	{
+		m_LifeLeft -= 1;
+
+		if (m_LifeLeft < 0)
+		{
+			m_LifeLeft = 0;
+		}
+
+		updateLifeBar();
+	}
 }
 
 void Player::draw()

@@ -29,7 +29,7 @@
 - [x] Create circle moving inwards from edges
 - [x] Add life to players
 - [ ] Add flames of different lengths for player at different speeds
-- [ ] Drain life when player is outside the combat area
+- [x] Drain life when player is outside the combat area
 - [ ] Make life drain faster when further out
 - [ ] Add start screen
 - [ ] Add powerup purchasing on start screen

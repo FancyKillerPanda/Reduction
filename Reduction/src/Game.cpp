@@ -181,7 +181,7 @@ void Game::update()
 	// Updates players
 	for (Player* player : m_Players)
 	{
-		player->update(dt);
+		player->update(dt, m_WallScale);
 		player->updateBullets(dt);
 	}
 
@@ -210,16 +210,16 @@ void Game::update()
 					bulletIndex -= 1;
 
 					player->takeHit();
-
-					if (player->getLifeLeft() == 0)
-					{
-						delete player;
-
-						m_Players.erase(m_Players.begin() + playerIndex);
-						playerIndex -= 1;
-					}
 				}
 			}
+		}
+
+		if (player->getLifeLeft() == 0)
+		{
+			delete player;
+
+			m_Players.erase(m_Players.begin() + playerIndex);
+			playerIndex -= 1;
 		}
 	}
 

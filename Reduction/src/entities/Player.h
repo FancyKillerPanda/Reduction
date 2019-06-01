@@ -51,7 +51,7 @@ public:
 	Player(SDL_Renderer* renderer, PlayerColour colour, double posX, double posY, double direction);
 	~Player();
 
-	void update(double dt);
+	void update(double dt, double wallScale);
 	void draw();
 
 	void spawnBullet();
