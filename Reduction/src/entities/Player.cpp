@@ -198,4 +198,7 @@ void Player::takeHit()
 	{
 		m_LifeLeft = 0;
 	}
+
+	// Updates the life bar
+	m_LifeBarRect.w = (m_LifeLeft / PLAYER_STARTING_LIFE) * LIFE_BAR_FULL_WIDTH;
 }
