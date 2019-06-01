@@ -47,9 +47,9 @@ Game::Game()
 	}
 
 	// Sets the clear colour
-	SDL_SetRenderDrawColor(m_Renderer, 255, 255, 255, 255);
+	SDL_SetRenderDrawColor(m_Renderer, 0, 0, 0, 255);
 
-	initGameplay();
+	initStartScreen();
 	m_FrameTimer.reset();
 }
 
@@ -312,7 +312,9 @@ void Game::drawGameplay()
 
 void Game::initStartScreen()
 {
-
+	// Initialises header text
+	m_ReductionText.load("res/SPACEMAN.TTF", "reduction", 48, SDL_Color { 255, 255, 255, 255 }, m_Renderer);
+	m_ReductionText.setStyle(TTF_STYLE_BOLD);
 }
 
 void Game::handleStartScreenEvents()
@@ -335,7 +337,7 @@ void Game::updateStartScreen()
 void Game::drawStartScreen()
 {
 	SDL_RenderClear(m_Renderer);
-
+	m_ReductionText.draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT * 1 / 5);
 	SDL_RenderPresent(m_Renderer);
 }
 

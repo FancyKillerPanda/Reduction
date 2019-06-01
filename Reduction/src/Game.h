@@ -8,6 +8,7 @@
 #include "entities/Player.h"
 #include "entities/Bullet.h"
 #include "utils/Timer.h"
+#include "gfx/Text.h"
 
 
 enum class GameState
@@ -27,6 +28,9 @@ private:
 	SDL_Window* m_Window = nullptr;
 	SDL_Renderer* m_Renderer = nullptr;
 	SDL_Event m_Event;
+
+	// "Reduction" header text
+	Text m_ReductionText;
 
 	// Players
 	std::vector<Player*> m_Players;
