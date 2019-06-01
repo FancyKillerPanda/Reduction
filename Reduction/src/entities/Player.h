@@ -57,6 +57,7 @@ public:
 	void updateBullets(double dt);
 	void drawBullets();
 	void takeHit();
+	void updateLifeBar();
 
 	void setRotationSpeed(double value) { m_RotationSpeed = value; }
 	void setAcceleration(double value) { m_Acceleration = value; }

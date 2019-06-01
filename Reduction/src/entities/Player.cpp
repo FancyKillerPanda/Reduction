@@ -48,33 +48,7 @@ Player::Player(SDL_Renderer* renderer, PlayerColour colour, double posX, double 
 	setCenter(posX, posY);
 	m_Direction = direction;
 
-	// Sets the width and height of the life bar
-	m_LifeBarRect.w = LIFE_BAR_FULL_WIDTH;
-	m_LifeBarRect.h = LIFE_BAR_HEIGHT;
-
-	// Sets the position of the life bar
-	switch (colour)
-	{
-	case PlayerColour::Red:
-		m_LifeBarRect.x = 30;
-		m_LifeBarRect.y = 30;
-
-		break;
-
-	case PlayerColour::Blue:
-		m_LifeBarRect.x = SCREEN_WIDTH - 30 - m_LifeBarRect.w;
-		m_LifeBarRect.y = 30;
-		break;
-
-	case PlayerColour::Grey:
-		m_LifeBarRect.x = 30;
-		m_LifeBarRect.y = SCREEN_HEIGHT - 30 - m_LifeBarRect.h;
-
-		break;
-
-	default:
-		break;
-	}
+	updateLifeBar();
 }
 
 Player::~Player()
@@ -199,18 +173,33 @@ void Player::takeHit()
 		m_LifeLeft = 0;
 	}
 
-	// Updates the life bar
+	updateLifeBar();
+}
+
+void Player::updateLifeBar()
+{
+	// Sets the width and height of the life bar
+	m_LifeBarRect.w = (m_LifeLeft / PLAYER_STARTING_LIFE) * LIFE_BAR_FULL_WIDTH;
+	m_LifeBarRect.h = LIFE_BAR_HEIGHT;
+
+	// Sets the position of the life bar
 	switch (m_Colour)
 	{
-	case PlayerColour::Blue:
-		m_LifeBarRect.w = (m_LifeLeft / PLAYER_STARTING_LIFE) * LIFE_BAR_FULL_WIDTH;
-		m_LifeBarRect.x = SCREEN_WIDTH - 30 - m_LifeBarRect.w;
+	case PlayerColour::Red:
+		m_LifeBarRect.x = 30;
+		m_LifeBarRect.y = 30;
 
 		break;
 
-	case PlayerColour::Red:
+	case PlayerColour::Blue:
+		m_LifeBarRect.x = SCREEN_WIDTH - 30 - m_LifeBarRect.w;
+		m_LifeBarRect.y = 30;
+		break;
+
 	case PlayerColour::Grey:
-		m_LifeBarRect.w = (m_LifeLeft / PLAYER_STARTING_LIFE) * LIFE_BAR_FULL_WIDTH;
+		m_LifeBarRect.x = 30;
+		m_LifeBarRect.y = SCREEN_HEIGHT - 30 - m_LifeBarRect.h;
+
 		break;
 
 	default:
