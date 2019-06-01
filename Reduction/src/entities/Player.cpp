@@ -36,7 +36,7 @@ Player::Player(SDL_Renderer* renderer, PlayerColour colour, double posX, double 
 	m_SmallFlameTexture = IMG_LoadTexture(m_Renderer, filename.c_str());
 	filename = file + " - Medium Flame.png";
 	m_MediumFlameTexture = IMG_LoadTexture(m_Renderer, filename.c_str());
-	filename = file + " - Big Flame.png";
+	filename = file + " - Large Flame.png";
 	m_LargeFlameTexture = IMG_LoadTexture(m_Renderer, filename.c_str());
 
 	if (!(m_NoFlameTexture && m_SmallFlameTexture && m_MediumFlameTexture && m_LargeFlameTexture))
