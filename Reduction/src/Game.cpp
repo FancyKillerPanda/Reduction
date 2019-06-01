@@ -50,12 +50,16 @@ Game::Game()
 	if (!m_WallTexture)
 	{
 		error("Could not load Wall texture.\nSDL_Error: ", SDL_GetError());
+		m_Running = false;
+
 		return;
 	}
 
 	if (SDL_QueryTexture(m_WallTexture, nullptr, nullptr, &m_WallRect.w, &m_WallRect.h) != 0)
 	{
 		error("Wall texture is invalid.\nSDL_Error: ", SDL_GetError());
+		m_Running = false;
+
 		return;
 	}
 
@@ -63,6 +67,28 @@ Game::Game()
 
 	m_OriginalWallWidth = m_WallRect.w;
 	m_OriginalWallHeight = m_WallRect.h;
+
+	// Loads background texture
+	m_SpaceBackgroundTexture = IMG_LoadTexture(m_Renderer, "res/Space.png");
+
+	if (!m_SpaceBackgroundTexture)
+	{
+		error("Could not load Space Background texture.\nSDL_Error: ", SDL_GetError());
+		m_Running = false;
+
+		return;
+	}
+
+	if (SDL_QueryTexture(m_SpaceBackgroundTexture, nullptr, nullptr, &m_SpaceBackgroundRect.w, &m_SpaceBackgroundRect.h) != 0)
+	{
+		error("Space Background texture is invalid.\nSDL_Error: ", SDL_GetError());
+		m_Running = false;
+
+		return;
+	}
+
+	m_SpaceBackgroundRect.w = SCREEN_WIDTH;
+	m_SpaceBackgroundRect.h = SCREEN_HEIGHT;
 
 	m_FrameTimer.reset();
 }
@@ -236,6 +262,9 @@ void Game::update()
 void Game::draw()
 {
 	SDL_RenderClear(m_Renderer);
+
+	// Draws background
+	SDL_RenderCopy(m_Renderer, m_SpaceBackgroundTexture, nullptr, &m_SpaceBackgroundRect);
 
 	// Draws players
 	for (Player* player : m_Players)

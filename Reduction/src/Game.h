@@ -32,6 +32,10 @@ private:
 	unsigned int m_OriginalWallWidth;
 	unsigned int m_OriginalWallHeight;
 
+	// Background
+	SDL_Texture* m_SpaceBackgroundTexture = nullptr;
+	SDL_Rect m_SpaceBackgroundRect;
+
 private:
 	// Handles user input
 	void handleEvents();
