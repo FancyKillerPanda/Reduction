@@ -8,20 +8,20 @@
 Player::Player(SDL_Renderer* renderer, PlayerColour colour, double posX, double posY, double direction)
 	: m_Renderer(renderer), m_Colour(colour)
 {
-	const char* file;
+	std::string file;
 
 	switch (colour)
 	{
 	case PlayerColour::Red:
-		file = "res/Red Spaceship.png";
+		file.append("res/Red Spaceship");
 		break;
 
 	case PlayerColour::Blue:
-		file = "res/Blue Spaceship.png";
+		file.append("res/Blue Spaceship");
 		break;
 
 	case PlayerColour::Grey:
-		file = "res/Grey Spaceship.png";
+		file.append("res/Grey Spaceship");
 		break;
 
 	default:
@@ -30,19 +30,29 @@ Player::Player(SDL_Renderer* renderer, PlayerColour colour, double posX, double 
 	}
 
 	// Loads the texture
-	m_Texture = IMG_LoadTexture(m_Renderer, file);
+	std::string filename = file + ".png";
+	m_NoFlameTexture = IMG_LoadTexture(m_Renderer, filename.c_str());
+	filename = file + " - Small Flame.png";
+	m_SmallFlameTexture = IMG_LoadTexture(m_Renderer, filename.c_str());
+	filename = file + " - Medium Flame.png";
+	m_MediumFlameTexture = IMG_LoadTexture(m_Renderer, filename.c_str());
+	filename = file + " - Big Flame.png";
+	m_LargeFlameTexture = IMG_LoadTexture(m_Renderer, filename.c_str());
 
-	if (!m_Texture)
+	if (!(m_NoFlameTexture && m_SmallFlameTexture && m_MediumFlameTexture && m_LargeFlameTexture))
 	{
 		error("Could not load Player texture.\nSDL_Error: ", SDL_GetError());
 		return;
 	}
 
-	if (SDL_QueryTexture(m_Texture, nullptr, nullptr, &m_Rect.w, &m_Rect.h) != 0)
+	if (SDL_QueryTexture(m_NoFlameTexture, nullptr, nullptr, &m_Rect.w, &m_Rect.h) != 0)
 	{
 		error("Player texture is invalid.\nSDL_Error: ", SDL_GetError());
 		return;
 	}
+
+	// Sets the active texture to no-flame
+	m_ActiveTexture = m_NoFlameTexture;
 
 	// Sets the position and angle
 	setCenter(posX, posY);
@@ -140,7 +150,7 @@ void Player::update(double dt, double wallScale)
 
 void Player::draw()
 {
-	SDL_RenderCopyEx(m_Renderer, m_Texture, nullptr, &m_Rect, m_Direction, nullptr, SDL_FLIP_NONE);
+	SDL_RenderCopyEx(m_Renderer, m_ActiveTexture, nullptr, &m_Rect, m_Direction, nullptr, SDL_FLIP_NONE);
 
 	// Saves the current render colour
 	Uint8 r;

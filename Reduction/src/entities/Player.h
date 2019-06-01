@@ -21,9 +21,14 @@ enum class PlayerColour
 class Player
 {
 private:
-	SDL_Texture* m_Texture = nullptr;
-	SDL_Rect m_Rect;
+	// Textures for different sized flames
+	SDL_Texture* m_NoFlameTexture = nullptr;
+	SDL_Texture* m_SmallFlameTexture = nullptr;
+	SDL_Texture* m_MediumFlameTexture = nullptr;
+	SDL_Texture* m_LargeFlameTexture = nullptr;
+	SDL_Texture* m_ActiveTexture = nullptr;
 
+	SDL_Rect m_Rect;
 	SDL_Renderer* m_Renderer;
 
 	PlayerColour m_Colour;
