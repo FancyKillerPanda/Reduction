@@ -3,6 +3,7 @@
 #include <vector>
 
 #include <SDL/SDL.h>
+#include <SDL/SDL_ttf.h>
 
 #include "entities/Player.h"
 #include "entities/Bullet.h"
