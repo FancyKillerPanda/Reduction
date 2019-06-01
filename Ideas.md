@@ -28,13 +28,13 @@
 - [x] Spawn 2 players that can shoot each other
 - [x] Create circle moving inwards from edges
 - [x] Add life to players
-- [ ] Add flames of different lengths for player at different speeds
+- [x] Add flames of different lengths for player at different speeds
 - [x] Drain life when player is outside the combat area
 - [x] Make life drain faster when further out
 - [ ] Add start screen
 - [ ] Add powerup purchasing on start screen
 - [ ] Make powerups affect gameplay
-- [ ] Show life left at top of screen
+- [x] Show life left at top of screen
 - [ ] Implement knockback on each hit
 - [ ] Add a win counter
 - [ ] Implement choosing between short/medium/long games

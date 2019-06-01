@@ -146,6 +146,27 @@ void Player::update(double dt, double wallScale)
 
 		updateLifeBar();
 	}
+
+	// Updates texture
+	if (m_Velocity > MAX_PLAYER_SPEED * 2 / 3)
+	{
+		m_ActiveTexture = m_LargeFlameTexture;
+	}
+
+	else if (m_Velocity > MAX_PLAYER_SPEED * 1 / 3)
+	{
+		m_ActiveTexture = m_MediumFlameTexture;
+	}
+
+	else if (m_Velocity > 0)
+	{
+		m_ActiveTexture = m_SmallFlameTexture;
+	}
+
+	if (m_Acceleration <= 0)
+	{
+		m_ActiveTexture = m_NoFlameTexture;
+	}
 }
 
 void Player::draw()
