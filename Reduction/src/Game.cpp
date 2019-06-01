@@ -60,6 +60,9 @@ Game::~Game()
 	{
 		delete player;
 	}
+
+	// Deletes buttons
+	delete m_NextButton;
 }
 
 
@@ -315,6 +318,9 @@ void Game::initStartScreen()
 	// Initialises header text
 	m_ReductionText.load("res/SPACEMAN.TTF", "reduction", 48, SDL_Color { 255, 255, 255, 255 }, m_Renderer);
 	m_ReductionText.setStyle(TTF_STYLE_BOLD);
+
+	// Initialises buttons
+	m_NextButton = new Button(m_Renderer, "-->");
 }
 
 void Game::handleStartScreenEvents()
@@ -326,18 +332,30 @@ void Game::handleStartScreenEvents()
 		case SDL_QUIT:
 			m_Running = false;
 			break;
+
+		case SDL_MOUSEBUTTONDOWN:
+			if (m_NextButton->isMouseOver())
+			{
+				m_GameState = GameState::Gameplay;
+				initGameplay();
+			}
+
+			break;
 		}
 	}
 }
 
 void Game::updateStartScreen()
 {
+	m_NextButton->update();
 }
 
 void Game::drawStartScreen()
 {
 	SDL_RenderClear(m_Renderer);
+
 	m_ReductionText.draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT * 1 / 5);
+	m_NextButton->draw(SCREEN_WIDTH * 7 / 8, SCREEN_HEIGHT * 7 / 8);
+
 	SDL_RenderPresent(m_Renderer);
 }
-

@@ -9,6 +9,7 @@
 #include "entities/Bullet.h"
 #include "utils/Timer.h"
 #include "gfx/Text.h"
+#include "gfx/Button.h"
 
 
 enum class GameState
@@ -31,6 +32,9 @@ private:
 
 	// "Reduction" header text
 	Text m_ReductionText;
+
+	// "Next" button
+	Button* m_NextButton;
 
 	// Players
 	std::vector<Player*> m_Players;
