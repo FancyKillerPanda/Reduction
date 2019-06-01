@@ -224,11 +224,11 @@ void Game::update()
 	}
 
 	// Updates wall
-	if (m_WallScale <= 6.0 - WALL_SPEED)
+	if (m_WallScale >= 0.3 - WALL_SPEED)
 	{
 		m_WallScale += WALL_SPEED;
-		m_WallRect.w = m_OriginalWallWidth / m_WallScale;
-		m_WallRect.h = m_OriginalWallHeight / m_WallScale;
+		m_WallRect.w = m_OriginalWallWidth * m_WallScale;
+		m_WallRect.h = m_OriginalWallHeight * m_WallScale;
 	}
 
 }
