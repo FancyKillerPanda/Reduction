@@ -148,12 +148,12 @@ void Player::update(double dt, double wallScale)
 	}
 
 	// Updates texture
-	if (m_Velocity > MAX_PLAYER_SPEED * 2 / 3)
+	if (m_Velocity > MAX_PLAYER_SPEED * 2 / 4)
 	{
 		m_ActiveTexture = m_LargeFlameTexture;
 	}
 
-	else if (m_Velocity > MAX_PLAYER_SPEED * 1 / 3)
+	else if (m_Velocity > MAX_PLAYER_SPEED * 1 / 4)
 	{
 		m_ActiveTexture = m_MediumFlameTexture;
 	}
