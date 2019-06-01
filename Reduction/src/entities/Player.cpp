@@ -131,13 +131,13 @@ void Player::update(double dt, double wallScale)
 	m_Rect.y = (int) m_PosY;
 
 	// Calculates distance from center
-	double xDistanceFromCenter = m_PosX - SCREEN_WIDTH / 2;
-	double yDistanceFromCenter = m_PosY - SCREEN_HEIGHT / 2;
+	double xDistanceFromCenter = (m_PosX + m_Rect.w / 2) - SCREEN_WIDTH / 2;
+	double yDistanceFromCenter = (m_PosY + m_Rect.h / 2) - SCREEN_HEIGHT / 2;
 	double distanceFromCenterSquared = (xDistanceFromCenter * xDistanceFromCenter) + (yDistanceFromCenter * yDistanceFromCenter);
 
 	if (distanceFromCenterSquared > (SCREEN_HEIGHT * wallScale / 2) * (SCREEN_HEIGHT * wallScale / 2))
 	{
-		m_LifeLeft -= (int) (distanceFromCenterSquared - (SCREEN_HEIGHT * wallScale / 2) * (SCREEN_HEIGHT * wallScale / 2)) / 10000;
+		m_LifeLeft -= (int) (distanceFromCenterSquared - (SCREEN_HEIGHT * wallScale / 2) * (SCREEN_HEIGHT * wallScale / 2)) / 20000 + 1;
 
 		if (m_LifeLeft < 0)
 		{
