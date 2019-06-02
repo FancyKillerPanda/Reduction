@@ -102,6 +102,12 @@ Player::~Player()
 
 void Player::update(double dt, double wallScale)
 {
+	// Checks if dead
+	if (m_LifeLeft <= 0)
+	{
+		m_IsAlive = false;
+	}
+
 	if (m_Velocity < 0.0)
 	{
 		m_Velocity = 0.0;

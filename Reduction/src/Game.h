@@ -16,6 +16,7 @@ enum class GameState
 {
 	StartScreen,
 	Gameplay,
+	RoundOver,
 };
 
 enum class StartScreenPage

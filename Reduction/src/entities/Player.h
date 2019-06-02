@@ -62,6 +62,9 @@ private:
 	bool m_CooldownPowerup = false;
 	double m_BulletCooldownReduction = 0.0;
 
+	// Whether the player is alive
+	bool m_IsAlive = true;
+
 public:
 	Player(SDL_Renderer* renderer, PlayerColour colour, double posX, double posY, double direction);
 	~Player();
@@ -85,4 +88,5 @@ public:
 	SDL_Rect& getRect() { return m_Rect; }
 	std::vector<Bullet*>& getBullets() { return m_Bullets; }
 	int getLifeLeft() { return m_LifeLeft; }
+	bool isAlive() { return m_IsAlive; }
 };

@@ -166,43 +166,83 @@ void Game::handleGameplayEvents()
 			switch (m_Event.key.keysym.sym)
 			{
 			case SDLK_LEFT:
-				m_Players[0]->setRotationSpeed(-PLAYER_ROTATION_SPEED);
+				if (m_Players[0]->isAlive())
+				{
+					m_Players[0]->setRotationSpeed(-PLAYER_ROTATION_SPEED);
+				}
+
 				break;
 
 			case SDLK_RIGHT:
-				m_Players[0]->setRotationSpeed(PLAYER_ROTATION_SPEED);
+				if (m_Players[0]->isAlive())
+				{
+					m_Players[0]->setRotationSpeed(PLAYER_ROTATION_SPEED);
+				}
+
 				break;
 
 			case SDLK_UP:
-				m_Players[0]->setAcceleration(PLAYER_ACCELERATION);
+				if (m_Players[0]->isAlive())
+				{
+					m_Players[0]->setAcceleration(PLAYER_ACCELERATION);
+				}
+
 				break;
 
 			case SDLK_DOWN:
-				m_Players[0]->setAcceleration(-PLAYER_ACCELERATION * 2 / 3);
+				if (m_Players[0]->isAlive())
+				{
+					m_Players[0]->setAcceleration(-PLAYER_ACCELERATION * 2 / 3);
+				}
+
 				break;
 
 			case SDLK_SLASH:
-				m_Players[0]->spawnBullet();
+				if (m_Players[0]->isAlive())
+				{
+					m_Players[0]->spawnBullet();
+				}
+
 				break;
 
 			case SDLK_a:
-				m_Players[1]->setRotationSpeed(-PLAYER_ROTATION_SPEED);
+				if (m_Players[1]->isAlive())
+				{
+					m_Players[1]->setRotationSpeed(-PLAYER_ROTATION_SPEED);
+				}
+
 				break;
 
 			case SDLK_d:
-				m_Players[1]->setRotationSpeed(PLAYER_ROTATION_SPEED);
+				if (m_Players[1]->isAlive())
+				{
+					m_Players[1]->setRotationSpeed(PLAYER_ROTATION_SPEED);
+				}
+
 				break;
 
 			case SDLK_w:
-				m_Players[1]->setAcceleration(PLAYER_ACCELERATION);
+				if (m_Players[1]->isAlive())
+				{
+					m_Players[1]->setAcceleration(PLAYER_ACCELERATION);
+				}
+
 				break;
 
 			case SDLK_s:
-				m_Players[1]->setAcceleration(-PLAYER_ACCELERATION * 2 / 3);
+				if (m_Players[1]->isAlive())
+				{
+					m_Players[1]->setAcceleration(-PLAYER_ACCELERATION * 2 / 3);
+				}
+
 				break;
 
 			case SDLK_c:
-				m_Players[1]->spawnBullet();
+				if (m_Players[1]->isAlive())
+				{
+					m_Players[1]->spawnBullet();
+				}
+
 				break;
 			}
 
@@ -213,22 +253,38 @@ void Game::handleGameplayEvents()
 			{
 			case SDLK_LEFT:
 			case SDLK_RIGHT:
-				m_Players[0]->setRotationSpeed(0.0);
+				if (m_Players[0]->isAlive())
+				{
+					m_Players[0]->setRotationSpeed(0.0);
+				}
+
 				break;
 
 			case SDLK_UP:
 			case SDLK_DOWN:
-				m_Players[0]->setAcceleration(0.0);
+				if (m_Players[0]->isAlive())
+				{
+					m_Players[0]->setAcceleration(0.0);
+				}
+
 				break;
 
 			case SDLK_a:
 			case SDLK_d:
-				m_Players[1]->setRotationSpeed(0.0);
+				if (m_Players[1]->isAlive())
+				{
+					m_Players[1]->setRotationSpeed(0.0);
+				}
+
 				break;
 
 			case SDLK_w:
 			case SDLK_s:
-				m_Players[1]->setAcceleration(0.0);
+				if (m_Players[1]->isAlive())
+				{
+					m_Players[1]->setAcceleration(0.0);
+				}
+
 				break;
 			}
 
@@ -237,7 +293,10 @@ void Game::handleGameplayEvents()
 		case SDL_MOUSEBUTTONDOWN:
 			if (m_NumberOfPlayers == 3)
 			{
-				m_Players[2]->spawnBullet();
+				if (m_Players[2]->isAlive())
+				{
+					m_Players[2]->spawnBullet();
+				}
 			}
 
 			break;
@@ -253,36 +312,47 @@ void Game::updateGameplay()
 
 	if (m_NumberOfPlayers == 3)
 	{
-		int mouseX;
-		int mouseY;
-		SDL_GetMouseState(&mouseX, &mouseY);
-
-		int deltaX = mouseX - m_Players[2]->getRect().x;
-		int deltaY = mouseY - m_Players[2]->getRect().y;
-
-		if (deltaX * deltaX + deltaY * deltaY > 100)
+		if (m_Players[2]->isAlive())
 		{
-			m_Players[2]->setRotation(toDegrees(std::atan2(deltaY, deltaX)));
-			m_Players[2]->setAcceleration(PLAYER_ACCELERATION);
-		}
+			int mouseX;
+			int mouseY;
+			SDL_GetMouseState(&mouseX, &mouseY);
 
-		else
-		{
-			m_Players[2]->setVelocity(0.0);
+			int deltaX = mouseX - m_Players[2]->getRect().x;
+			int deltaY = mouseY - m_Players[2]->getRect().y;
+
+			if (deltaX * deltaX + deltaY * deltaY > 100)
+			{
+				m_Players[2]->setRotation(toDegrees(std::atan2(deltaY, deltaX)));
+				m_Players[2]->setAcceleration(PLAYER_ACCELERATION);
+			}
+
+			else
+			{
+				m_Players[2]->setVelocity(0.0);
+			}
 		}
 	}
 
 	// Updates players
 	for (Player* player : m_Players)
 	{
-		player->update(dt, m_WallScale);
-		player->updateBullets(dt);
+		if (player->isAlive())
+		{
+			player->update(dt, m_WallScale);
+			player->updateBullets(dt);
+		}
 	}
 
 	// Checks for collisions between player and bullet
 	for (unsigned int playerIndex = 0; playerIndex < m_Players.size(); playerIndex++)
 	{
 		Player* player = m_Players[playerIndex];
+
+		if (!player->isAlive())
+		{
+			continue;
+		}
 
 		for (Player* otherPlayer : m_Players)
 		{
@@ -307,14 +377,6 @@ void Game::updateGameplay()
 				}
 			}
 		}
-
-		if (player->getLifeLeft() == 0)
-		{
-			delete player;
-
-			m_Players.erase(m_Players.begin() + playerIndex);
-			playerIndex -= 1;
-		}
 	}
 
 	// Updates wall
@@ -337,7 +399,11 @@ void Game::drawGameplay()
 	// Draws players
 	for (Player* player : m_Players)
 	{
-		player->draw();
+		if (player->isAlive())
+		{
+			player->draw();
+		}
+
 		player->drawBullets();
 	}
 
