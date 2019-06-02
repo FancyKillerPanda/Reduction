@@ -21,3 +21,5 @@ constexpr unsigned int LIFE_BAR_HEIGHT = 15;
 constexpr double SPEED_POWERUP_COST = PLAYER_STARTING_LIFE * 0.15;
 constexpr double SPEED_POWERUP_BOOST = MAX_PLAYER_SPEED;
 constexpr double DRAG_REDUCTION = PLAYER_DRAG * 2 / 3;
+constexpr double BULLET_POWERUP_COST = PLAYER_STARTING_LIFE * 0.15;
+constexpr double BULLET_COOLDOWN_REDUCTION = BULLET_COOLDOWN * 0.2;

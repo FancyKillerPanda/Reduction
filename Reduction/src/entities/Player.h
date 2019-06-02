@@ -59,6 +59,7 @@ private:
 	bool m_AccuracyPowerup = false;
 	bool m_DamagePowerup = false;
 	bool m_CooldownPowerup = false;
+	double m_BulletCooldownReduction = 0.0;
 
 public:
 	Player(SDL_Renderer* renderer, PlayerColour colour, double posX, double posY, double direction);

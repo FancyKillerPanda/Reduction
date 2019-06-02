@@ -209,7 +209,7 @@ void Player::draw()
 
 void Player::spawnBullet()
 {
-	if (m_BulletCooldownTimer.getElapsed() >= BULLET_COOLDOWN)
+	if (m_BulletCooldownTimer.getElapsed() >= BULLET_COOLDOWN - m_BulletCooldownReduction)
 	{
 		m_BulletCooldownTimer.reset();
 		m_Bullets.push_back(new Bullet(m_Renderer, m_Direction, m_Rect.x + m_Rect.w / 2, m_Rect.y + m_Rect.h / 2));
@@ -295,7 +295,13 @@ void Player::setPowerups(bool speed, bool accuracy, bool damage, bool cooldown)
 	{
 		m_ExtraSpeed = SPEED_POWERUP_BOOST;
 		m_DragReduction = DRAG_REDUCTION;
-		m_LifeLeft -= SPEED_POWERUP_COST;
+		m_LifeLeft -= (int) SPEED_POWERUP_COST;
+	}
+
+	else if (m_CooldownPowerup)
+	{
+		m_BulletCooldownReduction = BULLET_COOLDOWN_REDUCTION;
+		m_LifeLeft -= (int) BULLET_POWERUP_COST;
 	}
 
 	updateLifeBar();
