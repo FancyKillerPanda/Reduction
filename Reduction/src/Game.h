@@ -21,7 +21,9 @@ enum class GameState
 enum class StartScreenPage
 {
 	NumberOfPlayersChoice,
-	PowerUp,
+	RedPowerUp,
+	BluePowerUp,
+	GreyPowerUp,
 };
 
 
@@ -87,6 +89,11 @@ private:
 	SDL_Texture* m_CooldownPowerupTexture;
 	SDL_Rect m_CooldownPowerupRect;
 	Button* m_CooldownPowerupButton;
+
+	// Text asking for powerups
+	Text m_RedPowerupsText;
+	Text m_BluePowerupsText;
+	Text m_GreyPowerupsText;
 
 private:
 	// Handles user input for gameplay state

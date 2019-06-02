@@ -445,6 +445,14 @@ void Game::initStartScreen()
 	m_CooldownPowerupRect.x = SCREEN_WIDTH * 3 / 4 - m_SpeedPowerupRect.w / 2;
 	m_CooldownPowerupRect.y = SCREEN_HEIGHT * 13 / 20 - m_SpeedPowerupRect.h / 2;
 
+	// Initialises powerups questions
+	m_RedPowerupsText.load("res/BM Space.TTF", "Red Player, what powerups would you like?", 18, SDL_Colour { 255, 0, 0, 255 }, m_Renderer);
+	m_RedPowerupsText.setStyle(TTF_STYLE_BOLD);
+	m_BluePowerupsText.load("res/BM Space.TTF", "Blue Player, what powerups would you like?", 18, SDL_Colour { 0, 0, 255, 255 }, m_Renderer);
+	m_BluePowerupsText.setStyle(TTF_STYLE_BOLD);
+	m_GreyPowerupsText.load("res/BM Space.TTF", "Grey Player, what powerups would you like?", 18, SDL_Colour { 127, 127, 127, 255 }, m_Renderer);
+	m_GreyPowerupsText.setStyle(TTF_STYLE_BOLD);
+
 	m_FrameTimer.reset();
 }
 
@@ -465,18 +473,39 @@ void Game::handleStartScreenEvents()
 				if (m_TwoPlayersButton->isMouseOver())
 				{
 					m_NumberOfPlayers = 2;
-					m_StartScreenPage = StartScreenPage::PowerUp;
+					m_StartScreenPage = StartScreenPage::RedPowerUp;
 				}
 
 				else if (m_ThreePlayersButton->isMouseOver())
 				{
 					m_NumberOfPlayers = 3;
-					m_StartScreenPage = StartScreenPage::PowerUp;
+					m_StartScreenPage = StartScreenPage::RedPowerUp;
 				}
 
 				break;
 
-			case StartScreenPage::PowerUp:
+			case StartScreenPage::RedPowerUp:
+				m_StartScreenPage = StartScreenPage::BluePowerUp;
+				break;
+
+			case StartScreenPage::BluePowerUp:
+				if (m_NextButton->isMouseOver())
+				{
+					if (m_NumberOfPlayers == 2)
+					{
+						m_GameState = GameState::Gameplay;
+						initGameplay();
+					}
+
+					else
+					{
+						m_StartScreenPage = StartScreenPage::GreyPowerUp;
+					}
+				}
+
+				break;
+
+			case StartScreenPage::GreyPowerUp:
 				if (m_NextButton->isMouseOver())
 				{
 					m_GameState = GameState::Gameplay;
@@ -504,7 +533,9 @@ void Game::updateStartScreen()
 
 		break;
 
-	case StartScreenPage::PowerUp:
+	case StartScreenPage::RedPowerUp:
+	case StartScreenPage::BluePowerUp:
+	case StartScreenPage::GreyPowerUp:
 		m_SpeedPowerupButton->update();
 		m_AccuracyPowerupButton->update();
 		m_DamagePowerupButton->update();
@@ -534,7 +565,9 @@ void Game::drawStartScreen()
 
 		break;
 
-	case StartScreenPage::PowerUp:
+	case StartScreenPage::RedPowerUp:
+	case StartScreenPage::BluePowerUp:
+	case StartScreenPage::GreyPowerUp:
 		m_ReductionText.draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT * 1 / 5);
 		m_NextButton->draw(SCREEN_WIDTH * 7 / 8, SCREEN_HEIGHT * 7 / 8);
 
@@ -547,6 +580,24 @@ void Game::drawStartScreen()
 		SDL_RenderCopy(m_Renderer, m_CooldownPowerupTexture, nullptr, &m_CooldownPowerupRect);
 		m_CooldownPowerupButton->draw(SCREEN_WIDTH * 3 / 4, SCREEN_HEIGHT * 15 / 20);
 
+		break;
+
+	default:
+		break;
+	}
+
+	switch (m_StartScreenPage)
+	{
+	case StartScreenPage::RedPowerUp:
+		m_RedPowerupsText.draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT * 7 / 8);
+		break;
+
+	case StartScreenPage::BluePowerUp:
+		m_BluePowerupsText.draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT * 7 / 8);
+		break;
+
+	case StartScreenPage::GreyPowerUp:
+		m_GreyPowerupsText.draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT * 7 / 8);
 		break;
 
 	default:
