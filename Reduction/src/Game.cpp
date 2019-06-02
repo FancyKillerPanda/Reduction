@@ -365,10 +365,10 @@ void Game::initStartScreen()
 	m_NextButton = new Button(m_Renderer, "-->");
 	m_TwoPlayersButton = new Button(m_Renderer, "Two Players");
 	m_ThreePlayersButton = new Button(m_Renderer, "Three Players");
-	m_SpeedPowerupButton = new Button(m_Renderer, "Speed Boost | 15% Life");
-	m_AccuracyPowerupButton = new Button(m_Renderer, "Accuracy Boost | 15% Life");
-	m_DamagePowerupButton = new Button(m_Renderer, "Damage Boost | 15% Life");
-	m_CooldownPowerupButton = new Button(m_Renderer, "Cooldown Time Reduced | 15% Life");
+	m_SpeedPowerupButton = new Button(m_Renderer, "Speed Boost (15% Life)");
+	m_AccuracyPowerupButton = new Button(m_Renderer, "Accuracy Boost (15% Life)");
+	m_DamagePowerupButton = new Button(m_Renderer, "Damage Boost (15% Life)");
+	m_CooldownPowerupButton = new Button(m_Renderer, "Cooldown Time Reduced (15% Life)");
 
 	// Makes powerup button smaller
 	m_SpeedPowerupButton->getText().setSize(16);
