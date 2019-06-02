@@ -255,6 +255,13 @@ void Player::drawBullets()
 
 void Player::takeHit(Bullet* bullet)
 {
+	// Knockback
+	m_PosX += std::cos(toRadians(bullet->getDirection())) * BULLET_KNOCKBACK;
+	m_PosY += std::sin(toRadians(bullet->getDirection())) * BULLET_KNOCKBACK;
+
+	m_Rect.x = (int) m_PosX;
+	m_Rect.y = (int) m_PosY;
+
 	if (bullet->doesExtraDamage())
 	{
 		m_LifeLeft -= (int) (PLAYER_HIT_DAMAGE + BULLET_EXTRA_DAMAGE);

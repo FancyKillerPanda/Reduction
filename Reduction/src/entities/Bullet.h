@@ -26,5 +26,6 @@ public:
 	void draw();
 
 	SDL_Rect& getRect() { return m_Rect; }
+	double getDirection() { return m_Direction; }
 	bool doesExtraDamage() { return m_DoesExtraDamage; }
 };
