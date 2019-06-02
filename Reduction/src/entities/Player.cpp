@@ -3,6 +3,7 @@
 #include "utils/Log.h"
 #include "utils/Settings.h"
 #include "utils/MathUtils.h"
+#include "utils/Random.h"
 
 
 Player::Player(SDL_Renderer* renderer, PlayerColour colour, double posX, double posY, double direction)
@@ -213,14 +214,16 @@ void Player::spawnBullet()
 	{
 		m_BulletCooldownTimer.reset();
 
+		double directionOffset = Random::randdouble(-BULLET_DIRECTION_OFFSET, BULLET_DIRECTION_OFFSET);
+
 		if (m_DamagePowerup)
 		{
-			m_Bullets.push_back(new Bullet(m_Renderer, m_Direction, m_Rect.x + m_Rect.w / 2, m_Rect.y + m_Rect.h / 2, true));
+			m_Bullets.push_back(new Bullet(m_Renderer, m_Direction + directionOffset, m_Rect.x + m_Rect.w / 2, m_Rect.y + m_Rect.h / 2, true));
 		}
 
 		else
 		{
-			m_Bullets.push_back(new Bullet(m_Renderer, m_Direction, m_Rect.x + m_Rect.w / 2, m_Rect.y + m_Rect.h / 2));
+			m_Bullets.push_back(new Bullet(m_Renderer, m_Direction + directionOffset, m_Rect.x + m_Rect.w / 2, m_Rect.y + m_Rect.h / 2));
 		}
 	}
 }

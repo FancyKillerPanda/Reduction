@@ -14,6 +14,7 @@ constexpr double PLAYER_HIT_DAMAGE = 2000;
 
 constexpr double BULLET_SPEED = 500;
 constexpr double BULLET_COOLDOWN = 250;
+constexpr double BULLET_DIRECTION_OFFSET = 10;
 
 constexpr unsigned int LIFE_BAR_FULL_WIDTH = 150;
 constexpr unsigned int LIFE_BAR_HEIGHT = 15;

@@ -95,6 +95,7 @@
     <ClCompile Include="src\gfx\Button.cpp" />
     <ClCompile Include="src\gfx\Text.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\utils\Random.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\entities\Bullet.h" />
@@ -104,6 +105,7 @@
     <ClInclude Include="src\gfx\Text.h" />
     <ClInclude Include="src\utils\Log.h" />
     <ClInclude Include="src\utils\MathUtils.h" />
+    <ClInclude Include="src\utils\Random.h" />
     <ClInclude Include="src\utils\Settings.h" />
     <ClInclude Include="src\utils\Timer.h" />
   </ItemGroup>

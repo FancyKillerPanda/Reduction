@@ -3,6 +3,7 @@
 #include "utils/Settings.h"
 #include "utils/Log.h"
 #include "utils/MathUtils.h"
+#include "utils/Random.h"
 
 
 Game::Game()
@@ -24,6 +25,9 @@ Game::Game()
 
 		return;
 	}
+
+	// Initialises the random generator
+	Random::init();
 
 	// Creates window
 	m_Window = SDL_CreateWindow("Reduction", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
