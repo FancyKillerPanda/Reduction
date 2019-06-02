@@ -357,16 +357,6 @@ void Game::initStartScreen()
 	// Sets blending mode
 	SDL_SetRenderDrawBlendMode(m_Renderer, SDL_BLENDMODE_BLEND);
 
-	// Initialises the players
-	m_Players.push_back(new Player(m_Renderer, PlayerColour::Red, (SCREEN_WIDTH / 2) - (SCREEN_HEIGHT / 2) + 40, SCREEN_HEIGHT / 2, 270));
-	m_Players.push_back(new Player(m_Renderer, PlayerColour::Blue, (SCREEN_WIDTH / 2) + (SCREEN_HEIGHT / 2) - 40, SCREEN_HEIGHT / 2, 90));
-
-	if (m_NumberOfPlayers == 3)
-	{
-		m_Players.push_back(new Player(m_Renderer, PlayerColour::Grey, SCREEN_WIDTH / 2, SCREEN_HEIGHT - 40, 180));
-		m_Players[2]->setAcceleration(PLAYER_ACCELERATION);
-	}
-
 	// Initialises header text
 	m_ReductionText.load("res/SPACEMAN.TTF", "reduction", 56, SDL_Color { 255, 255, 255, 255 }, m_Renderer);
 	m_ReductionText.setStyle(TTF_STYLE_BOLD, false);
@@ -490,12 +480,16 @@ void Game::handleStartScreenEvents()
 				{
 					m_NumberOfPlayers = 2;
 					m_StartScreenPage = StartScreenPage::RedPowerUp;
+
+					initPlayers();
 				}
 
 				else if (m_ThreePlayersButton->isMouseOver())
 				{
 					m_NumberOfPlayers = 3;
 					m_StartScreenPage = StartScreenPage::RedPowerUp;
+
+					initPlayers();
 				}
 
 				break;
@@ -703,6 +697,19 @@ void Game::drawStartScreen()
 	}
 
 	SDL_RenderPresent(m_Renderer);
+}
+
+void Game::initPlayers()
+{
+	// Initialises the players
+	m_Players.push_back(new Player(m_Renderer, PlayerColour::Red, (SCREEN_WIDTH / 2) - (SCREEN_HEIGHT / 2) + 40, SCREEN_HEIGHT / 2, 270));
+	m_Players.push_back(new Player(m_Renderer, PlayerColour::Blue, (SCREEN_WIDTH / 2) + (SCREEN_HEIGHT / 2) - 40, SCREEN_HEIGHT / 2, 90));
+
+	if (m_NumberOfPlayers == 3)
+	{
+		m_Players.push_back(new Player(m_Renderer, PlayerColour::Grey, SCREEN_WIDTH / 2, SCREEN_HEIGHT - 40, 180));
+		m_Players[2]->setAcceleration(PLAYER_ACCELERATION);
+	}
 }
 
 

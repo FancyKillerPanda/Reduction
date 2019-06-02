@@ -127,6 +127,7 @@ private:
 	// Initialises the different states
 	void initStartScreen();
 	void initGameplay();
+	void initPlayers();
 
 public:
 	Game();

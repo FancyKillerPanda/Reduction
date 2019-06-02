@@ -35,7 +35,7 @@
 - [x] Add powerup purchasing on start screen
 - [x] Make powerups affect gameplay
 - [x] Show life left at top of screen
-- [ ] Implement knockback on each hit
+- [x] Implement knockback on each hit
 - [ ] Add a win counter
 - [ ] Implement choosing between short/medium/long games
 - [ ] Add game over screen
