@@ -95,6 +95,13 @@ private:
 	Text m_BluePowerupsText;
 	Text m_GreyPowerupsText;
 
+	// What powerups have been chosen
+	bool m_SpeedPowerupChosen = false;
+	bool m_AccuracyPowerupChosen = false;
+	bool m_DamagePowerupChosen = false;
+	bool m_CooldownPowerupChosen = false;
+	SDL_Color m_PowerupChoosingColour;
+
 private:
 	// Handles user input for gameplay state
 	void handleStartScreenEvents();

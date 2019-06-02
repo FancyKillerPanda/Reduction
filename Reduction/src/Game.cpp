@@ -354,6 +354,9 @@ void Game::drawGameplay()
 
 void Game::initStartScreen()
 {
+	// Sets blending mode
+	SDL_SetRenderDrawBlendMode(m_Renderer, SDL_BLENDMODE_BLEND);
+
 	// Initialises header text
 	m_ReductionText.load("res/SPACEMAN.TTF", "reduction", 56, SDL_Color { 255, 255, 255, 255 }, m_Renderer);
 	m_ReductionText.setStyle(TTF_STYLE_BOLD, false);
@@ -453,6 +456,9 @@ void Game::initStartScreen()
 	m_GreyPowerupsText.load("res/BM Space.TTF", "Grey Player, what powerups would you like?", 18, SDL_Colour { 127, 127, 127, 255 }, m_Renderer);
 	m_GreyPowerupsText.setStyle(TTF_STYLE_BOLD);
 
+	// Current colour selecting powerups (red)
+	m_PowerupChoosingColour = SDL_Color { 255, 0, 0, 255 };
+
 	m_FrameTimer.reset();
 }
 
@@ -485,7 +491,18 @@ void Game::handleStartScreenEvents()
 				break;
 
 			case StartScreenPage::RedPowerUp:
-				m_StartScreenPage = StartScreenPage::BluePowerUp;
+				if (m_NextButton->isMouseOver())
+				{
+					m_StartScreenPage = StartScreenPage::BluePowerUp;
+
+					m_SpeedPowerupChosen = false;
+					m_AccuracyPowerupChosen = false;
+					m_DamagePowerupChosen = false;
+					m_CooldownPowerupChosen = false;
+
+					m_PowerupChoosingColour = SDL_Color { 0, 0, 255, 255 };
+				}
+
 				break;
 
 			case StartScreenPage::BluePowerUp:
@@ -500,6 +517,13 @@ void Game::handleStartScreenEvents()
 					else
 					{
 						m_StartScreenPage = StartScreenPage::GreyPowerUp;
+
+						m_SpeedPowerupChosen = false;
+						m_AccuracyPowerupChosen = false;
+						m_DamagePowerupChosen = false;
+						m_CooldownPowerupChosen = false;
+
+						m_PowerupChoosingColour = SDL_Color { 127, 127, 127, 255 };
 					}
 				}
 
@@ -516,6 +540,31 @@ void Game::handleStartScreenEvents()
 
 			default:
 				break;
+			}
+
+			if (m_StartScreenPage == StartScreenPage::RedPowerUp ||
+				m_StartScreenPage == StartScreenPage::BluePowerUp ||
+				m_StartScreenPage == StartScreenPage::GreyPowerUp)
+			{
+				if (m_SpeedPowerupButton->isMouseOver())
+				{
+					m_SpeedPowerupChosen = !m_SpeedPowerupChosen;
+				}
+
+				else if (m_AccuracyPowerupButton->isMouseOver())
+				{
+					m_AccuracyPowerupChosen = !m_AccuracyPowerupChosen;
+				}
+
+				else if (m_DamagePowerupButton->isMouseOver())
+				{
+					m_DamagePowerupChosen = !m_DamagePowerupChosen;
+				}
+
+				else if (m_CooldownPowerupButton->isMouseOver())
+				{
+					m_CooldownPowerupChosen = !m_CooldownPowerupChosen;
+				}
 			}
 
 			break;
@@ -570,6 +619,30 @@ void Game::drawStartScreen()
 	case StartScreenPage::GreyPowerUp:
 		m_ReductionText.draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT * 1 / 5);
 		m_NextButton->draw(SCREEN_WIDTH * 7 / 8, SCREEN_HEIGHT * 7 / 8);
+
+		if (m_SpeedPowerupChosen)
+		{
+			SDL_SetRenderDrawColor(m_Renderer, m_PowerupChoosingColour.r, m_PowerupChoosingColour.g, m_PowerupChoosingColour.b, 127);
+			SDL_RenderFillRect(m_Renderer, &m_SpeedPowerupRect);
+		}
+
+		if (m_AccuracyPowerupChosen)
+		{
+			SDL_SetRenderDrawColor(m_Renderer, m_PowerupChoosingColour.r, m_PowerupChoosingColour.g, m_PowerupChoosingColour.b, 127);
+			SDL_RenderFillRect(m_Renderer, &m_AccuracyPowerupRect);
+		}
+
+		if (m_DamagePowerupChosen)
+		{
+			SDL_SetRenderDrawColor(m_Renderer, m_PowerupChoosingColour.r, m_PowerupChoosingColour.g, m_PowerupChoosingColour.b, 127);
+			SDL_RenderFillRect(m_Renderer, &m_DamagePowerupRect);
+		}
+
+		if (m_CooldownPowerupChosen)
+		{
+			SDL_SetRenderDrawColor(m_Renderer, m_PowerupChoosingColour.r, m_PowerupChoosingColour.g, m_PowerupChoosingColour.b, 127);
+			SDL_RenderFillRect(m_Renderer, &m_CooldownPowerupRect);
+		}
 
 		SDL_RenderCopy(m_Renderer, m_SpeedPowerupTexture, nullptr, &m_SpeedPowerupRect);
 		m_SpeedPowerupButton->draw(SCREEN_WIDTH / 4, SCREEN_HEIGHT * 7 / 20);
