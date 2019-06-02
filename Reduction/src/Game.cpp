@@ -93,6 +93,15 @@ void Game::run()
 			handleGameplayEvents();
 			updateGameplay();
 			drawGameplay();
+
+			break;
+
+		case GameState::RoundOver:
+			handleRoundOverEvents();
+			updateRoundOver();
+			drawRoundOver();
+
+			break;
 		}
 	}
 }
@@ -387,6 +396,24 @@ void Game::updateGameplay()
 		m_WallRect.h = (int) (m_OriginalWallHeight * m_WallScale);
 	}
 
+	// Checks for end of game
+	if (m_NumberOfPlayers == 2)
+	{
+		if ((int) m_Players[0]->isAlive() + (int) m_Players[1]->isAlive() == 1)
+		{
+			m_GameState = GameState::RoundOver;
+			initRoundOver();
+		}
+	}
+
+	else
+	{
+		if ((int) m_Players[0]->isAlive() + (int) m_Players[1]->isAlive() + (int) m_Players[2]->isAlive() == 1)
+		{
+			m_GameState = GameState::RoundOver;
+			initRoundOver();
+		}
+	}
 }
 
 void Game::drawGameplay()
@@ -765,6 +792,36 @@ void Game::drawStartScreen()
 	SDL_RenderPresent(m_Renderer);
 }
 
+
+void Game::initRoundOver()
+{
+}
+
+void Game::handleRoundOverEvents()
+{
+	while (SDL_PollEvent(&m_Event))
+	{
+		switch (m_Event.type)
+		{
+		case SDL_QUIT:
+			m_Running = false;
+			break;
+		}
+	}
+}
+
+void Game::updateRoundOver()
+{
+}
+
+void Game::drawRoundOver()
+{
+	SDL_RenderClear(m_Renderer);
+
+	SDL_RenderPresent(m_Renderer);
+}
+
+
 void Game::initPlayers()
 {
 	// Initialises the players
@@ -777,7 +834,6 @@ void Game::initPlayers()
 		m_Players[2]->setAcceleration(PLAYER_ACCELERATION);
 	}
 }
-
 
 void Game::drawLoadingScreen()
 {

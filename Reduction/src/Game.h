@@ -108,13 +108,17 @@ private:
 	bool m_IsOnLoadingScreen = false;
 
 private:
-	// Handles user input for gameplay state
+	// Initialises the start screen
+	void initStartScreen();
+	// Handles user input for start screen state
 	void handleStartScreenEvents();
-	// Updates the gameplay
+	// Updates the start screen
 	void updateStartScreen();
-	// Renders gameplay to the screen
+	// Renders start screen page to the screen
 	void drawStartScreen();
 
+	// Initialises the gameplay state
+	void initGameplay();
 	// Handles user input for gameplay state
 	void handleGameplayEvents();
 	// Updates the gameplay
@@ -122,12 +126,19 @@ private:
 	// Renders gameplay to the screen
 	void drawGameplay();
 
+	// Initialises the round over state
+	void initRoundOver();
+	// Handles user input for round over state
+	void handleRoundOverEvents();
+	// Updates the round over state
+	void updateRoundOver();
+	// Renders round over state to the screen
+	void drawRoundOver();
+
 	// Draws the loading screen
 	void drawLoadingScreen();
 
-	// Initialises the different states
-	void initStartScreen();
-	void initGameplay();
+	// Initialises the players
 	void initPlayers();
 
 public:
