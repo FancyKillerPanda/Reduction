@@ -295,5 +295,8 @@ void Player::setPowerups(bool speed, bool accuracy, bool damage, bool cooldown)
 	{
 		m_ExtraSpeed = SPEED_POWERUP_BOOST;
 		m_DragReduction = DRAG_REDUCTION;
+		m_LifeLeft -= SPEED_POWERUP_COST;
 	}
+
+	updateLifeBar();
 }
