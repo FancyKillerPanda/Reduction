@@ -102,6 +102,10 @@ private:
 	bool m_CooldownPowerupChosen = false;
 	SDL_Color m_PowerupChoosingColour;
 
+	// Loading screen
+	Text m_LoadingText;
+	bool m_IsOnLoadingScreen = false;
+
 private:
 	// Handles user input for gameplay state
 	void handleStartScreenEvents();
@@ -116,6 +120,9 @@ private:
 	void updateGameplay();
 	// Renders gameplay to the screen
 	void drawGameplay();
+
+	// Draws the loading screen
+	void drawLoadingScreen();
 
 	// Initialises the different states
 	void initStartScreen();

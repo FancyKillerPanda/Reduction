@@ -54,6 +54,9 @@ Game::Game()
 	// Sets the clear colour
 	SDL_SetRenderDrawColor(m_Renderer, 0, 0, 0, 255);
 
+	// Sets up loading screen text
+	m_LoadingText.load("res/SPACEMAN.TTF", "loading...", 56, SDL_Color { 255, 255, 255, 255 }, m_Renderer);
+
 	initStartScreen();
 	m_FrameTimer.reset();
 }
@@ -97,6 +100,9 @@ void Game::run()
 
 void Game::initGameplay()
 {
+	// Draws loading screen
+	drawLoadingScreen();
+
 	// Loads wall texture
 	m_WallTexture = IMG_LoadTexture(m_Renderer, "res/Wall Mask.png");
 
@@ -613,6 +619,12 @@ void Game::updateStartScreen()
 
 void Game::drawStartScreen()
 {
+	if (m_IsOnLoadingScreen)
+	{
+		m_IsOnLoadingScreen = false;
+		return;
+	}
+
 	SDL_RenderClear(m_Renderer);
 
 	// Draws background
@@ -690,5 +702,16 @@ void Game::drawStartScreen()
 		break;
 	}
 
+	SDL_RenderPresent(m_Renderer);
+}
+
+
+void Game::drawLoadingScreen()
+{
+	m_IsOnLoadingScreen = true;
+
+	SDL_RenderClear(m_Renderer);
+	SDL_RenderCopy(m_Renderer, m_SpaceBackgroundTexture, nullptr, &m_SpaceBackgroundRect);
+	m_LoadingText.draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 	SDL_RenderPresent(m_Renderer);
 }
