@@ -33,7 +33,7 @@
 - [x] Make life drain faster when further out
 - [x] Add start screen
 - [x] Add powerup purchasing on start screen
-- [ ] Make powerups affect gameplay
+- [x] Make powerups affect gameplay
 - [x] Show life left at top of screen
 - [ ] Implement knockback on each hit
 - [ ] Add a win counter

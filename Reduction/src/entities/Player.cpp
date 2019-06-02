@@ -318,18 +318,18 @@ void Player::setPowerups(bool speed, bool accuracy, bool damage, bool cooldown)
 		m_LifeLeft -= (int) SPEED_POWERUP_COST;
 	}
 
-	else if (m_AccuracyPowerup)
+	if (m_AccuracyPowerup)
 	{
 		m_BulletDirectionOffsetMax = ACCURACY_BULLET_OFFSET_MAX;
 		m_LifeLeft -= (int) ACCURACY_POWERUP_COST;
 	}
 
-	else if (m_DamagePowerup)
+	if (m_DamagePowerup)
 	{
 		m_LifeLeft -= (int) BULLET_DAMAGE_POWERUP_COST;
 	}
 
-	else if (m_CooldownPowerup)
+	if (m_CooldownPowerup)
 	{
 		m_BulletCooldownReduction = BULLET_COOLDOWN_REDUCTION;
 		m_LifeLeft -= (int) BULLET_POWERUP_COST;
