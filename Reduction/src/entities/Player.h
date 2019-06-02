@@ -71,7 +71,7 @@ public:
 	void spawnBullet();
 	void updateBullets(double dt);
 	void drawBullets();
-	void takeHit();
+	void takeHit(Bullet* bullet);
 	void updateLifeBar();
 
 	void setRotationSpeed(double value) { m_RotationSpeed = value; }

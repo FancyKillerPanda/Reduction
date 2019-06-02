@@ -16,11 +16,15 @@ private:
 	double m_Direction = 0.0;
 	double m_PosX = 0.0, m_PosY = 0.0;
 
+	// Does extra damage when power-up used
+	bool m_DoesExtraDamage = false;
+
 public:
-	Bullet(SDL_Renderer* renderer, double direction, double posX, double posY);
+	Bullet(SDL_Renderer* renderer, double direction, double posX, double posY, bool doesExtraDamage = false);
 
 	bool update(double dt);
 	void draw();
 
 	SDL_Rect& getRect() { return m_Rect; }
+	bool doesExtraDamage() { return m_DoesExtraDamage; }
 };

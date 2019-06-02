@@ -5,8 +5,8 @@
 #include "utils/Log.h"
 
 
-Bullet::Bullet(SDL_Renderer* renderer, double direction, double posX, double posY)
-	: m_Renderer(renderer), m_Direction(direction), m_PosX(posX), m_PosY(posY)
+Bullet::Bullet(SDL_Renderer* renderer, double direction, double posX, double posY, bool doesExtraDamage)
+	: m_Renderer(renderer), m_Direction(direction), m_PosX(posX), m_PosY(posY), m_DoesExtraDamage(doesExtraDamage)
 {
 	m_Texture = IMG_LoadTexture(m_Renderer, "res/Bullet.png");
 

@@ -287,13 +287,13 @@ void Game::updateGameplay()
 
 				if (SDL_HasIntersection(&player->getRect(), &bullet->getRect()))
 				{
+					player->takeHit(bullet);
+
 					delete bullet;
 
 					// Removes the bullet from the vector
 					otherPlayer->getBullets().erase(otherPlayer->getBullets().begin() + bulletIndex);
 					bulletIndex -= 1;
-
-					player->takeHit();
 				}
 			}
 		}

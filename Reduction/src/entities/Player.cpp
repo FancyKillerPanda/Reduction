@@ -212,7 +212,16 @@ void Player::spawnBullet()
 	if (m_BulletCooldownTimer.getElapsed() >= BULLET_COOLDOWN - m_BulletCooldownReduction)
 	{
 		m_BulletCooldownTimer.reset();
-		m_Bullets.push_back(new Bullet(m_Renderer, m_Direction, m_Rect.x + m_Rect.w / 2, m_Rect.y + m_Rect.h / 2));
+
+		if (m_DamagePowerup)
+		{
+			m_Bullets.push_back(new Bullet(m_Renderer, m_Direction, m_Rect.x + m_Rect.w / 2, m_Rect.y + m_Rect.h / 2, true));
+		}
+
+		else
+		{
+			m_Bullets.push_back(new Bullet(m_Renderer, m_Direction, m_Rect.x + m_Rect.w / 2, m_Rect.y + m_Rect.h / 2));
+		}
 	}
 }
 
@@ -241,9 +250,17 @@ void Player::drawBullets()
 	}
 }
 
-void Player::takeHit()
+void Player::takeHit(Bullet* bullet)
 {
-	m_LifeLeft -= (int) PLAYER_HIT_DAMAGE;
+	if (bullet->doesExtraDamage())
+	{
+		m_LifeLeft -= (int) PLAYER_HIT_DAMAGE + BULLET_EXTRA_DAMAGE;
+	}
+
+	else
+	{
+		m_LifeLeft -= (int) PLAYER_HIT_DAMAGE;
+	}
 
 	if (m_LifeLeft < 0)
 	{
@@ -296,6 +313,11 @@ void Player::setPowerups(bool speed, bool accuracy, bool damage, bool cooldown)
 		m_ExtraSpeed = SPEED_POWERUP_BOOST;
 		m_DragReduction = DRAG_REDUCTION;
 		m_LifeLeft -= (int) SPEED_POWERUP_COST;
+	}
+
+	else if (m_DamagePowerup)
+	{
+		m_LifeLeft -= (int) BULLET_DAMAGE_POWERUP_COST;
 	}
 
 	else if (m_CooldownPowerup)
