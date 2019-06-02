@@ -74,6 +74,20 @@ private:
 	bool m_StartScreenInitialised = false;
 	bool m_GameplayInitialised = false;
 
+	// Powerups
+	SDL_Texture* m_SpeedPowerupTexture;
+	SDL_Rect m_SpeedPowerupRect;
+	Button* m_SpeedPowerupButton;
+	SDL_Texture* m_AccuracyPowerupTexture;
+	SDL_Rect m_AccuracyPowerupRect;
+	Button* m_AccuracyPowerupButton;
+	SDL_Texture* m_DamagePowerupTexture;
+	SDL_Rect m_DamagePowerupRect;
+	Button* m_DamagePowerupButton;
+	SDL_Texture* m_CooldownPowerupTexture;
+	SDL_Rect m_CooldownPowerupRect;
+	Button* m_CooldownPowerupButton;
+
 private:
 	// Handles user input for gameplay state
 	void handleStartScreenEvents();

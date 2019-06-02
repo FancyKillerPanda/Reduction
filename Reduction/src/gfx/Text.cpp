@@ -124,6 +124,19 @@ void Text::setSize(unsigned int size, bool update)
 
 	m_Size = size;
 
+	// Closes the old font
+	TTF_CloseFont(m_Font);
+
+	// Loads the font
+	m_Font = TTF_OpenFont(m_FontPath, size);
+
+	// Error checking for font
+	if (m_Font == nullptr)
+	{
+		error("Could not load font (filepath: ", m_FontPath, ").\nSDLError: ", SDL_GetError());
+		return;
+	}
+
 	if (update)
 	{
 		updateTexture();

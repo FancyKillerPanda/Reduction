@@ -356,12 +356,22 @@ void Game::initStartScreen()
 {
 	// Initialises header text
 	m_ReductionText.load("res/SPACEMAN.TTF", "reduction", 56, SDL_Color { 255, 255, 255, 255 }, m_Renderer);
-	m_ReductionText.setStyle(TTF_STYLE_BOLD);
+	m_ReductionText.setStyle(TTF_STYLE_BOLD, false);
 
 	// Initialises buttons
 	m_NextButton = new Button(m_Renderer, "-->");
 	m_TwoPlayersButton = new Button(m_Renderer, "Two Players");
 	m_ThreePlayersButton = new Button(m_Renderer, "Three Players");
+	m_SpeedPowerupButton = new Button(m_Renderer, "Speed Boost | 15% Life");
+	m_AccuracyPowerupButton = new Button(m_Renderer, "Accuracy Boost | 15% Life");
+	m_DamagePowerupButton = new Button(m_Renderer, "Damage Boost | 15% Life");
+	m_CooldownPowerupButton = new Button(m_Renderer, "Cooldown Time Reduced | 15% Life");
+
+	// Makes powerup button smaller
+	m_SpeedPowerupButton->getText().setSize(16);
+	m_AccuracyPowerupButton->getText().setSize(16);
+	m_DamagePowerupButton->getText().setSize(16);
+	m_CooldownPowerupButton->getText().setSize(16);
 
 	m_StartScreenPage = StartScreenPage::NumberOfPlayersChoice;
 	m_StartScreenInitialised = true;
@@ -387,6 +397,53 @@ void Game::initStartScreen()
 
 	m_SpaceBackgroundRect.w = SCREEN_WIDTH;
 	m_SpaceBackgroundRect.h = SCREEN_HEIGHT;
+
+	// Powerup textures
+	m_SpeedPowerupTexture = IMG_LoadTexture(m_Renderer, "res/Bolt.png");
+	m_AccuracyPowerupTexture = IMG_LoadTexture(m_Renderer, "res/Crosshairs.png");
+	m_DamagePowerupTexture = IMG_LoadTexture(m_Renderer, "res/Heart.png");
+	m_CooldownPowerupTexture = IMG_LoadTexture(m_Renderer, "res/Stopwatch.png");
+
+	if (!(m_SpeedPowerupTexture && m_AccuracyPowerupTexture && m_DamagePowerupTexture && m_CooldownPowerupTexture))
+	{
+		error("Could not load power-up texture.\nSDL_Error: ", SDL_GetError());
+		m_Running = false;
+
+		return;
+	}
+
+	if (
+		SDL_QueryTexture(m_SpeedPowerupTexture, nullptr, nullptr, &m_SpeedPowerupRect.w, &m_SpeedPowerupRect.h) != 0 ||
+		SDL_QueryTexture(m_AccuracyPowerupTexture, nullptr, nullptr, &m_AccuracyPowerupRect.w, &m_AccuracyPowerupRect.h) != 0 ||
+		SDL_QueryTexture(m_DamagePowerupTexture, nullptr, nullptr, &m_DamagePowerupRect.w, &m_DamagePowerupRect.h) != 0 ||
+		SDL_QueryTexture(m_CooldownPowerupTexture, nullptr, nullptr, &m_CooldownPowerupRect.w, &m_CooldownPowerupRect.h) != 0
+		)
+	{
+		error("Power-up texture is invalid.\nSDL_Error: ", SDL_GetError());
+		m_Running = false;
+
+		return;
+	}
+
+	m_SpeedPowerupRect.w = 64;
+	m_SpeedPowerupRect.h = 64;
+	m_SpeedPowerupRect.x = SCREEN_WIDTH / 4 - m_SpeedPowerupRect.w / 2;
+	m_SpeedPowerupRect.y = SCREEN_HEIGHT * 9 / 20 - m_SpeedPowerupRect.h / 2;
+
+	m_AccuracyPowerupRect.w = 64;
+	m_AccuracyPowerupRect.h = 64;
+	m_AccuracyPowerupRect.x = SCREEN_WIDTH / 4 - m_SpeedPowerupRect.w / 2;
+	m_AccuracyPowerupRect.y = SCREEN_HEIGHT * 13 / 20 - m_SpeedPowerupRect.h / 2;
+
+	m_DamagePowerupRect.w = 64;
+	m_DamagePowerupRect.h = 64;
+	m_DamagePowerupRect.x = SCREEN_WIDTH * 3 / 4 - m_SpeedPowerupRect.w / 2;
+	m_DamagePowerupRect.y = SCREEN_HEIGHT * 9 / 20 - m_SpeedPowerupRect.h / 2;
+
+	m_CooldownPowerupRect.w = 64;
+	m_CooldownPowerupRect.h = 64;
+	m_CooldownPowerupRect.x = SCREEN_WIDTH * 3 / 4 - m_SpeedPowerupRect.w / 2;
+	m_CooldownPowerupRect.y = SCREEN_HEIGHT * 13 / 20 - m_SpeedPowerupRect.h / 2;
 
 	m_FrameTimer.reset();
 }
@@ -448,7 +505,12 @@ void Game::updateStartScreen()
 		break;
 
 	case StartScreenPage::PowerUp:
+		m_SpeedPowerupButton->update();
+		m_AccuracyPowerupButton->update();
+		m_DamagePowerupButton->update();
+		m_CooldownPowerupButton->update();
 		m_NextButton->update();
+
 		break;
 
 	default:
@@ -475,6 +537,16 @@ void Game::drawStartScreen()
 	case StartScreenPage::PowerUp:
 		m_ReductionText.draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT * 1 / 5);
 		m_NextButton->draw(SCREEN_WIDTH * 7 / 8, SCREEN_HEIGHT * 7 / 8);
+
+		SDL_RenderCopy(m_Renderer, m_SpeedPowerupTexture, nullptr, &m_SpeedPowerupRect);
+		m_SpeedPowerupButton->draw(SCREEN_WIDTH / 4, SCREEN_HEIGHT * 7 / 20);
+		SDL_RenderCopy(m_Renderer, m_AccuracyPowerupTexture, nullptr, &m_AccuracyPowerupRect);
+		m_AccuracyPowerupButton->draw(SCREEN_WIDTH / 4, SCREEN_HEIGHT * 15 / 20);
+		SDL_RenderCopy(m_Renderer, m_DamagePowerupTexture, nullptr, &m_DamagePowerupRect);
+		m_DamagePowerupButton->draw(SCREEN_WIDTH * 3 / 4, SCREEN_HEIGHT * 7 / 20);
+		SDL_RenderCopy(m_Renderer, m_CooldownPowerupTexture, nullptr, &m_CooldownPowerupRect);
+		m_CooldownPowerupButton->draw(SCREEN_WIDTH * 3 / 4, SCREEN_HEIGHT * 15 / 20);
+
 		break;
 
 	default:
