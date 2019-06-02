@@ -17,3 +17,6 @@ constexpr double BULLET_COOLDOWN = 250;
 
 constexpr unsigned int LIFE_BAR_FULL_WIDTH = 150;
 constexpr unsigned int LIFE_BAR_HEIGHT = 15;
+
+constexpr double SPEED_POWERUP_BOOST = MAX_PLAYER_SPEED;
+constexpr double DRAG_REDUCTION = PLAYER_DRAG * 2 / 3;

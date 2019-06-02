@@ -52,6 +52,14 @@ private:
 	SDL_Rect m_LifeBarRect;
 	SDL_Rect m_LifeBarOutlineRect;
 
+	// Powerups
+	bool m_SpeedPowerup = false;
+	double m_ExtraSpeed = 0.0;
+	double m_DragReduction = 0.0;
+	bool m_AccuracyPowerup = false;
+	bool m_DamagePowerup = false;
+	bool m_CooldownPowerup = false;
+
 public:
 	Player(SDL_Renderer* renderer, PlayerColour colour, double posX, double posY, double direction);
 	~Player();
@@ -70,6 +78,7 @@ public:
 	void setCenter(double x, double y) { m_PosX = x - m_Rect.w / 2; m_PosY = y - m_Rect.h / 2; }
 	void setRotation(double value) { m_Direction = value; }
 	void setVelocity(double value) { m_Velocity = value; }
+	void setPowerups(bool speed, bool accuracy, bool damage, bool cooldown);
 
 	SDL_Rect& getRect() { return m_Rect; }
 	std::vector<Bullet*>& getBullets() { return m_Bullets; }

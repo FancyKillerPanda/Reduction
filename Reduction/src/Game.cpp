@@ -93,16 +93,6 @@ void Game::run()
 
 void Game::initGameplay()
 {
-	// Initialises the players
-	m_Players.push_back(new Player(m_Renderer, PlayerColour::Red, (SCREEN_WIDTH / 2) - (SCREEN_HEIGHT / 2) + 40, SCREEN_HEIGHT / 2, 270));
-	m_Players.push_back(new Player(m_Renderer, PlayerColour::Blue, (SCREEN_WIDTH / 2) + (SCREEN_HEIGHT / 2) - 40, SCREEN_HEIGHT / 2, 90));
-
-	if (m_NumberOfPlayers == 3)
-	{
-		m_Players.push_back(new Player(m_Renderer, PlayerColour::Grey, SCREEN_WIDTH / 2, SCREEN_HEIGHT - 40, 180));
-		m_Players[2]->setAcceleration(PLAYER_ACCELERATION);
-	}
-
 	// Loads wall texture
 	m_WallTexture = IMG_LoadTexture(m_Renderer, "res/Wall Mask.png");
 
@@ -357,6 +347,16 @@ void Game::initStartScreen()
 	// Sets blending mode
 	SDL_SetRenderDrawBlendMode(m_Renderer, SDL_BLENDMODE_BLEND);
 
+	// Initialises the players
+	m_Players.push_back(new Player(m_Renderer, PlayerColour::Red, (SCREEN_WIDTH / 2) - (SCREEN_HEIGHT / 2) + 40, SCREEN_HEIGHT / 2, 270));
+	m_Players.push_back(new Player(m_Renderer, PlayerColour::Blue, (SCREEN_WIDTH / 2) + (SCREEN_HEIGHT / 2) - 40, SCREEN_HEIGHT / 2, 90));
+
+	if (m_NumberOfPlayers == 3)
+	{
+		m_Players.push_back(new Player(m_Renderer, PlayerColour::Grey, SCREEN_WIDTH / 2, SCREEN_HEIGHT - 40, 180));
+		m_Players[2]->setAcceleration(PLAYER_ACCELERATION);
+	}
+
 	// Initialises header text
 	m_ReductionText.load("res/SPACEMAN.TTF", "reduction", 56, SDL_Color { 255, 255, 255, 255 }, m_Renderer);
 	m_ReductionText.setStyle(TTF_STYLE_BOLD, false);
@@ -493,6 +493,9 @@ void Game::handleStartScreenEvents()
 			case StartScreenPage::RedPowerUp:
 				if (m_NextButton->isMouseOver())
 				{
+					// Sets the powerups for the red player
+					m_Players[0]->setPowerups(m_SpeedPowerupChosen, m_AccuracyPowerupChosen, m_DamagePowerupChosen, m_CooldownPowerupChosen);
+
 					m_StartScreenPage = StartScreenPage::BluePowerUp;
 
 					m_SpeedPowerupChosen = false;
@@ -508,6 +511,9 @@ void Game::handleStartScreenEvents()
 			case StartScreenPage::BluePowerUp:
 				if (m_NextButton->isMouseOver())
 				{
+					// Sets the powerups for the blue player
+					m_Players[1]->setPowerups(m_SpeedPowerupChosen, m_AccuracyPowerupChosen, m_DamagePowerupChosen, m_CooldownPowerupChosen);
+
 					if (m_NumberOfPlayers == 2)
 					{
 						m_GameState = GameState::Gameplay;
@@ -532,6 +538,9 @@ void Game::handleStartScreenEvents()
 			case StartScreenPage::GreyPowerUp:
 				if (m_NextButton->isMouseOver())
 				{
+					// Sets the powerups for the grey player
+					m_Players[2]->setPowerups(m_SpeedPowerupChosen, m_AccuracyPowerupChosen, m_DamagePowerupChosen, m_CooldownPowerupChosen);
+
 					m_GameState = GameState::Gameplay;
 					initGameplay();
 				}
