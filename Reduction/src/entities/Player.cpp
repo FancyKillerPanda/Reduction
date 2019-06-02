@@ -214,7 +214,7 @@ void Player::spawnBullet()
 	{
 		m_BulletCooldownTimer.reset();
 
-		double directionOffset = Random::randdouble(-BULLET_DIRECTION_OFFSET, BULLET_DIRECTION_OFFSET);
+		double directionOffset = Random::randdouble(-m_BulletDirectionOffsetMax, m_BulletDirectionOffsetMax);
 
 		if (m_DamagePowerup)
 		{
@@ -257,7 +257,7 @@ void Player::takeHit(Bullet* bullet)
 {
 	if (bullet->doesExtraDamage())
 	{
-		m_LifeLeft -= (int) PLAYER_HIT_DAMAGE + BULLET_EXTRA_DAMAGE;
+		m_LifeLeft -= (int) (PLAYER_HIT_DAMAGE + BULLET_EXTRA_DAMAGE);
 	}
 
 	else
@@ -316,6 +316,12 @@ void Player::setPowerups(bool speed, bool accuracy, bool damage, bool cooldown)
 		m_ExtraSpeed = SPEED_POWERUP_BOOST;
 		m_DragReduction = DRAG_REDUCTION;
 		m_LifeLeft -= (int) SPEED_POWERUP_COST;
+	}
+
+	else if (m_AccuracyPowerup)
+	{
+		m_BulletDirectionOffsetMax = ACCURACY_BULLET_OFFSET_MAX;
+		m_LifeLeft -= (int) ACCURACY_POWERUP_COST;
 	}
 
 	else if (m_DamagePowerup)

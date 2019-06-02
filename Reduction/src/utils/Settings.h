@@ -14,13 +14,15 @@ constexpr double PLAYER_HIT_DAMAGE = 2000;
 
 constexpr double BULLET_SPEED = 500;
 constexpr double BULLET_COOLDOWN = 250;
-constexpr double BULLET_DIRECTION_OFFSET = 10;
+constexpr double BULLET_DIRECTION_OFFSET_MAX = 10;
 
 constexpr unsigned int LIFE_BAR_FULL_WIDTH = 150;
 constexpr unsigned int LIFE_BAR_HEIGHT = 15;
 
 constexpr double SPEED_POWERUP_COST = PLAYER_STARTING_LIFE * 0.15;
 constexpr double SPEED_POWERUP_BOOST = MAX_PLAYER_SPEED;
+constexpr double ACCURACY_POWERUP_COST = PLAYER_STARTING_LIFE * 0.15;
+constexpr double ACCURACY_BULLET_OFFSET_MAX = 5;
 constexpr double DRAG_REDUCTION = PLAYER_DRAG * 2 / 3;
 constexpr double BULLET_POWERUP_COST = PLAYER_STARTING_LIFE * 0.15;
 constexpr double BULLET_COOLDOWN_REDUCTION = BULLET_COOLDOWN * 0.2;

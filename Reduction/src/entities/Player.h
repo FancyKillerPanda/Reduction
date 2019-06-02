@@ -57,6 +57,7 @@ private:
 	double m_ExtraSpeed = 0.0;
 	double m_DragReduction = 0.0;
 	bool m_AccuracyPowerup = false;
+	double m_BulletDirectionOffsetMax = BULLET_DIRECTION_OFFSET_MAX;
 	bool m_DamagePowerup = false;
 	bool m_CooldownPowerup = false;
 	double m_BulletCooldownReduction = 0.0;
