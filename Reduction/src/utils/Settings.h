@@ -29,3 +29,7 @@ constexpr double BULLET_POWERUP_COST = PLAYER_STARTING_LIFE * 0.15;
 constexpr double BULLET_COOLDOWN_REDUCTION = BULLET_COOLDOWN * 0.2;
 constexpr double BULLET_DAMAGE_POWERUP_COST = PLAYER_STARTING_LIFE * 0.15;
 constexpr double BULLET_EXTRA_DAMAGE = PLAYER_HIT_DAMAGE * 0.25;
+
+constexpr unsigned int SHORT_GAME_POINTS_TO_WIN = 3;
+constexpr unsigned int MEDIUM_GAME_POINTS_TO_WIN = 5;
+constexpr unsigned int LONG_GAME_POINTS_TO_WIN = 7;

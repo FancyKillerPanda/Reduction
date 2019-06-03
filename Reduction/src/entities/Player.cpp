@@ -214,6 +214,11 @@ void Player::draw()
 	SDL_SetRenderDrawColor(m_Renderer, r, g, b, a);
 }
 
+void Player::reset()
+{
+	// TODO: Implement
+}
+
 void Player::spawnBullet()
 {
 	if (m_BulletCooldownTimer.getElapsed() >= BULLET_COOLDOWN - m_BulletCooldownReduction)

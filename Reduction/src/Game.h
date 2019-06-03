@@ -107,6 +107,15 @@ private:
 	Text m_LoadingText;
 	bool m_IsOnLoadingScreen = false;
 
+	// Number of points for a player to win
+	unsigned int m_PointsToWin = SHORT_GAME_POINTS_TO_WIN;
+
+	// Round over screen text
+	Text m_ScoreCounterText;
+	Text m_RedText;
+	Text m_BlueText;
+	Text m_GreyText;
+
 private:
 	// Initialises the start screen
 	void initStartScreen();
@@ -140,6 +149,9 @@ private:
 
 	// Initialises the players
 	void initPlayers();
+
+	// Resets the players
+	void resetPlayers();
 
 public:
 	Game();

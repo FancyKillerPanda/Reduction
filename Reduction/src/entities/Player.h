@@ -65,12 +65,16 @@ private:
 	// Whether the player is alive
 	bool m_IsAlive = true;
 
+	// Win count
+	unsigned int m_Points = 0;
+
 public:
 	Player(SDL_Renderer* renderer, PlayerColour colour, double posX, double posY, double direction);
 	~Player();
 
 	void update(double dt, double wallScale);
 	void draw();
+	void reset();
 
 	void spawnBullet();
 	void updateBullets(double dt);
@@ -84,9 +88,11 @@ public:
 	void setRotation(double value) { m_Direction = value; }
 	void setVelocity(double value) { m_Velocity = value; }
 	void setPowerups(bool speed, bool accuracy, bool damage, bool cooldown);
+	void addPoint() { m_Points += 1; }
 
 	SDL_Rect& getRect() { return m_Rect; }
 	std::vector<Bullet*>& getBullets() { return m_Bullets; }
 	int getLifeLeft() { return m_LifeLeft; }
 	bool isAlive() { return m_IsAlive; }
+	unsigned int getPoints() { return m_Points; }
 };
