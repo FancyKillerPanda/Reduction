@@ -137,6 +137,8 @@ private:
 	void updateGameplay();
 	// Renders gameplay to the screen
 	void drawGameplay();
+	// Resets the gameplay state for a new round
+	void resetGameplayNewRound();
 
 	// Initialises the round over state
 	void initRoundOver();

@@ -221,22 +221,19 @@ void Player::reset(bool completeReset)
 	{
 	case PlayerColour::Red:
 		m_Direction = RED_PLAYER_START_DIRECTION;
-		m_PosX = RED_PLAYER_START_X;
-		m_PosY = RED_PLAYER_START_Y;
+		setCenter(RED_PLAYER_START_X, RED_PLAYER_START_Y);
 
 		break;
 
 	case PlayerColour::Blue:
 		m_Direction = BLUE_PLAYER_START_DIRECTION;
-		m_PosX = BLUE_PLAYER_START_X;
-		m_PosY = BLUE_PLAYER_START_Y;
+		setCenter(BLUE_PLAYER_START_X, BLUE_PLAYER_START_Y);
 
 		break;
 
 	case PlayerColour::Grey:
 		m_Direction = GREY_PLAYER_START_DIRECTION;
-		m_PosX = GREY_PLAYER_START_X;
-		m_PosY = GREY_PLAYER_START_Y;
+		setCenter(GREY_PLAYER_START_X, GREY_PLAYER_START_Y);
 
 		break;
 

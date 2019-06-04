@@ -111,6 +111,7 @@ void Game::initGameplay()
 {
 	if (m_GameplayInitialised)
 	{
+		resetGameplayNewRound();
 		return;
 	}
 
@@ -449,6 +450,14 @@ void Game::drawGameplay()
 	SDL_RenderCopy(m_Renderer, m_WallTexture, nullptr, &m_WallRect);
 
 	SDL_RenderPresent(m_Renderer);
+}
+
+void Game::resetGameplayNewRound()
+{
+	// Resets wall size
+	m_WallRect.w = m_OriginalWallWidth;
+	m_WallRect.h = m_OriginalWallHeight;
+	m_WallScale = 1.0;
 }
 
 
