@@ -102,6 +102,13 @@ void Game::run()
 			drawRoundOver();
 
 			break;
+
+		case GameState::GameOver:
+			handleGameOverEvents();
+			updateGameOver();
+			drawGameOver();
+
+			break;
 		}
 	}
 }
@@ -841,9 +848,9 @@ void Game::initRoundOver()
 		m_Players[1]->getPoints() == m_PointsToWin ||
 		(m_NumberOfPlayers == 3 && m_Players[2]->getPoints() == m_PointsToWin))
 	{
-		// TODO: Implement game over state
-		// m_GameState = GameState::GameOver;
-		// gameOverInit();
+		m_GameState = GameState::GameOver;
+		initGameOver();
+		return;
 	}
 
 	std::string scoreText = std::to_string(m_Players[0]->getPoints()) + " - " + std::to_string(m_Players[1]->getPoints());
@@ -915,6 +922,36 @@ void Game::drawRoundOver()
 	}
 
 	m_NextButton->draw(SCREEN_WIDTH * 7 / 8, SCREEN_HEIGHT * 7 / 8);
+
+	SDL_RenderPresent(m_Renderer);
+}
+
+
+void Game::initGameOver()
+{
+	SDL_SetRenderDrawColor(m_Renderer, 255, 255, 255, 255);
+}
+
+void Game::handleGameOverEvents()
+{
+	while (SDL_PollEvent(&m_Event))
+	{
+		switch (m_Event.type)
+		{
+		case SDL_QUIT:
+			m_Running = false;
+			break;
+		}
+	}
+}
+
+void Game::updateGameOver()
+{
+}
+
+void Game::drawGameOver()
+{
+	SDL_RenderClear(m_Renderer);
 
 	SDL_RenderPresent(m_Renderer);
 }

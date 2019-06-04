@@ -17,6 +17,7 @@ enum class GameState
 	StartScreen,
 	Gameplay,
 	RoundOver,
+	GameOver,
 };
 
 enum class StartScreenPage
@@ -148,6 +149,15 @@ private:
 	void updateRoundOver();
 	// Renders round over state to the screen
 	void drawRoundOver();
+
+	// Initialises the game over state
+	void initGameOver();
+	// Handles user input for game over state
+	void handleGameOverEvents();
+	// Updates the game over state
+	void updateGameOver();
+	// Renders game over state to the screen
+	void drawGameOver();
 
 	// Draws the loading screen
 	void drawLoadingScreen();
