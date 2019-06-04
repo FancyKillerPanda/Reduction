@@ -465,6 +465,9 @@ void Game::resetGameplayNewRound()
 	m_WallRect.w = m_OriginalWallWidth;
 	m_WallRect.h = m_OriginalWallHeight;
 	m_WallScale = 1.0;
+
+	// Resets frame timer
+	m_FrameTimer.reset();
 }
 
 
