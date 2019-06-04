@@ -214,9 +214,75 @@ void Player::draw()
 	SDL_SetRenderDrawColor(m_Renderer, r, g, b, a);
 }
 
-void Player::reset()
+void Player::reset(bool completeReset)
 {
-	// TODO: Implement
+	// Resets position and direction
+	switch (m_Colour)
+	{
+	case PlayerColour::Red:
+		m_Direction = RED_PLAYER_START_DIRECTION;
+		m_PosX = RED_PLAYER_START_X;
+		m_PosY = RED_PLAYER_START_Y;
+
+		break;
+
+	case PlayerColour::Blue:
+		m_Direction = BLUE_PLAYER_START_DIRECTION;
+		m_PosX = BLUE_PLAYER_START_X;
+		m_PosY = BLUE_PLAYER_START_Y;
+
+		break;
+
+	case PlayerColour::Grey:
+		m_Direction = GREY_PLAYER_START_DIRECTION;
+		m_PosX = GREY_PLAYER_START_X;
+		m_PosY = GREY_PLAYER_START_Y;
+
+		break;
+
+	default:
+		break;
+	}
+
+	m_Rect.x = m_PosX;
+	m_Rect.y = m_PosY;
+
+	// Resets movement properties
+	m_RotationSpeed = 0.0;
+	m_Velocity = 0.0;
+	m_Acceleration = 0.0;
+	m_Drag = 0.0;
+
+	// Removes all bullets
+	for (Bullet* bullet : m_Bullets)
+	{
+		delete bullet;
+	}
+
+	m_Bullets.clear();
+
+	// Resets life
+	int m_LifeLeft = (int) PLAYER_STARTING_LIFE;
+	updateLifeBar();
+
+	// Resets powerups
+	m_SpeedPowerup = false;
+	m_ExtraSpeed = 0.0;
+	m_DragReduction = 0.0;
+	m_AccuracyPowerup = false;
+	m_BulletDirectionOffsetMax = BULLET_DIRECTION_OFFSET_MAX;
+	m_DamagePowerup = false;
+	m_CooldownPowerup = false;
+	m_BulletCooldownReduction = 0.0;
+
+	// Sets back to alive
+	m_IsAlive = true;
+
+	// Only resets on a new game, not new round
+	if (completeReset)
+	{
+		m_Points = 0;
+	}
 }
 
 void Player::spawnBullet()

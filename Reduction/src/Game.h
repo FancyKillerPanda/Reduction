@@ -73,9 +73,10 @@ private:
 	// Current start screen page
 	StartScreenPage m_StartScreenPage = StartScreenPage::NumberOfPlayersChoice;
 
-	// Whether the states have been initialised yet
+	// Whether things initialised yet
 	bool m_StartScreenInitialised = false;
 	bool m_GameplayInitialised = false;
+	bool m_PlayersInitialised = false;
 
 	// Powerups
 	SDL_Texture* m_SpeedPowerupTexture;
@@ -125,6 +126,8 @@ private:
 	void updateStartScreen();
 	// Renders start screen page to the screen
 	void drawStartScreen();
+	// Resets the start screen for a new round
+	void resetStartScreenNewRound();
 
 	// Initialises the gameplay state
 	void initGameplay();

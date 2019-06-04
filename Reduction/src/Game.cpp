@@ -109,6 +109,11 @@ void Game::run()
 
 void Game::initGameplay()
 {
+	if (m_GameplayInitialised)
+	{
+		return;
+	}
+
 	// Draws loading screen
 	drawLoadingScreen();
 
@@ -157,6 +162,8 @@ void Game::initGameplay()
 
 	m_SpaceBackgroundRect.w = SCREEN_WIDTH;
 	m_SpaceBackgroundRect.h = SCREEN_HEIGHT;
+
+	m_GameplayInitialised = true;
 
 	m_FrameTimer.reset();
 }
@@ -792,6 +799,12 @@ void Game::drawStartScreen()
 	SDL_RenderPresent(m_Renderer);
 }
 
+void Game::resetStartScreenNewRound()
+{
+	// Current colour selecting powerups (red)
+	m_PowerupChoosingColour = SDL_Color { 255, 0, 0, 255 };
+}
+
 
 void Game::initRoundOver()
 {
@@ -856,6 +869,8 @@ void Game::handleRoundOverEvents()
 			{
 				m_GameState = GameState::StartScreen;
 				m_StartScreenPage = StartScreenPage::RedPowerUp;
+
+				resetStartScreenNewRound();
 				resetPlayers();
 			}
 
@@ -898,15 +913,22 @@ void Game::drawRoundOver()
 
 void Game::initPlayers()
 {
+	if (m_PlayersInitialised)
+	{
+		return;
+	}
+
 	// Initialises the players
-	m_Players.push_back(new Player(m_Renderer, PlayerColour::Red, (SCREEN_WIDTH / 2) - (SCREEN_HEIGHT / 2) + 40, SCREEN_HEIGHT / 2, 270));
-	m_Players.push_back(new Player(m_Renderer, PlayerColour::Blue, (SCREEN_WIDTH / 2) + (SCREEN_HEIGHT / 2) - 40, SCREEN_HEIGHT / 2, 90));
+	m_Players.push_back(new Player(m_Renderer, PlayerColour::Red, RED_PLAYER_START_X, RED_PLAYER_START_Y, RED_PLAYER_START_DIRECTION));
+	m_Players.push_back(new Player(m_Renderer, PlayerColour::Blue, BLUE_PLAYER_START_X, BLUE_PLAYER_START_Y, BLUE_PLAYER_START_DIRECTION));
 
 	if (m_NumberOfPlayers == 3)
 	{
-		m_Players.push_back(new Player(m_Renderer, PlayerColour::Grey, SCREEN_WIDTH / 2, SCREEN_HEIGHT - 40, 180));
+		m_Players.push_back(new Player(m_Renderer, PlayerColour::Grey, GREY_PLAYER_START_X, GREY_PLAYER_START_Y, GREY_PLAYER_START_DIRECTION));
 		m_Players[2]->setAcceleration(PLAYER_ACCELERATION);
 	}
+
+	m_PlayersInitialised = true;
 }
 
 void Game::drawLoadingScreen()
@@ -924,5 +946,6 @@ void Game::resetPlayers()
 	for (Player* player : m_Players)
 	{
 		player->reset();
+		player->setLifeLeft((int) PLAYER_STARTING_LIFE); // BUG: Should be done in reset(), doesn't work
 	}
 }

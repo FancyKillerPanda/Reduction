@@ -12,6 +12,16 @@ constexpr double PLAYER_DRAG = 30;
 constexpr double PLAYER_STARTING_LIFE = 10000;
 constexpr double PLAYER_HIT_DAMAGE = 2000;
 
+constexpr double RED_PLAYER_START_X = (SCREEN_WIDTH / 2) - (SCREEN_HEIGHT / 2) + 40;
+constexpr double RED_PLAYER_START_Y = SCREEN_HEIGHT / 2;
+constexpr double RED_PLAYER_START_DIRECTION = 270;
+constexpr double BLUE_PLAYER_START_X = (SCREEN_WIDTH / 2) + (SCREEN_HEIGHT / 2) - 40;
+constexpr double BLUE_PLAYER_START_Y = SCREEN_HEIGHT / 2;
+constexpr double BLUE_PLAYER_START_DIRECTION = 90;
+constexpr double GREY_PLAYER_START_X = SCREEN_WIDTH / 2;
+constexpr double GREY_PLAYER_START_Y = SCREEN_HEIGHT - 40;
+constexpr double GREY_PLAYER_START_DIRECTION = 180;
+
 constexpr double BULLET_SPEED = 500;
 constexpr double BULLET_COOLDOWN = 250;
 constexpr double BULLET_DIRECTION_OFFSET_MAX = 10;

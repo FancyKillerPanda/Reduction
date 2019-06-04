@@ -74,7 +74,7 @@ public:
 
 	void update(double dt, double wallScale);
 	void draw();
-	void reset();
+	void reset(bool completeReset = false);
 
 	void spawnBullet();
 	void updateBullets(double dt);
@@ -89,6 +89,7 @@ public:
 	void setVelocity(double value) { m_Velocity = value; }
 	void setPowerups(bool speed, bool accuracy, bool damage, bool cooldown);
 	void addPoint() { m_Points += 1; }
+	void setLifeLeft(int value) { m_LifeLeft = value; }
 
 	SDL_Rect& getRect() { return m_Rect; }
 	std::vector<Bullet*>& getBullets() { return m_Bullets; }
