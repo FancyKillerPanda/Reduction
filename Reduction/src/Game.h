@@ -118,6 +118,9 @@ private:
 	Text m_BlueText;
 	Text m_GreyText;
 
+	// Game over screen text
+	Text m_WinnerText;
+
 private:
 	// Initialises the start screen
 	void initStartScreen();

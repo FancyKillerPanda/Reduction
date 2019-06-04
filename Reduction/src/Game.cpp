@@ -932,7 +932,49 @@ void Game::drawRoundOver()
 
 void Game::initGameOver()
 {
-	SDL_SetRenderDrawColor(m_Renderer, 255, 255, 255, 255);
+	// Who wins
+	std::string winner;
+	SDL_Color winningColour;
+
+	if (m_Players[0]->getPoints() == m_PointsToWin)
+	{
+		winner += "Red";
+		winningColour = SDL_Color { 255, 0, 0, 255 };
+	}
+
+	else if (m_Players[1]->getPoints() == m_PointsToWin)
+	{
+		winner += "Blue";
+		winningColour = SDL_Color { 0, 0, 255, 255 };
+	}
+
+	else if (m_NumberOfPlayers == 3 &&  m_Players[2]->getPoints() == m_PointsToWin)
+	{
+		winner += "Grey";
+		winningColour = SDL_Color { 127, 127, 127, 255 };
+	}
+
+	winner += " Wins!";
+
+	// Loads the winner text
+	m_WinnerText.load("res/BM Space.TTF", winner, 48, winningColour, m_Renderer);
+
+	// Score counter
+	std::string scoreText = std::to_string(m_Players[0]->getPoints()) + " - " + std::to_string(m_Players[1]->getPoints());
+
+	if (m_NumberOfPlayers == 3)
+	{
+		scoreText += " - " + std::to_string(m_Players[2]->getPoints());
+	}
+
+	m_ScoreCounterText.load("res/BM Space.TTF", scoreText, 48, winningColour, m_Renderer);
+	m_RedText.load("res/BM Space.TTF", "Red", 16, SDL_Color { 255, 0, 0, 255 }, m_Renderer);
+	m_BlueText.load("res/BM Space.TTF", "Blue", 16, SDL_Color { 0, 0, 255, 255 }, m_Renderer);
+
+	if (m_NumberOfPlayers == 3)
+	{
+		m_GreyText.load("res/BM Space.TTF", "Grey", 16, SDL_Color { 127, 127, 127, 255 }, m_Renderer);
+	}
 }
 
 void Game::handleGameOverEvents()
@@ -955,6 +997,25 @@ void Game::updateGameOver()
 void Game::drawGameOver()
 {
 	SDL_RenderClear(m_Renderer);
+
+	SDL_RenderCopy(m_Renderer, m_SpaceBackgroundTexture, nullptr, &m_SpaceBackgroundRect);
+	m_ReductionText.draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT * 5 / 20);
+	m_ScoreCounterText.draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT * 9 / 20);
+
+	if (m_NumberOfPlayers == 2)
+	{
+		m_RedText.draw(SCREEN_WIDTH * 8 / 20, SCREEN_HEIGHT * 11 / 20);
+		m_BlueText.draw(SCREEN_WIDTH * 12 / 20, SCREEN_HEIGHT * 11 / 20);
+	}
+
+	else
+	{
+		m_RedText.draw(SCREEN_WIDTH * 6 / 20, SCREEN_HEIGHT * 11 / 20);
+		m_BlueText.draw(SCREEN_WIDTH * 10 / 20, SCREEN_HEIGHT * 11 / 20);
+		m_GreyText.draw(SCREEN_WIDTH * 14 / 20, SCREEN_HEIGHT * 11 / 20);
+	}
+
+	m_WinnerText.draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT * 14 / 20);
 
 	SDL_RenderPresent(m_Renderer);
 }
