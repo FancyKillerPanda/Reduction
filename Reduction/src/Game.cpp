@@ -317,13 +317,36 @@ void Game::handleGameplayEvents()
 		case SDL_MOUSEBUTTONDOWN:
 			if (m_NumberOfPlayers == 3)
 			{
-				if (m_Players[2]->isAlive())
+				if (m_Event.button.button == SDL_BUTTON_LEFT)
 				{
-					m_Players[2]->spawnBullet();
+					if (m_Players[2]->isAlive())
+					{
+						m_Players[2]->spawnBullet();
+					}
+				}
+
+				else if (m_Event.button.button == SDL_BUTTON_RIGHT)
+				{
+					if (m_Players[2]->isAlive())
+					{
+						m_Players[2]->setAcceleration(PLAYER_ACCELERATION);
+					}
 				}
 			}
 
 			break;
+
+		case SDL_MOUSEBUTTONUP:
+			if (m_NumberOfPlayers == 3)
+			{
+				if (m_Event.button.button == SDL_BUTTON_RIGHT)
+				{
+					if (m_Players[2]->isAlive())
+					{
+						m_Players[2]->setAcceleration(0.0);
+					}
+				}
+			}
 		}
 	}
 }
@@ -348,7 +371,6 @@ void Game::updateGameplay()
 			if (deltaX * deltaX + deltaY * deltaY > 100)
 			{
 				m_Players[2]->setRotation(toDegrees(std::atan2(deltaY, deltaX)));
-				m_Players[2]->setAcceleration(PLAYER_ACCELERATION);
 			}
 
 			else
@@ -1081,7 +1103,6 @@ void Game::initPlayers()
 	if (m_NumberOfPlayers == 3)
 	{
 		m_Players.push_back(new Player(m_Renderer, PlayerColour::Grey, GREY_PLAYER_START_X, GREY_PLAYER_START_Y, GREY_PLAYER_START_DIRECTION));
-		m_Players[2]->setAcceleration(PLAYER_ACCELERATION);
 	}
 
 	m_PlayersInitialised = true;
