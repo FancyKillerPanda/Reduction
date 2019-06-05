@@ -36,7 +36,7 @@
 - [x] Make powerups affect gameplay
 - [x] Show life left at top of screen
 - [x] Implement knockback on each hit
-- [ ] Add a win counter
-- [ ] Implement choosing between short/medium/long games
-- [ ] Add game over screen
+- [x] Add a win counter
+- [x] Implement choosing between short/medium/long games
+- [x] Add game over screen
 - [ ] Players can input their names

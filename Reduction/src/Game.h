@@ -23,6 +23,7 @@ enum class GameState
 enum class StartScreenPage
 {
 	NumberOfPlayersChoice,
+	GameLengthChoice,
 	RedPowerUp,
 	BluePowerUp,
 	GreyPowerUp,
@@ -120,6 +121,11 @@ private:
 
 	// Game over screen text
 	Text m_WinnerText;
+
+	// Length of game choice
+	Button* m_ShortGameButton;
+	Button* m_MediumGameButton;
+	Button* m_LongGameButton;
 
 private:
 	// Initialises the start screen

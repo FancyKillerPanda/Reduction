@@ -488,12 +488,20 @@ void Game::initStartScreen()
 	m_AccuracyPowerupButton = new Button(m_Renderer, "Accuracy Boost (15% Life)");
 	m_DamagePowerupButton = new Button(m_Renderer, "Damage Boost (15% Life)");
 	m_CooldownPowerupButton = new Button(m_Renderer, "Cooldown Time Reduced (15% Life)");
+	m_ShortGameButton = new Button(m_Renderer, "Short Game (3 Pt)");
+	m_MediumGameButton = new Button(m_Renderer, "Medium Game (5 Pt)");
+	m_LongGameButton = new Button(m_Renderer, "Long Game (7 Pt)");
 
 	// Makes powerup button smaller
 	m_SpeedPowerupButton->getText().setSize(16);
 	m_AccuracyPowerupButton->getText().setSize(16);
 	m_DamagePowerupButton->getText().setSize(16);
 	m_CooldownPowerupButton->getText().setSize(16);
+
+	// Makes game length buttons smaller
+	m_ShortGameButton->getText().setSize(18);
+	m_MediumGameButton->getText().setSize(18);
+	m_LongGameButton->getText().setSize(18);
 
 	m_StartScreenPage = StartScreenPage::NumberOfPlayersChoice;
 	m_StartScreenInitialised = true;
@@ -598,16 +606,39 @@ void Game::handleStartScreenEvents()
 				if (m_TwoPlayersButton->isMouseOver())
 				{
 					m_NumberOfPlayers = 2;
-					m_StartScreenPage = StartScreenPage::RedPowerUp;
-
-					initPlayers();
+					m_StartScreenPage = StartScreenPage::GameLengthChoice;
 				}
 
 				else if (m_ThreePlayersButton->isMouseOver())
 				{
 					m_NumberOfPlayers = 3;
-					m_StartScreenPage = StartScreenPage::RedPowerUp;
+					m_StartScreenPage = StartScreenPage::GameLengthChoice;
+				}
 
+				break;
+
+			case StartScreenPage::GameLengthChoice:
+				if (m_ShortGameButton->isMouseOver())
+				{
+					m_PointsToWin = SHORT_GAME_POINTS_TO_WIN;
+
+					m_StartScreenPage = StartScreenPage::RedPowerUp;
+					initPlayers();
+				}
+
+				else if (m_MediumGameButton->isMouseOver())
+				{
+					m_PointsToWin = MEDIUM_GAME_POINTS_TO_WIN;
+
+					m_StartScreenPage = StartScreenPage::RedPowerUp;
+					initPlayers();
+				}
+
+				else if (m_LongGameButton->isMouseOver())
+				{
+					m_PointsToWin = LONG_GAME_POINTS_TO_WIN;
+
+					m_StartScreenPage = StartScreenPage::RedPowerUp;
 					initPlayers();
 				}
 
@@ -714,6 +745,13 @@ void Game::updateStartScreen()
 
 		break;
 
+	case StartScreenPage::GameLengthChoice:
+		m_ShortGameButton->update();
+		m_MediumGameButton->update();
+		m_LongGameButton->update();
+
+		break;
+
 	case StartScreenPage::RedPowerUp:
 	case StartScreenPage::BluePowerUp:
 	case StartScreenPage::GreyPowerUp:
@@ -749,6 +787,14 @@ void Game::drawStartScreen()
 		m_ReductionText.draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT * 5 / 20);
 		m_TwoPlayersButton->draw(SCREEN_WIDTH * 6 / 20, SCREEN_HEIGHT * 11 / 20);
 		m_ThreePlayersButton->draw(SCREEN_WIDTH * 14 / 20, SCREEN_HEIGHT * 11 / 20);
+
+		break;
+
+	case StartScreenPage::GameLengthChoice:
+		m_ReductionText.draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT * 5 / 20);
+		m_ShortGameButton->draw(SCREEN_WIDTH * 4 / 20, SCREEN_HEIGHT * 11 / 20);
+		m_MediumGameButton->draw(SCREEN_WIDTH * 10 / 20, SCREEN_HEIGHT * 11 / 20);
+		m_LongGameButton->draw(SCREEN_WIDTH * 16 / 20, SCREEN_HEIGHT * 11 / 20);
 
 		break;
 
