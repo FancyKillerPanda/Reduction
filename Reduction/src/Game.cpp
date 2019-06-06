@@ -436,7 +436,7 @@ void Game::updateGameplay()
 	// Checks for end of game
 	if (m_NumberOfPlayers == 2)
 	{
-		if ((int) m_Players[0]->isAlive() + (int) m_Players[1]->isAlive() == 1)
+		if ((int) m_Players[0]->isAlive() + (int) m_Players[1]->isAlive() <= 1)
 		{
 			m_GameState = GameState::RoundOver;
 			initRoundOver();
@@ -445,7 +445,7 @@ void Game::updateGameplay()
 
 	else
 	{
-		if ((int) m_Players[0]->isAlive() + (int) m_Players[1]->isAlive() + (int) m_Players[2]->isAlive() == 1)
+		if ((int) m_Players[0]->isAlive() + (int) m_Players[1]->isAlive() + (int) m_Players[2]->isAlive() <= 1)
 		{
 			m_GameState = GameState::RoundOver;
 			initRoundOver();
@@ -897,7 +897,12 @@ void Game::initRoundOver()
 {
 	SDL_Color winningColour;
 
-	if (m_Players[0]->isAlive())
+	if (!m_Players[0]->isAlive() && !m_Players[1]->isAlive() && !(m_NumberOfPlayers == 3 && m_Players[2]->isAlive()))
+	{
+		winningColour = SDL_Color { 255, 255, 255, 255 };
+	}
+
+	else if (m_Players[0]->isAlive())
 	{
 		m_Players[0]->addPoint();
 		winningColour = SDL_Color { 255, 0, 0, 255 };
