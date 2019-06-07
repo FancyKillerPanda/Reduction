@@ -7,6 +7,7 @@
 
 
 Mix_Chunk* Player::s_ShootSound = nullptr;
+int Player::s_ShootSoundChannel = -1;
 
 void Player::initAudio()
 {
@@ -307,10 +308,13 @@ void Player::spawnBullet()
 		{
 			m_Bullets.push_back(new Bullet(m_Renderer, m_Direction + directionOffset, m_Rect.x + m_Rect.w / 2, m_Rect.y + m_Rect.h / 2));
 		}
-	}
 
-	// Plays sound
-	Mix_PlayChannel(-1, s_ShootSound, 0);
+		// Plays sound
+		s_ShootSoundChannel = Mix_PlayChannel(-1, s_ShootSound, 0);
+
+		// Sets sound volume
+		Mix_Volume(s_ShootSoundChannel, 32);
+	}
 }
 
 void Player::updateBullets(double dt)

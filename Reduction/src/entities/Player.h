@@ -24,6 +24,7 @@ class Player
 private:
 	// Audio
 	static Mix_Chunk* s_ShootSound;
+	static int s_ShootSoundChannel;
 
 	// Textures for different sized flames
 	SDL_Texture* m_NoFlameTexture = nullptr;
