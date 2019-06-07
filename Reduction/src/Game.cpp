@@ -1157,4 +1157,6 @@ void Game::initAudio()
 	m_BackgroundMusic = Mix_LoadMUS("res/Deep Space.mp3");
 	Mix_VolumeMusic(32);
 	Mix_PlayMusic(m_BackgroundMusic, -1);
+
+	Player::initAudio();
 }

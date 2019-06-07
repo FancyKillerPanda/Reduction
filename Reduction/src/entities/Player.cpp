@@ -6,6 +6,14 @@
 #include "utils/Random.h"
 
 
+Mix_Chunk* Player::s_ShootSound = nullptr;
+
+void Player::initAudio()
+{
+	s_ShootSound = Mix_LoadWAV("res/Shoot Sound.mp3");
+}
+
+
 Player::Player(SDL_Renderer* renderer, PlayerColour colour, double posX, double posY, double direction)
 	: m_Renderer(renderer), m_Colour(colour)
 {
@@ -300,6 +308,9 @@ void Player::spawnBullet()
 			m_Bullets.push_back(new Bullet(m_Renderer, m_Direction + directionOffset, m_Rect.x + m_Rect.w / 2, m_Rect.y + m_Rect.h / 2));
 		}
 	}
+
+	// Plays sound
+	Mix_PlayChannel(-1, s_ShootSound, 0);
 }
 
 void Player::updateBullets(double dt)
@@ -418,3 +429,4 @@ void Player::setPowerups(bool speed, bool accuracy, bool damage, bool cooldown)
 
 	updateLifeBar();
 }
+

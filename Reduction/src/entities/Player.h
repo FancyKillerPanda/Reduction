@@ -4,6 +4,7 @@
 
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
+#include <SDL/SDL_mixer.h>
 
 #include "Bullet.h"
 #include "utils/Timer.h"
@@ -21,6 +22,9 @@ enum class PlayerColour
 class Player
 {
 private:
+	// Audio
+	static Mix_Chunk* s_ShootSound;
+
 	// Textures for different sized flames
 	SDL_Texture* m_NoFlameTexture = nullptr;
 	SDL_Texture* m_SmallFlameTexture = nullptr;
@@ -81,6 +85,8 @@ public:
 	void drawBullets();
 	void takeHit(Bullet* bullet);
 	void updateLifeBar();
+
+	static void initAudio();
 
 	void setRotationSpeed(double value) { m_RotationSpeed = value; }
 	void setAcceleration(double value) { m_Acceleration = value; }
