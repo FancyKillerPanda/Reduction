@@ -9,7 +9,7 @@
 Game::Game()
 {
 	// Initialises SDL
-	if (SDL_Init(SDL_INIT_VIDEO) != 0)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0)
 	{
 		error("Could not initialise SDL.\nSDL_Error: ", SDL_GetError());
 		m_Running = false;
@@ -21,6 +21,23 @@ Game::Game()
 	if (TTF_Init() != 0)
 	{
 		error("Could not initialise TTF.\nSDL_Error: ", SDL_GetError());
+		m_Running = false;
+
+		return;
+	}
+
+	// Initialises Mixer
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) != 0)
+	{
+		error("Could not open Mixer audio.\nSDL_Error: ", SDL_GetError());
+		m_Running = false;
+
+		return;
+	}
+
+	if (Mix_Init(MIX_INIT_MP3) != MIX_INIT_MP3)\
+	{
+		error("Could not initialise Mixer.\nSDL_Error: ", SDL_GetError());
 		m_Running = false;
 
 		return;
@@ -56,6 +73,9 @@ Game::Game()
 
 	// Sets up loading screen text
 	m_LoadingText.load("res/SPACEMAN.TTF", "loading...", 56, SDL_Color { 255, 255, 255, 255 }, m_Renderer);
+
+	// Initialises audio
+	initAudio();
 
 	initStartScreen();
 	m_FrameTimer.reset();
@@ -1130,4 +1150,10 @@ void Game::resetPlayers()
 		player->reset();
 		player->setLifeLeft((int) PLAYER_STARTING_LIFE); // BUG: Should be done in reset(), doesn't work
 	}
+}
+
+void Game::initAudio()
+{
+	m_BackgroundMusic = Mix_LoadMUS("res/Deep Space.mp3");
+	Mix_PlayMusic(m_BackgroundMusic, -1);
 }

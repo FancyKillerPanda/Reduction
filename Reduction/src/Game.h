@@ -4,6 +4,7 @@
 
 #include <SDL/SDL.h>
 #include <SDL/SDL_ttf.h>
+#include <SDL/SDL_mixer.h>
 
 #include "entities/Player.h"
 #include "entities/Bullet.h"
@@ -127,6 +128,9 @@ private:
 	Button* m_MediumGameButton;
 	Button* m_LongGameButton;
 
+	// Audio
+	Mix_Music* m_BackgroundMusic;
+
 private:
 	// Initialises the start screen
 	void initStartScreen();
@@ -176,6 +180,9 @@ private:
 
 	// Resets the players
 	void resetPlayers();
+
+	// Initialises audio
+	void initAudio();
 
 public:
 	Game();
