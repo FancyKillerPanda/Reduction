@@ -7,14 +7,14 @@
 
 
 Mix_Chunk* Player::s_ShootSound = nullptr;
-int Player::s_ShootSoundChannel = -1;
 Mix_Chunk* Player::s_DeathSound = nullptr;
-int Player::s_DeathSoundChannel = -1;
 
 void Player::initAudio()
 {
 	s_ShootSound = Mix_LoadWAV("res/Shoot Sound.mp3");
+	Mix_VolumeChunk(s_ShootSound, 32);
 	s_DeathSound = Mix_LoadWAV("res/DeathFlash.mp3");
+
 }
 
 
@@ -118,7 +118,7 @@ void Player::update(double dt, double wallScale)
 	if (m_LifeLeft <= 0)
 	{
 		m_IsAlive = false;
-		s_DeathSoundChannel = Mix_PlayChannel(-1, s_DeathSound, 0);
+		Mix_PlayChannel(-1, s_DeathSound, 0);
 	}
 
 	if (m_Velocity < 0.0)
@@ -314,10 +314,7 @@ void Player::spawnBullet()
 		}
 
 		// Plays sound
-		s_ShootSoundChannel = Mix_PlayChannel(-1, s_ShootSound, 0);
-
-		// Sets sound volume
-		Mix_Volume(s_ShootSoundChannel, 32);
+		Mix_PlayChannel(-1, s_ShootSound, 0);
 	}
 }
 
