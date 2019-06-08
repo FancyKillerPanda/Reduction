@@ -762,22 +762,28 @@ void Game::handleStartScreenEvents()
 				m_StartScreenPage == StartScreenPage::BluePowerUp ||
 				m_StartScreenPage == StartScreenPage::GreyPowerUp)
 			{
-				if (m_SpeedPowerupButton->isMouseOver())
+				// Gets mouse position
+				int mouseX;
+				int mouseY;
+				SDL_GetMouseState(&mouseX, &mouseY);
+				SDL_Rect mousePos = { mouseX, mouseY, 1, 1 };
+
+				if (m_SpeedPowerupButton->isMouseOver() || SDL_HasIntersection(&mousePos, &m_SpeedPowerupRect))
 				{
 					m_SpeedPowerupChosen = !m_SpeedPowerupChosen;
 				}
 
-				else if (m_AccuracyPowerupButton->isMouseOver())
+				else if (m_AccuracyPowerupButton->isMouseOver() || SDL_HasIntersection(&mousePos, &m_AccuracyPowerupRect))
 				{
 					m_AccuracyPowerupChosen = !m_AccuracyPowerupChosen;
 				}
 
-				else if (m_DamagePowerupButton->isMouseOver())
+				else if (m_DamagePowerupButton->isMouseOver() || SDL_HasIntersection(&mousePos, &m_DamagePowerupRect))
 				{
 					m_DamagePowerupChosen = !m_DamagePowerupChosen;
 				}
 
-				else if (m_CooldownPowerupButton->isMouseOver())
+				else if (m_CooldownPowerupButton->isMouseOver() || SDL_HasIntersection(&mousePos, &m_CooldownPowerupRect))
 				{
 					m_CooldownPowerupChosen = !m_CooldownPowerupChosen;
 				}
