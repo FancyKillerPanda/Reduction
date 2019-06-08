@@ -134,6 +134,7 @@ private:
 
 	// Text for the instruction screen
 	std::vector<Text*> m_HelpGeneralTexts;
+	std::vector<Text*> m_HelpControlsTexts;
 
 	// Audio
 	Mix_Music* m_BackgroundMusic;

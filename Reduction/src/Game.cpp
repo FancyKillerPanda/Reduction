@@ -630,7 +630,7 @@ void Game::initStartScreen()
 	// Current colour selecting powerups (red)
 	m_PowerupChoosingColour = SDL_Color { 255, 0, 0, 255 };
 
-	// Initialises instruction texts
+	// Initialises general help texts
 	m_HelpGeneralTexts.push_back(
 		new Text("res/fonts/BM Space.TTF", "Reduction is a two or three player space-shooter game.", 18, SDL_Color { 255, 255, 255, 255 }, m_Renderer)
 	);
@@ -648,6 +648,47 @@ void Game::initStartScreen()
 	);
 	m_HelpGeneralTexts.push_back(
 		new Text("res/fonts/BM Space.TTF", "win the game.", 18, SDL_Color { 255, 255, 255, 255 }, m_Renderer)
+	);
+
+	// Initialises controls help text
+	m_HelpControlsTexts.push_back(
+		new Text("res/fonts/BM Space.TTF", "Red Player", 18, SDL_Color { 255, 0, 0, 255 }, m_Renderer)
+	);
+	m_HelpControlsTexts.back()->setStyle(TTF_STYLE_BOLD);
+	m_HelpControlsTexts.push_back(
+		new Text("res/fonts/BM Space.TTF", "<Up> / <Down> -> Accelerate / Brake", 18, SDL_Color { 255, 255, 255, 255 }, m_Renderer)
+	);
+	m_HelpControlsTexts.push_back(
+		new Text("res/fonts/BM Space.TTF", "<Left> / <Right> -> Rotate", 18, SDL_Color { 255, 255, 255, 255 }, m_Renderer)
+	);
+	m_HelpControlsTexts.push_back(
+		new Text("res/fonts/BM Space.TTF", "<C> -> Shoot", 18, SDL_Color { 255, 255, 255, 255 }, m_Renderer)
+	);
+	m_HelpControlsTexts.push_back(
+		new Text("res/fonts/BM Space.TTF", "Blue Player", 18, SDL_Color { 0, 0, 255, 255 }, m_Renderer)
+	);
+	m_HelpControlsTexts.back()->setStyle(TTF_STYLE_BOLD);
+	m_HelpControlsTexts.push_back(
+		new Text("res/fonts/BM Space.TTF", "<W> / <S> -> Accelerate / Brake", 18, SDL_Color { 255, 255, 255, 255 }, m_Renderer)
+	);
+	m_HelpControlsTexts.push_back(
+		new Text("res/fonts/BM Space.TTF", "<A> / <D> -> Rotate", 18, SDL_Color { 255, 255, 255, 255 }, m_Renderer)
+	);
+	m_HelpControlsTexts.push_back(
+		new Text("res/fonts/BM Space.TTF", "</> -> Shoot", 18, SDL_Color { 255, 255, 255, 255 }, m_Renderer)
+	);
+	m_HelpControlsTexts.push_back(
+		new Text("res/fonts/BM Space.TTF", "Grey Player", 18, SDL_Color { 127, 127, 127, 255 }, m_Renderer)
+	);
+	m_HelpControlsTexts.back()->setStyle(TTF_STYLE_BOLD);
+	m_HelpControlsTexts.push_back(
+		new Text("res/fonts/BM Space.TTF", "<Right Click> -> Accelerate", 18, SDL_Color { 255, 255, 255, 255 }, m_Renderer)
+	);
+	m_HelpControlsTexts.push_back(
+		new Text("res/fonts/BM Space.TTF", "<Move Cursor> -> Rotate", 18, SDL_Color { 255, 255, 255, 255 }, m_Renderer)
+	);
+	m_HelpControlsTexts.push_back(
+		new Text("res/fonts/BM Space.TTF", "<Left Click> -> Shoot", 18, SDL_Color { 255, 255, 255, 255 }, m_Renderer)
 	);
 
 	m_FrameTimer.reset();
@@ -979,8 +1020,20 @@ void Game::drawStartScreen()
 	}
 
 	case StartScreenPage::HelpControls:
+	{
+		m_ReductionText.draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT * 3 / 20);
 		m_BackButton->draw(SCREEN_WIDTH * 1 / 8, SCREEN_HEIGHT * 7 / 8);
+
+		unsigned int y = 6;
+
+		for (Text* text : m_HelpControlsTexts)
+		{
+			text->draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT * y / 20);
+			y += 1;
+		}
+
 		break;
+	}
 
 	default:
 		break;
