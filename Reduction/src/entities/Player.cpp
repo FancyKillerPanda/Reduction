@@ -8,13 +8,14 @@
 
 Mix_Chunk* Player::s_ShootSound = nullptr;
 Mix_Chunk* Player::s_DeathSound = nullptr;
+Mix_Chunk* Player::s_EngineSound = nullptr;
 
 void Player::initAudio()
 {
 	s_ShootSound = Mix_LoadWAV("res/Shoot Sound.mp3");
 	Mix_VolumeChunk(s_ShootSound, 32);
 	s_DeathSound = Mix_LoadWAV("res/DeathFlash.mp3");
-
+	s_EngineSound = Mix_LoadWAV("res/Rocket Thrusters.mp3");
 }
 
 
@@ -187,6 +188,24 @@ void Player::update(double dt, double wallScale)
 	{
 		m_ActiveTexture = m_NoFlameTexture;
 	}
+
+	// Updates sound
+	if (m_Acceleration > 0)
+	{
+		if (m_EngineSoundChannel == -1)
+		{
+			m_EngineSoundChannel = Mix_PlayChannel(-1, s_EngineSound, -1);
+		}
+	}
+
+	else
+	{
+		if (m_EngineSoundChannel != -1)
+		{
+			Mix_HaltChannel(m_EngineSoundChannel);
+			m_EngineSoundChannel = -1;
+		}
+	}
 }
 
 void Player::draw()
@@ -287,6 +306,13 @@ void Player::reset(bool completeReset)
 
 	// Sets back to alive
 	m_IsAlive = true;
+
+	// Resets audio
+	if (m_EngineSoundChannel != -1)
+	{
+		Mix_HaltChannel(m_EngineSoundChannel);
+		m_EngineSoundChannel = -1;
+	}
 
 	// Only resets on a new game, not new round
 	if (completeReset)

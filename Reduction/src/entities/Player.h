@@ -25,6 +25,8 @@ private:
 	// Audio
 	static Mix_Chunk* s_ShootSound;
 	static Mix_Chunk* s_DeathSound;
+	static Mix_Chunk* s_EngineSound;
+	int m_EngineSoundChannel = -1;
 
 	// Textures for different sized flames
 	SDL_Texture* m_NoFlameTexture = nullptr;
