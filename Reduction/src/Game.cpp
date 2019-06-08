@@ -572,6 +572,8 @@ void Game::initStartScreen()
 	m_SpaceBackgroundRect.w = SCREEN_WIDTH;
 	m_SpaceBackgroundRect.h = SCREEN_HEIGHT;
 
+	SDL_SetTextureColorMod(m_SpaceBackgroundTexture, 127, 127, 127);
+
 	// Powerup textures
 	m_SpeedPowerupTexture = IMG_LoadTexture(m_Renderer, "res/txrs/Bolt.png");
 	m_AccuracyPowerupTexture = IMG_LoadTexture(m_Renderer, "res/txrs/Crosshairs.png");
