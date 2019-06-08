@@ -202,7 +202,7 @@ void Player::update(double dt, double wallScale)
 	{
 		if (m_EngineSoundChannel != -1)
 		{
-			Mix_HaltChannel(m_EngineSoundChannel);
+			Mix_FadeOutChannel(m_EngineSoundChannel, 750);
 			m_EngineSoundChannel = -1;
 		}
 	}
