@@ -132,6 +132,9 @@ private:
 	Button* m_MediumGameButton;
 	Button* m_LongGameButton;
 
+	// Text for the instruction screen
+	std::vector<Text*> m_HelpGeneralTexts;
+
 	// Audio
 	Mix_Music* m_BackgroundMusic;
 

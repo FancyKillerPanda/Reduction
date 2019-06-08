@@ -630,6 +630,26 @@ void Game::initStartScreen()
 	// Current colour selecting powerups (red)
 	m_PowerupChoosingColour = SDL_Color { 255, 0, 0, 255 };
 
+	// Initialises instruction texts
+	m_HelpGeneralTexts.push_back(
+		new Text("res/fonts/BM Space.TTF", "Reduction is a two or three player space-shooter game.", 18, SDL_Color { 255, 255, 255, 255 }, m_Renderer)
+	);
+	m_HelpGeneralTexts.push_back(
+		new Text("res/fonts/BM Space.TTF", "It has a wall that gradually encloses the players,", 18, SDL_Color { 255, 255, 255, 255 }, m_Renderer)
+	);
+	m_HelpGeneralTexts.push_back(
+		new Text("res/fonts/BM Space.TTF", "with the players losing life faster when they move", 18, SDL_Color { 255, 255, 255, 255 }, m_Renderer)
+	);
+	m_HelpGeneralTexts.push_back(
+		new Text("res/fonts/BM Space.TTF", "further out. Each player can buy powerups before each", 18, SDL_Color { 255, 255, 255, 255 }, m_Renderer)
+	);
+	m_HelpGeneralTexts.push_back(
+		new Text("res/fonts/BM Space.TTF", "round for a portion of their life, which could help them", 18, SDL_Color { 255, 255, 255, 255 }, m_Renderer)
+	);
+	m_HelpGeneralTexts.push_back(
+		new Text("res/fonts/BM Space.TTF", "win the game.", 18, SDL_Color { 255, 255, 255, 255 }, m_Renderer)
+	);
+
 	m_FrameTimer.reset();
 }
 
@@ -942,10 +962,21 @@ void Game::drawStartScreen()
 		break;
 
 	case StartScreenPage::HelpGeneral:
+	{
+		m_ReductionText.draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT * 5 / 20);
 		m_NextButton->draw(SCREEN_WIDTH * 7 / 8, SCREEN_HEIGHT * 7 / 8);
 		m_BackButton->draw(SCREEN_WIDTH * 1 / 8, SCREEN_HEIGHT * 7 / 8);
 
+		unsigned int y = 9;
+
+		for (Text* text : m_HelpGeneralTexts)
+		{
+			text->draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT * y / 20);
+			y += 1;
+		}
+
 		break;
+	}
 
 	case StartScreenPage::HelpControls:
 		m_BackButton->draw(SCREEN_WIDTH * 1 / 8, SCREEN_HEIGHT * 7 / 8);
