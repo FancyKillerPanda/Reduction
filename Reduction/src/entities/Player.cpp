@@ -273,8 +273,8 @@ void Player::reset(bool completeReset)
 		break;
 	}
 
-	m_Rect.x = m_PosX;
-	m_Rect.y = m_PosY;
+	m_Rect.x = (int) m_PosX;
+	m_Rect.y = (int) m_PosY;
 
 	// Resets movement properties
 	m_RotationSpeed = 0.0;
