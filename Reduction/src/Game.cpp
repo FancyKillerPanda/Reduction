@@ -525,6 +525,7 @@ void Game::initStartScreen()
 	// Initialises buttons
 	m_NextButton = new Button(m_Renderer, "-->");
 	m_BackButton = new Button(m_Renderer, "<--");
+	m_QuestionButton = new Button(m_Renderer, "?");
 	m_TwoPlayersButton = new Button(m_Renderer, "Two Players");
 	m_ThreePlayersButton = new Button(m_Renderer, "Three Players");
 	m_SpeedPowerupButton = new Button(m_Renderer, "Speed Boost (15% Life)");
@@ -658,6 +659,11 @@ void Game::handleStartScreenEvents()
 					m_StartScreenPage = StartScreenPage::GameLengthChoice;
 				}
 
+				else if (m_QuestionButton->isMouseOver())
+				{
+					m_StartScreenPage = StartScreenPage::HelpGeneral;
+				}
+
 				break;
 
 			case StartScreenPage::GameLengthChoice:
@@ -754,6 +760,27 @@ void Game::handleStartScreenEvents()
 
 				break;
 
+			case StartScreenPage::HelpGeneral:
+				if (m_NextButton->isMouseOver())
+				{
+					m_StartScreenPage = StartScreenPage::HelpControls;
+				}
+
+				else if (m_BackButton->isMouseOver())
+				{
+					m_StartScreenPage = StartScreenPage::NumberOfPlayersChoice;
+				}
+
+				break;
+
+			case StartScreenPage::HelpControls:
+				if (m_BackButton->isMouseOver())
+				{
+					m_StartScreenPage = StartScreenPage::HelpGeneral;
+				}
+
+				break;
+
 			default:
 				break;
 			}
@@ -799,6 +826,7 @@ void Game::updateStartScreen()
 	switch (m_StartScreenPage)
 	{
 	case StartScreenPage::NumberOfPlayersChoice:
+		m_QuestionButton->update();
 		m_TwoPlayersButton->update();
 		m_ThreePlayersButton->update();
 
@@ -824,6 +852,16 @@ void Game::updateStartScreen()
 
 		break;
 
+	case StartScreenPage::HelpGeneral:
+		m_NextButton->update();
+		m_BackButton->update();
+		break;
+
+	case StartScreenPage::HelpControls:
+		m_BackButton->update();
+
+		break;
+
 	default:
 		break;
 	}
@@ -846,6 +884,7 @@ void Game::drawStartScreen()
 	{
 	case StartScreenPage::NumberOfPlayersChoice:
 		m_ReductionText.draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT * 5 / 20);
+		m_QuestionButton->draw(SCREEN_WIDTH * 18 / 20, SCREEN_HEIGHT * 18 / 20);
 		m_TwoPlayersButton->draw(SCREEN_WIDTH * 6 / 20, SCREEN_HEIGHT * 11 / 20);
 		m_ThreePlayersButton->draw(SCREEN_WIDTH * 14 / 20, SCREEN_HEIGHT * 11 / 20);
 
@@ -900,6 +939,16 @@ void Game::drawStartScreen()
 		SDL_RenderCopy(m_Renderer, m_CooldownPowerupTexture, nullptr, &m_CooldownPowerupRect);
 		m_CooldownPowerupButton->draw(SCREEN_WIDTH * 3 / 4, SCREEN_HEIGHT * 15 / 20);
 
+		break;
+
+	case StartScreenPage::HelpGeneral:
+		m_NextButton->draw(SCREEN_WIDTH * 7 / 8, SCREEN_HEIGHT * 7 / 8);
+		m_BackButton->draw(SCREEN_WIDTH * 1 / 8, SCREEN_HEIGHT * 7 / 8);
+
+		break;
+
+	case StartScreenPage::HelpControls:
+		m_BackButton->draw(SCREEN_WIDTH * 1 / 8, SCREEN_HEIGHT * 7 / 8);
 		break;
 
 	default:

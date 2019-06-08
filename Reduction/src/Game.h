@@ -28,6 +28,8 @@ enum class StartScreenPage
 	RedPowerUp,
 	BluePowerUp,
 	GreyPowerUp,
+	HelpGeneral,
+	HelpControls,
 };
 
 
@@ -45,9 +47,10 @@ private:
 	// "Reduction" header text
 	Text m_ReductionText;
 
-	// "Next" and "Back" buttons
+	// "Next", "Back", and "?" buttons
 	Button* m_NextButton;
 	Button* m_BackButton;
+	Button* m_QuestionButton;
 
 	// Number of players choice
 	int m_NumberOfPlayers;
