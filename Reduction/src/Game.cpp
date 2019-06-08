@@ -524,6 +524,7 @@ void Game::initStartScreen()
 
 	// Initialises buttons
 	m_NextButton = new Button(m_Renderer, "-->");
+	m_BackButton = new Button(m_Renderer, "<--");
 	m_TwoPlayersButton = new Button(m_Renderer, "Two Players");
 	m_ThreePlayersButton = new Button(m_Renderer, "Three Players");
 	m_SpeedPowerupButton = new Button(m_Renderer, "Speed Boost (15% Life)");
@@ -660,7 +661,12 @@ void Game::handleStartScreenEvents()
 				break;
 
 			case StartScreenPage::GameLengthChoice:
-				if (m_ShortGameButton->isMouseOver())
+				if (m_BackButton->isMouseOver())
+				{
+					m_StartScreenPage = StartScreenPage::NumberOfPlayersChoice;
+				}
+
+				else if (m_ShortGameButton->isMouseOver())
 				{
 					m_PointsToWin = SHORT_GAME_POINTS_TO_WIN;
 
@@ -700,6 +706,11 @@ void Game::handleStartScreenEvents()
 					m_CooldownPowerupChosen = false;
 
 					m_PowerupChoosingColour = SDL_Color { 0, 0, 255, 255 };
+				}
+
+				else if (m_BackButton->isMouseOver())
+				{
+					m_StartScreenPage = StartScreenPage::GameLengthChoice;
 				}
 
 				break;
@@ -788,6 +799,7 @@ void Game::updateStartScreen()
 		break;
 
 	case StartScreenPage::GameLengthChoice:
+		m_BackButton->update();
 		m_ShortGameButton->update();
 		m_MediumGameButton->update();
 		m_LongGameButton->update();
@@ -795,6 +807,7 @@ void Game::updateStartScreen()
 		break;
 
 	case StartScreenPage::RedPowerUp:
+		m_BackButton->update();
 	case StartScreenPage::BluePowerUp:
 	case StartScreenPage::GreyPowerUp:
 		m_SpeedPowerupButton->update();
@@ -834,6 +847,7 @@ void Game::drawStartScreen()
 
 	case StartScreenPage::GameLengthChoice:
 		m_ReductionText.draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT * 5 / 20);
+		m_BackButton->draw(SCREEN_WIDTH * 1 / 8, SCREEN_HEIGHT * 7 / 8);
 		m_ShortGameButton->draw(SCREEN_WIDTH * 4 / 20, SCREEN_HEIGHT * 11 / 20);
 		m_MediumGameButton->draw(SCREEN_WIDTH * 10 / 20, SCREEN_HEIGHT * 11 / 20);
 		m_LongGameButton->draw(SCREEN_WIDTH * 16 / 20, SCREEN_HEIGHT * 11 / 20);
@@ -841,6 +855,7 @@ void Game::drawStartScreen()
 		break;
 
 	case StartScreenPage::RedPowerUp:
+		m_BackButton->draw(SCREEN_WIDTH * 1 / 8, SCREEN_HEIGHT * 7 / 8);
 	case StartScreenPage::BluePowerUp:
 	case StartScreenPage::GreyPowerUp:
 		m_ReductionText.draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT * 1 / 5);

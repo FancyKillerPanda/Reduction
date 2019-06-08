@@ -45,8 +45,9 @@ private:
 	// "Reduction" header text
 	Text m_ReductionText;
 
-	// "Next" button
+	// "Next" and "Back" buttons
 	Button* m_NextButton;
+	Button* m_BackButton;
 
 	// Number of players choice
 	int m_NumberOfPlayers;
