@@ -39,4 +39,3 @@
 - [x] Add a win counter
 - [x] Implement choosing between short/medium/long games
 - [x] Add game over screen
-- [ ] Players can input their names
