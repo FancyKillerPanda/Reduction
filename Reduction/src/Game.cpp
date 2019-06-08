@@ -915,6 +915,8 @@ void Game::resetStartScreenNewRound()
 
 void Game::initRoundOver()
 {
+	resetPlayers();
+
 	SDL_Color winningColour;
 
 	if (!m_Players[0]->isAlive() && !m_Players[1]->isAlive() && !(m_NumberOfPlayers == 3 && m_Players[2]->isAlive()))
@@ -983,7 +985,6 @@ void Game::handleRoundOverEvents()
 				m_StartScreenPage = StartScreenPage::RedPowerUp;
 
 				resetStartScreenNewRound();
-				resetPlayers();
 			}
 
 			break;
