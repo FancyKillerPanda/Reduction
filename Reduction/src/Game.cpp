@@ -72,7 +72,7 @@ Game::Game()
 	SDL_SetRenderDrawColor(m_Renderer, 0, 0, 0, 255);
 
 	// Sets up loading screen text
-	m_LoadingText.load("res/SPACEMAN.TTF", "loading...", 56, SDL_Color { 255, 255, 255, 255 }, m_Renderer);
+	m_LoadingText.load("res/fonts/SPACEMAN.TTF", "loading...", 56, SDL_Color { 255, 255, 255, 255 }, m_Renderer);
 
 	// Initialises audio
 	initAudio();
@@ -146,7 +146,7 @@ void Game::initGameplay()
 	drawLoadingScreen();
 
 	// Loads wall texture
-	m_WallTexture = IMG_LoadTexture(m_Renderer, "res/Wall Mask.png");
+	m_WallTexture = IMG_LoadTexture(m_Renderer, "res/txrs/Wall Mask.png");
 
 	if (!m_WallTexture)
 	{
@@ -170,7 +170,7 @@ void Game::initGameplay()
 	m_OriginalWallHeight = m_WallRect.h;
 
 	// Loads background texture
-	m_SpaceBackgroundTexture = IMG_LoadTexture(m_Renderer, "res/Space.png");
+	m_SpaceBackgroundTexture = IMG_LoadTexture(m_Renderer, "res/txrs/Space.png");
 
 	if (!m_SpaceBackgroundTexture)
 	{
@@ -519,7 +519,7 @@ void Game::initStartScreen()
 	SDL_SetRenderDrawBlendMode(m_Renderer, SDL_BLENDMODE_BLEND);
 
 	// Initialises header text
-	m_ReductionText.load("res/SPACEMAN.TTF", "reduction", 56, SDL_Color { 255, 255, 255, 255 }, m_Renderer);
+	m_ReductionText.load("res/fonts/SPACEMAN.TTF", "reduction", 56, SDL_Color { 255, 255, 255, 255 }, m_Renderer);
 	m_ReductionText.setStyle(TTF_STYLE_BOLD, false);
 
 	// Initialises buttons
@@ -549,7 +549,7 @@ void Game::initStartScreen()
 	m_StartScreenInitialised = true;
 
 	// Loads background texture
-	m_SpaceBackgroundTexture = IMG_LoadTexture(m_Renderer, "res/Start Screen Space.jpg");
+	m_SpaceBackgroundTexture = IMG_LoadTexture(m_Renderer, "res/txrs/Start Screen Space.jpg");
 
 	if (!m_SpaceBackgroundTexture)
 	{
@@ -571,10 +571,10 @@ void Game::initStartScreen()
 	m_SpaceBackgroundRect.h = SCREEN_HEIGHT;
 
 	// Powerup textures
-	m_SpeedPowerupTexture = IMG_LoadTexture(m_Renderer, "res/Bolt.png");
-	m_AccuracyPowerupTexture = IMG_LoadTexture(m_Renderer, "res/Crosshairs.png");
-	m_DamagePowerupTexture = IMG_LoadTexture(m_Renderer, "res/Heart.png");
-	m_CooldownPowerupTexture = IMG_LoadTexture(m_Renderer, "res/Stopwatch.png");
+	m_SpeedPowerupTexture = IMG_LoadTexture(m_Renderer, "res/txrs/Bolt.png");
+	m_AccuracyPowerupTexture = IMG_LoadTexture(m_Renderer, "res/txrs/Crosshairs.png");
+	m_DamagePowerupTexture = IMG_LoadTexture(m_Renderer, "res/txrs/Heart.png");
+	m_CooldownPowerupTexture = IMG_LoadTexture(m_Renderer, "res/txrs/Stopwatch.png");
 
 	if (!(m_SpeedPowerupTexture && m_AccuracyPowerupTexture && m_DamagePowerupTexture && m_CooldownPowerupTexture))
 	{
@@ -618,11 +618,11 @@ void Game::initStartScreen()
 	m_CooldownPowerupRect.y = SCREEN_HEIGHT * 13 / 20 - m_SpeedPowerupRect.h / 2;
 
 	// Initialises powerups questions
-	m_RedPowerupsText.load("res/BM Space.TTF", "Red Player, what powerups would you like?", 18, SDL_Colour { 255, 0, 0, 255 }, m_Renderer);
+	m_RedPowerupsText.load("res/fonts/BM Space.TTF", "Red Player, what powerups would you like?", 18, SDL_Colour { 255, 0, 0, 255 }, m_Renderer);
 	m_RedPowerupsText.setStyle(TTF_STYLE_BOLD);
-	m_BluePowerupsText.load("res/BM Space.TTF", "Blue Player, what powerups would you like?", 18, SDL_Colour { 0, 0, 255, 255 }, m_Renderer);
+	m_BluePowerupsText.load("res/fonts/BM Space.TTF", "Blue Player, what powerups would you like?", 18, SDL_Colour { 0, 0, 255, 255 }, m_Renderer);
 	m_BluePowerupsText.setStyle(TTF_STYLE_BOLD);
-	m_GreyPowerupsText.load("res/BM Space.TTF", "Grey Player, what powerups would you like?", 18, SDL_Colour { 127, 127, 127, 255 }, m_Renderer);
+	m_GreyPowerupsText.load("res/fonts/BM Space.TTF", "Grey Player, what powerups would you like?", 18, SDL_Colour { 127, 127, 127, 255 }, m_Renderer);
 	m_GreyPowerupsText.setStyle(TTF_STYLE_BOLD);
 
 	// Current colour selecting powerups (red)
@@ -956,13 +956,13 @@ void Game::initRoundOver()
 		scoreText += " - " + std::to_string(m_Players[2]->getPoints());
 	}
 
-	m_ScoreCounterText.load("res/BM Space.TTF", scoreText, 48, winningColour, m_Renderer);
-	m_RedText.load("res/BM Space.TTF", "Red", 16, SDL_Color { 255, 0, 0, 255 }, m_Renderer);
-	m_BlueText.load("res/BM Space.TTF", "Blue", 16, SDL_Color { 0, 0, 255, 255 }, m_Renderer);
+	m_ScoreCounterText.load("res/fonts/BM Space.TTF", scoreText, 48, winningColour, m_Renderer);
+	m_RedText.load("res/fonts/BM Space.TTF", "Red", 16, SDL_Color { 255, 0, 0, 255 }, m_Renderer);
+	m_BlueText.load("res/fonts/BM Space.TTF", "Blue", 16, SDL_Color { 0, 0, 255, 255 }, m_Renderer);
 
 	if (m_NumberOfPlayers == 3)
 	{
-		m_GreyText.load("res/BM Space.TTF", "Grey", 16, SDL_Color { 127, 127, 127, 255 }, m_Renderer);
+		m_GreyText.load("res/fonts/BM Space.TTF", "Grey", 16, SDL_Color { 127, 127, 127, 255 }, m_Renderer);
 	}
 }
 
@@ -1050,7 +1050,7 @@ void Game::initGameOver()
 	winner += " Wins!";
 
 	// Loads the winner text
-	m_WinnerText.load("res/BM Space.TTF", winner, 48, winningColour, m_Renderer);
+	m_WinnerText.load("res/fonts/BM Space.TTF", winner, 48, winningColour, m_Renderer);
 
 	// Score counter
 	std::string scoreText = std::to_string(m_Players[0]->getPoints()) + " - " + std::to_string(m_Players[1]->getPoints());
@@ -1060,13 +1060,13 @@ void Game::initGameOver()
 		scoreText += " - " + std::to_string(m_Players[2]->getPoints());
 	}
 
-	m_ScoreCounterText.load("res/BM Space.TTF", scoreText, 48, winningColour, m_Renderer);
-	m_RedText.load("res/BM Space.TTF", "Red", 16, SDL_Color { 255, 0, 0, 255 }, m_Renderer);
-	m_BlueText.load("res/BM Space.TTF", "Blue", 16, SDL_Color { 0, 0, 255, 255 }, m_Renderer);
+	m_ScoreCounterText.load("res/fonts/BM Space.TTF", scoreText, 48, winningColour, m_Renderer);
+	m_RedText.load("res/fonts/BM Space.TTF", "Red", 16, SDL_Color { 255, 0, 0, 255 }, m_Renderer);
+	m_BlueText.load("res/fonts/BM Space.TTF", "Blue", 16, SDL_Color { 0, 0, 255, 255 }, m_Renderer);
 
 	if (m_NumberOfPlayers == 3)
 	{
-		m_GreyText.load("res/BM Space.TTF", "Grey", 16, SDL_Color { 127, 127, 127, 255 }, m_Renderer);
+		m_GreyText.load("res/fonts/BM Space.TTF", "Grey", 16, SDL_Color { 127, 127, 127, 255 }, m_Renderer);
 	}
 }
 
@@ -1154,7 +1154,7 @@ void Game::resetPlayers()
 
 void Game::initAudio()
 {
-	m_BackgroundMusic = Mix_LoadMUS("res/Deep Space.mp3");
+	m_BackgroundMusic = Mix_LoadMUS("res/audio/Deep Space.mp3");
 	Mix_VolumeMusic(32);
 	Mix_PlayMusic(m_BackgroundMusic, -1);
 

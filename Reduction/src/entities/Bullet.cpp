@@ -8,7 +8,7 @@
 Bullet::Bullet(SDL_Renderer* renderer, double direction, double posX, double posY, bool doesExtraDamage)
 	: m_Renderer(renderer), m_Direction(direction), m_PosX(posX), m_PosY(posY), m_DoesExtraDamage(doesExtraDamage)
 {
-	m_Texture = IMG_LoadTexture(m_Renderer, "res/Bullet.png");
+	m_Texture = IMG_LoadTexture(m_Renderer, "res/txrs/Bullet.png");
 
 	if (!m_Texture)
 	{

@@ -11,7 +11,7 @@ Button::Button(SDL_Renderer* renderer, const char* text)
 		error("Cannot make button with empty text.");
 	}
 
-	m_Text.load("res/BM Space.TTF", text, 28, m_DefaultTextColour, m_Renderer);
+	m_Text.load("res/fonts/BM Space.TTF", text, 28, m_DefaultTextColour, m_Renderer);
 }
 
 

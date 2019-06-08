@@ -12,10 +12,10 @@ Mix_Chunk* Player::s_EngineSound = nullptr;
 
 void Player::initAudio()
 {
-	s_ShootSound = Mix_LoadWAV("res/Shoot Sound.mp3");
+	s_ShootSound = Mix_LoadWAV("res/audio/Shoot Sound.mp3");
 	Mix_VolumeChunk(s_ShootSound, 32);
-	s_DeathSound = Mix_LoadWAV("res/DeathFlash.mp3");
-	s_EngineSound = Mix_LoadWAV("res/Rocket Thrusters.mp3");
+	s_DeathSound = Mix_LoadWAV("res/audio/DeathFlash.mp3");
+	s_EngineSound = Mix_LoadWAV("res/audio/Rocket Thrusters.mp3");
 }
 
 
@@ -27,15 +27,15 @@ Player::Player(SDL_Renderer* renderer, PlayerColour colour, double posX, double 
 	switch (colour)
 	{
 	case PlayerColour::Red:
-		file.append("res/Red Spaceship");
+		file.append("res/txrs/players/Red Spaceship");
 		break;
 
 	case PlayerColour::Blue:
-		file.append("res/Blue Spaceship");
+		file.append("res/txrs/players/Blue Spaceship");
 		break;
 
 	case PlayerColour::Grey:
-		file.append("res/Grey Spaceship");
+		file.append("res/txrs/players/Grey Spaceship");
 		break;
 
 	default:
