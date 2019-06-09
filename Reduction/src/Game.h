@@ -187,7 +187,7 @@ private:
 	void initPlayers();
 
 	// Resets the players
-	void resetPlayers();
+	void resetPlayers(bool completeReset = false);
 
 	// Initialises audio
 	void initAudio();

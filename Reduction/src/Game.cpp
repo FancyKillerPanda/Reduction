@@ -1236,12 +1236,23 @@ void Game::handleGameOverEvents()
 		case SDL_QUIT:
 			m_Running = false;
 			break;
+
+		case SDL_MOUSEBUTTONDOWN:
+			if (m_NextButton->isMouseOver())
+			{
+				m_GameState = GameState::StartScreen;
+				m_StartScreenPage = StartScreenPage::NumberOfPlayersChoice;
+				resetPlayers(true);
+			}
+
+			break;
 		}
 	}
 }
 
 void Game::updateGameOver()
 {
+	m_NextButton->update();
 }
 
 void Game::drawGameOver()
@@ -1266,6 +1277,8 @@ void Game::drawGameOver()
 	}
 
 	m_WinnerText.draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT * 14 / 20);
+
+	m_NextButton->draw(SCREEN_WIDTH * 7 / 8, SCREEN_HEIGHT * 7 / 8);
 
 	SDL_RenderPresent(m_Renderer);
 }
@@ -1300,11 +1313,11 @@ void Game::drawLoadingScreen()
 	SDL_RenderPresent(m_Renderer);
 }
 
-void Game::resetPlayers()
+void Game::resetPlayers(bool completeReset)
 {
 	for (Player* player : m_Players)
 	{
-		player->reset();
+		player->reset(completeReset);
 		player->setLifeLeft((int) PLAYER_STARTING_LIFE); // BUG: Should be done in reset(), doesn't work
 	}
 }
