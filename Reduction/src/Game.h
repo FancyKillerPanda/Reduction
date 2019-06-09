@@ -83,7 +83,6 @@ private:
 	// Whether things initialised yet
 	bool m_StartScreenInitialised = false;
 	bool m_GameplayInitialised = false;
-	bool m_PlayersInitialised = false;
 
 	// Powerups
 	SDL_Texture* m_SpeedPowerupTexture;

@@ -1286,10 +1286,13 @@ void Game::drawGameOver()
 
 void Game::initPlayers()
 {
-	if (m_PlayersInitialised)
+	// Removes old players if they exist
+	for (Player* player : m_Players)
 	{
-		return;
+		delete player;
 	}
+
+	m_Players.clear();
 
 	// Initialises the players
 	m_Players.push_back(new Player(m_Renderer, PlayerColour::Red, RED_PLAYER_START_X, RED_PLAYER_START_Y, RED_PLAYER_START_DIRECTION));
@@ -1299,8 +1302,6 @@ void Game::initPlayers()
 	{
 		m_Players.push_back(new Player(m_Renderer, PlayerColour::Grey, GREY_PLAYER_START_X, GREY_PLAYER_START_Y, GREY_PLAYER_START_DIRECTION));
 	}
-
-	m_PlayersInitialised = true;
 }
 
 void Game::drawLoadingScreen()
