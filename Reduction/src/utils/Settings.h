@@ -43,3 +43,7 @@ constexpr double BULLET_EXTRA_DAMAGE = PLAYER_HIT_DAMAGE * 0.25;
 constexpr unsigned int SHORT_GAME_POINTS_TO_WIN = 3;
 constexpr unsigned int MEDIUM_GAME_POINTS_TO_WIN = 5;
 constexpr unsigned int LONG_GAME_POINTS_TO_WIN = 7;
+
+constexpr int BARRIER_DISTANCE_FROM_CENTER = SCREEN_HEIGHT / 6;
+constexpr int BARRIER_LENGTH = 70;
+constexpr int BARRIER_WIDTH = 15;

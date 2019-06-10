@@ -6,15 +6,15 @@
 
 class Barrier
 {
-	SDL_Texture* m_Texture;
-	SDL_Rect m_Rect;
+	SDL_Rect m_VerticalRect;
+	SDL_Rect m_HorizontalRect;
 	SDL_Renderer* m_Renderer;
 
 	// Rotation of the barrier
 	double m_Rotation = 0.0;
 
 public:
-	Barrier(SDL_Renderer* renderer, int xPos, int yPos, double rotation);
+	Barrier(SDL_Renderer* renderer, int xPos, int yPos);
 
 	void draw();
 };

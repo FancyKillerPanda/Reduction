@@ -192,10 +192,10 @@ void Game::initGameplay()
 	m_SpaceBackgroundRect.h = SCREEN_HEIGHT;
 
 	// Initialises barriers
-	m_Barriers.push_back(Barrier { m_Renderer, SCREEN_WIDTH / 2 - SCREEN_HEIGHT / 5, SCREEN_HEIGHT / 2 - SCREEN_HEIGHT / 5, 0 });
-	m_Barriers.push_back(Barrier { m_Renderer, SCREEN_WIDTH / 2 + SCREEN_HEIGHT / 5, SCREEN_HEIGHT / 2 - SCREEN_HEIGHT / 5, 90 });
-	m_Barriers.push_back(Barrier { m_Renderer, SCREEN_WIDTH / 2 + SCREEN_HEIGHT / 5, SCREEN_HEIGHT / 2 + SCREEN_HEIGHT / 5, 180 });
-	m_Barriers.push_back(Barrier { m_Renderer, SCREEN_WIDTH / 2 - SCREEN_HEIGHT / 5, SCREEN_HEIGHT / 2 + SCREEN_HEIGHT / 5, 270 });
+	m_Barriers.push_back(Barrier { m_Renderer, SCREEN_WIDTH / 2 - BARRIER_DISTANCE_FROM_CENTER, SCREEN_HEIGHT / 2 - BARRIER_DISTANCE_FROM_CENTER });
+	m_Barriers.push_back(Barrier { m_Renderer, SCREEN_WIDTH / 2 + BARRIER_DISTANCE_FROM_CENTER, SCREEN_HEIGHT / 2 - BARRIER_DISTANCE_FROM_CENTER });
+	m_Barriers.push_back(Barrier { m_Renderer, SCREEN_WIDTH / 2 + BARRIER_DISTANCE_FROM_CENTER, SCREEN_HEIGHT / 2 + BARRIER_DISTANCE_FROM_CENTER });
+	m_Barriers.push_back(Barrier { m_Renderer, SCREEN_WIDTH / 2 - BARRIER_DISTANCE_FROM_CENTER, SCREEN_HEIGHT / 2 + BARRIER_DISTANCE_FROM_CENTER });
 
 	m_GameplayInitialised = true;
 
