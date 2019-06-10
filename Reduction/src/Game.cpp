@@ -191,6 +191,12 @@ void Game::initGameplay()
 	m_SpaceBackgroundRect.w = SCREEN_WIDTH;
 	m_SpaceBackgroundRect.h = SCREEN_HEIGHT;
 
+	// Initialises barriers
+	m_Barriers.push_back(Barrier { m_Renderer, SCREEN_WIDTH / 2 - SCREEN_HEIGHT / 5, SCREEN_HEIGHT / 2 - SCREEN_HEIGHT / 5, 0 });
+	m_Barriers.push_back(Barrier { m_Renderer, SCREEN_WIDTH / 2 + SCREEN_HEIGHT / 5, SCREEN_HEIGHT / 2 - SCREEN_HEIGHT / 5, 90 });
+	m_Barriers.push_back(Barrier { m_Renderer, SCREEN_WIDTH / 2 + SCREEN_HEIGHT / 5, SCREEN_HEIGHT / 2 + SCREEN_HEIGHT / 5, 180 });
+	m_Barriers.push_back(Barrier { m_Renderer, SCREEN_WIDTH / 2 - SCREEN_HEIGHT / 5, SCREEN_HEIGHT / 2 + SCREEN_HEIGHT / 5, 270 });
+
 	m_GameplayInitialised = true;
 
 	m_FrameTimer.reset();
@@ -479,6 +485,12 @@ void Game::drawGameplay()
 
 	// Draws background
 	SDL_RenderCopy(m_Renderer, m_SpaceBackgroundTexture, nullptr, &m_SpaceBackgroundRect);
+
+	// Draws barriers
+	for (Barrier& barrier : m_Barriers)
+	{
+		barrier.draw();
+	}
 
 	// Draws players
 	for (Player* player : m_Players)

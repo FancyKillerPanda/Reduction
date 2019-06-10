@@ -96,6 +96,7 @@
     <ClCompile Include="src\gfx\Text.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\utils\Random.cpp" />
+    <ClCompile Include="src\gfx\Barrier.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\entities\Bullet.h" />
@@ -108,6 +109,7 @@
     <ClInclude Include="src\utils\Random.h" />
     <ClInclude Include="src\utils\Settings.h" />
     <ClInclude Include="src\utils\Timer.h" />
+    <ClInclude Include="src\gfx\Barrier.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

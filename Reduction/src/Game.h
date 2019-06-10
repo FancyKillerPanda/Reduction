@@ -11,6 +11,7 @@
 #include "utils/Timer.h"
 #include "gfx/Text.h"
 #include "gfx/Button.h"
+#include "gfx/Barrier.h"
 
 
 enum class GameState
@@ -137,6 +138,9 @@ private:
 
 	// Audio
 	Mix_Music* m_BackgroundMusic;
+
+	// Barriers
+	std::vector<Barrier> m_Barriers;
 
 private:
 	// Initialises the start screen
