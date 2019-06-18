@@ -7,6 +7,7 @@
 #include <SDL/SDL_mixer.h>
 
 #include "Bullet.h"
+#include "gfx/Barrier.h"
 #include "utils/Timer.h"
 #include "utils/Settings.h"
 
@@ -79,7 +80,7 @@ public:
 	Player(SDL_Renderer* renderer, PlayerColour colour, double posX, double posY, double direction);
 	~Player();
 
-	void update(double dt, double wallScale);
+	void update(double dt, double wallScale, const std::vector<Barrier>& barriers);
 	void draw();
 	void reset(bool completeReset = false);
 

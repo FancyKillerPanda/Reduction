@@ -411,7 +411,7 @@ void Game::updateGameplay()
 	{
 		if (player->isAlive())
 		{
-			player->update(dt, m_WallScale);
+			player->update(dt, m_WallScale, m_Barriers);
 			player->updateBullets(dt);
 		}
 	}

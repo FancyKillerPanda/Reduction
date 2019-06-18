@@ -113,7 +113,7 @@ Player::~Player()
 }
 
 
-void Player::update(double dt, double wallScale)
+void Player::update(double dt, double wallScale, const std::vector<Barrier>& barriers)
 {
 	// Checks if dead
 	if (m_LifeLeft <= 0)
@@ -145,8 +145,31 @@ void Player::update(double dt, double wallScale)
 		m_Velocity += m_Acceleration * dt;
 	}
 
-	m_PosX += std::cos(toRadians(m_Direction)) * m_Velocity * dt;
-	m_PosY += std::sin(toRadians(m_Direction)) * m_Velocity * dt;
+	double deltaX = std::cos(toRadians(m_Direction)) * m_Velocity * dt;
+	m_PosX += deltaX;
+	m_Rect.x = (int) m_PosX;
+
+	for (const Barrier& barrier : barriers)
+	{
+		if (SDL_HasIntersection(&m_Rect, &barrier.getHorizontalRect()) || SDL_HasIntersection(&m_Rect, &barrier.getVerticalRect()))
+		{
+			m_PosX -= deltaX;
+			m_Rect.x = (int) m_PosX;
+		}
+	}
+
+	double deltaY = std::sin(toRadians(m_Direction)) * m_Velocity * dt;
+	m_PosY += deltaY;
+	m_Rect.y = (int) m_PosY;
+
+	for (const Barrier& barrier : barriers)
+	{
+		if (SDL_HasIntersection(&m_Rect, &barrier.getHorizontalRect()) || SDL_HasIntersection(&m_Rect, &barrier.getVerticalRect()))
+		{
+			m_PosY -= deltaY;
+			m_Rect.y = (int) m_PosY;
+		}
+	}
 
 	m_Rect.x = (int) m_PosX;
 	m_Rect.y = (int) m_PosY;
@@ -460,4 +483,3 @@ void Player::setPowerups(bool speed, bool accuracy, bool damage, bool cooldown)
 
 	updateLifeBar();
 }
-

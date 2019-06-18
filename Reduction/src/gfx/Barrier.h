@@ -17,5 +17,8 @@ public:
 	Barrier(SDL_Renderer* renderer, int xPos, int yPos);
 
 	void draw();
+
+	const SDL_Rect& getHorizontalRect() const { return m_HorizontalRect; }
+	const SDL_Rect& getVerticalRect() const { return m_VerticalRect; }
 };
 
