@@ -128,7 +128,7 @@ void Player::update(double dt, double wallScale, const std::vector<Barrier>& bar
 	}
 
 	m_Direction += std::fmod(m_RotationSpeed * dt, 360.0);
-	m_Drag = PLAYER_DRAG + m_Velocity / 2 - m_DragReduction;
+	m_Drag = PLAYER_DRAG + m_Velocity * 0.65 - m_DragReduction;
 
 	if (m_Velocity > 0)
 	{
