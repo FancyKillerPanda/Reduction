@@ -24,7 +24,7 @@ Bullet::Bullet(SDL_Renderer* renderer, double direction, double posX, double pos
 }
 
 
-bool Bullet::update(double dt)
+bool Bullet::update(double dt, const std::vector<Barrier>& barriers)
 {
 	m_PosX += std::cos(toRadians(m_Direction)) * BULLET_SPEED * dt;
 	m_PosY += std::sin(toRadians(m_Direction)) * BULLET_SPEED * dt;
@@ -36,6 +36,15 @@ bool Bullet::update(double dt)
 		m_PosY < 0.0 || m_PosY > SCREEN_HEIGHT)
 	{
 		return false;
+	}
+
+	for (const Barrier& barrier : barriers)
+	{
+		if (SDL_HasIntersection(&barrier.getHorizontalRect(), &m_Rect) ||
+			SDL_HasIntersection(&barrier.getVerticalRect(), &m_Rect))
+		{
+			return false;
+		}
 	}
 
 	return true;

@@ -1,7 +1,11 @@
 #pragma once
 
+#include <vector>
+
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
+
+#include "gfx/Barrier.h"
 
 
 class Bullet
@@ -22,7 +26,7 @@ private:
 public:
 	Bullet(SDL_Renderer* renderer, double direction, double posX, double posY, bool doesExtraDamage = false);
 
-	bool update(double dt);
+	bool update(double dt, const std::vector<Barrier>& barriers);
 	void draw();
 
 	SDL_Rect& getRect() { return m_Rect; }

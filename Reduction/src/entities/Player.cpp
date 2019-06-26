@@ -367,13 +367,13 @@ void Player::spawnBullet()
 	}
 }
 
-void Player::updateBullets(double dt)
+void Player::updateBullets(double dt, const std::vector<Barrier>& barriers)
 {
 	for (unsigned int i = 0; i < m_Bullets.size(); i++)
 	{
 		Bullet* bullet = m_Bullets[i];
 
-		if (!bullet->update(dt))
+		if (!bullet->update(dt, barriers))
 		{
 			delete bullet;
 

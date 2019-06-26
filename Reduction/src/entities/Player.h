@@ -85,7 +85,7 @@ public:
 	void reset(bool completeReset = false);
 
 	void spawnBullet();
-	void updateBullets(double dt);
+	void updateBullets(double dt, const std::vector<Barrier>& barriers);
 	void drawBullets();
 	void takeHit(Bullet* bullet);
 	void updateLifeBar();
